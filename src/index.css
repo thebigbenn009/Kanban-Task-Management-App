@@ -17,9 +17,11 @@ html {
   --dark-lines: #3e3f4e;
   --medium-grey: #828fa3;
   --grey-lines: #e4ebfa;
-  --deep-black: #000112;
+
   --light-grey-bg: #f4f7fd;
   --white: #fff;
   --danger: #ea5555;
   --danger-hover: #ff9898;
+  --black: #000112;
+  --very-dark-grey-bg: #20212c;
 }
