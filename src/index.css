@@ -1,0 +1,24 @@
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+:root {
+  /* COLORS */
+  --purple: #635fc7;
+  --purple-hover: #a8a4ff;
+  --dark-grey: #2b2c37;
+  --dark-lines: #3e3f4e;
+  --light-grey-2: #828fa3;
+  --deep-black: #000112;
+  --light-grey-bg: #f4f7fd;
+  --white: #fff;
+  --danger: #ea5555;
+  --danger-hover: #ff9898;
+}
