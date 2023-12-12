@@ -6,8 +6,11 @@ const data = jsonData.boards;
 console.log(data);
 export const AppProvider = ({ children }) => {
   const [boards, setBoards] = useState(data);
+  const [switchMode, setSwitchMode] = useState(false);
   return (
-    <AppContext.Provider value={{ boards, setBoards }}>
+    <AppContext.Provider
+      value={{ boards, setBoards, switchMode, setSwitchMode }}
+    >
       {children}
     </AppContext.Provider>
   );

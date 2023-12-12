@@ -48,19 +48,23 @@ h3 {
 }
 .sidebar {
   background-color: var(--dark-grey);
+  padding: 2rem;
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
 }
 .main-content {
   background-color: var(--very-dark-grey-bg);
 }
 .brand {
   width: 100%;
-  padding: 1.5rem;
+  /* padding: 1.5rem; */
   display: flex;
+  margin-bottom: 3rem;
 }
 
 .side-details {
   /* background-color: #635fc7; */
-  padding: 2rem;
+  /* padding: 2rem; */
 }
 .brand span {
   margin-right: 1.5rem;
@@ -78,6 +82,7 @@ h3 {
   text-transform: capitalize;
   z-index: 1;
   margin-bottom: 1rem;
+  cursor: pointer;
 }
 .board-name::before {
   position: absolute;
@@ -105,5 +110,36 @@ h3 {
   letter-spacing: 2.4px;
   color: var(--medium-grey);
   text-transform: uppercase;
+  margin-bottom: 3rem;
+}
+.side-switch {
+  background-color: var(--very-dark-grey-bg);
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
   margin-bottom: 2rem;
+}
+.switch {
+  width: 4rem;
+  height: 2rem;
+  background-color: var(--main-purple);
+  border-radius: 500rem;
+  padding: 0.02rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.switch span {
+  height: 1.65rem;
+  display: inline-block;
+  width: 1.65rem;
+  border-radius: 50%;
+  background-color: var(--white);
+  transition: transform 0.3s ease-in-out;
+}
+.hide-sidebar {
+  display: flex;
+  gap: 1rem;
+  color: var(--medium-grey);
 }
