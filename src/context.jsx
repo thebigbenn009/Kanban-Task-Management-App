@@ -7,9 +7,17 @@ console.log(data);
 export const AppProvider = ({ children }) => {
   const [boards, setBoards] = useState(data);
   const [switchMode, setSwitchMode] = useState(false);
+  const [openSidebar, setOpenSidebar] = useState(false);
   return (
     <AppContext.Provider
-      value={{ boards, setBoards, switchMode, setSwitchMode }}
+      value={{
+        boards,
+        setBoards,
+        switchMode,
+        setSwitchMode,
+        openSidebar,
+        setOpenSidebar,
+      }}
     >
       {children}
     </AppContext.Provider>
