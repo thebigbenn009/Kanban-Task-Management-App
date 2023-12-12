@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
+import { useGlobalContext } from "../../context";
 
 const MainContent = () => {
+  const { openSidebar, setOpenSidebar } = useGlobalContext();
   return (
     <section className="main-content">
       MainContent
-      <div className="open-sidebar">
+      <div
+        className={`${openSidebar === true ? "open-sidebar" : "display-none"}`}
+        onClick={() => setOpenSidebar(!openSidebar)}
+      >
         <svg
           className="eye-icon"
           width="16"
