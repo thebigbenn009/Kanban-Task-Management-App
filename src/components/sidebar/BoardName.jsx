@@ -1,8 +1,16 @@
 import React from "react";
+import { useGlobalContext } from "../../context";
 
 const BoardName = ({ boardName }) => {
+  const { getBoardToBeDisplayed, activeBoard, setActiveBoard } =
+    useGlobalContext();
   return (
-    <div className="board-name">
+    <div
+      className={`board-name ${
+        activeBoard === boardName ? "board-name-active" : ""
+      }`}
+      onClick={() => getBoardToBeDisplayed(boardName)}
+    >
       <span>
         <svg
           className="board-icon"

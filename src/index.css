@@ -131,6 +131,14 @@ h3 {
   background-color: var(--main-purple);
   width: 100%;
 }
+.board-name-active {
+  color: var(--white);
+}
+.board-name-active::before {
+  background-color: var(--main-purple);
+
+  width: 100%;
+}
 .board-name:hover > * {
   color: var(--white);
 }

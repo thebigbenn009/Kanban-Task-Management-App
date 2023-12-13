@@ -8,6 +8,13 @@ export const AppProvider = ({ children }) => {
   const [boards, setBoards] = useState(data);
   const [switchMode, setSwitchMode] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
+  const [boardToBeDisplayed, setBoardToBeDisplayed] = useState({});
+  const [activeBoard, setActiveBoard] = useState("Platform Launch");
+  const getBoardToBeDisplayed = (boardName) => {
+    const boardInArray = boards.find((board) => board.name === boardName);
+    setBoardToBeDisplayed(boardInArray);
+    setActiveBoard(boardName);
+  };
   return (
     <AppContext.Provider
       value={{
@@ -17,6 +24,11 @@ export const AppProvider = ({ children }) => {
         setSwitchMode,
         openSidebar,
         setOpenSidebar,
+        getBoardToBeDisplayed,
+        boardToBeDisplayed,
+        setBoardToBeDisplayed,
+        activeBoard,
+        setActiveBoard,
       }}
     >
       {children}
