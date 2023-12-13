@@ -63,6 +63,7 @@ h3 {
 
 .main-content {
   background-color: var(--very-dark-grey-bg);
+
   position: relative;
 }
 .open-sidebar {
@@ -171,4 +172,11 @@ h3 {
   gap: 1rem;
   color: var(--medium-grey);
   cursor: pointer;
+}
+.task-nav {
+  display: grid;
+  grid-template-columns: minmax(auto, 15rem) 1fr;
+}
+.task-pad {
+  padding: 2rem;
 }
