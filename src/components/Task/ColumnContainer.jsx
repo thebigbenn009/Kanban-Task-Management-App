@@ -12,6 +12,7 @@ const ColumnContainer = () => {
         const { name, tasks } = column;
         return <Column name={name} tasks={tasks} />;
       })}
+      {/* <div className="new-column">jeu</div> */}
     </section>
   );
 };

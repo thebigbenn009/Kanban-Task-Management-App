@@ -137,6 +137,9 @@ h3 {
 .board-name-active {
   color: var(--white);
 }
+.board-name-active .board-icon {
+  fill: var(--white);
+}
 .board-name-active::before {
   background-color: var(--main-purple);
 
@@ -145,12 +148,21 @@ h3 {
 .board-name:hover > * {
   color: var(--main-purple);
 }
+.board-name:hover .board-icon {
+  fill: var(--main-purple);
+}
 .boards h4 {
   font-size: 1.2rem;
   letter-spacing: 2.4px;
   color: var(--medium-grey);
   text-transform: uppercase;
   margin-bottom: 3rem;
+}
+.new-board {
+  color: var(--main-purple);
+}
+.new-board .board-icon {
+  fill: var(--main-purple);
 }
 .side-switch {
   background-color: var(--very-dark-grey-bg);
