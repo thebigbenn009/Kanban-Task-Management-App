@@ -3,16 +3,15 @@ import Column from "./Column";
 import { useGlobalContext } from "../../context";
 
 const ColumnContainer = () => {
-  const { boards } = useGlobalContext();
+  const { boardToBeDisplayed, boards } = useGlobalContext();
+  const { columns } = boardToBeDisplayed;
+
   return (
     <section className="columns">
-      {boards
-        .map((board) => board.columns)
-        .map((column) => {
-          const { name, tasks } = column;
-          return <Column name={name} tasks={tasks} />;
-        })}
-      <Column />
+      {columns.map((column) => {
+        const { name, tasks } = column;
+        return <Column name={name} tasks={tasks} />;
+      })}
     </section>
   );
 };

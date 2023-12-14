@@ -247,7 +247,8 @@ h3 {
   padding-block: 2.4rem;
   padding-left: 2.4rem;
   display: grid;
-  grid-template-columns: repeat(4, minmax(28rem, 1fr));
+  grid-template-columns: repeat(4, 28rem);
+  gap: 2.4rem;
 }
 .column-title {
   display: flex;
@@ -264,8 +265,9 @@ h3 {
 }
 .column-card {
   background-color: var(--dark-grey);
-  padding: 2.3rem 1.6rem;
+  padding: 2.3rem 2.9rem;
   border-radius: 5px;
+  margin-bottom: 2rem;
 }
 .column-card small {
   font-size: 12px;

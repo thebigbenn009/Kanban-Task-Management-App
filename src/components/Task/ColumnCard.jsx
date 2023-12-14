@@ -1,10 +1,12 @@
 import React from "react";
 
-const ColumnCard = ({ title, length }) => {
+const ColumnCard = ({ title, length, numCompleted }) => {
   return (
     <article className="column-card">
       <p>{title}</p>
-      <small>0 of {length} stubstasks</small>
+      <small>
+        {numCompleted} of {length} subtasks
+      </small>
     </article>
   );
 };
