@@ -129,7 +129,7 @@ h3 {
   transition: all 0.3s ease-in-out;
 }
 .board-name:hover::before {
-  background-color: var(--main-purple);
+  background-color: var(--white);
   width: 100%;
 }
 .board-name-active {
@@ -141,7 +141,7 @@ h3 {
   width: 100%;
 }
 .board-name:hover > * {
-  color: var(--white);
+  color: var(--main-purple);
 }
 .boards h4 {
   font-size: 1.2rem;
@@ -188,14 +188,53 @@ h3 {
   grid-template-columns: minmax(auto, 15rem) 1fr;
   border: solid 1px rgba(151, 151, 151, 0.25);
 }
+.nav-1fr {
+  grid-template-columns: 1fr;
+}
 .task-pad {
   /* padding: 2rem; */
 }
 .task-info {
+  display: flex;
+  justify-content: space-between;
+}
+.task-info h3 {
+  color: var(--white);
 }
 .p-2 {
-  padding: 2rem;
+  padding: 1.5rem;
 }
 .b-right {
   border-right: solid 1px rgba(151, 151, 151, 0.25);
+}
+.btn {
+  border: none;
+  padding: 1.4rem 2.3rem;
+  border-radius: 2000rem;
+  text-transform: capitalize;
+  display: flex;
+  gap: 1rem;
+  transition: all ease-in-out 0.3s;
+  cursor: pointer;
+}
+.btn:hover {
+  transform: translateY(-3px);
+}
+.btn:active {
+  transform: translateY(-1px);
+}
+.btn-primary {
+  background-color: var(--main-purple);
+  color: var(--white);
+}
+.btn-primary:hover {
+  background-color: var(--purple-hover);
+}
+.btn-info {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.btn-info span {
+  cursor: pointer;
 }
