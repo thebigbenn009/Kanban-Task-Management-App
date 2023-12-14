@@ -6,6 +6,12 @@ import { setBackgroundColor } from "./utils";
 const data = jsonData.boards;
 console.log(data);
 export const AppProvider = ({ children }) => {
+  const initialState = {
+    boards: data,
+    currentBoard: data[0],
+    sidebar: false,
+    switchMode: false,
+  };
   const [boards, setBoards] = useState(data);
   const [switchMode, setSwitchMode] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
