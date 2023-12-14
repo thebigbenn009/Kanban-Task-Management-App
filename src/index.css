@@ -20,6 +20,7 @@ html {
   --dark-lines: #3e3f4e;
   --medium-grey: #828fa3;
   --grey-lines: #e4ebfa;
+  --grey-97: #979797;
 
   --light-grey-bg: #f4f7fd;
   --white: #fff;
@@ -30,6 +31,7 @@ html {
 }
 body {
   font-size: 1.3rem;
+  color: var(--white);
 }
 h1 {
   font-size: 2.4rem;
@@ -198,8 +200,9 @@ h3 {
   display: flex;
   justify-content: space-between;
 }
-.task-info h3 {
+.task-info h2 {
   color: var(--white);
+  align-self: center;
 }
 .p-2 {
   padding: 1.5rem;
@@ -209,7 +212,7 @@ h3 {
 }
 .btn {
   border: none;
-  padding: 1.4rem 2.3rem;
+  padding: 1.4rem 2.4rem;
   border-radius: 2000rem;
   text-transform: capitalize;
   display: flex;
@@ -237,4 +240,42 @@ h3 {
 }
 .btn-info span {
   cursor: pointer;
+}
+.columns {
+  /* max-width: 112rem; */
+  /* background-color: #ea5555; */
+  padding-block: 2.4rem;
+  padding-left: 2.4rem;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(28rem, 1fr));
+}
+.column-title {
+  display: flex;
+  gap: 1.2rem;
+  align-items: center;
+  margin-bottom: 2.4rem;
+}
+.column-title span {
+  display: inline-block;
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 50%;
+  background-color: yellow;
+}
+.column-card {
+  background-color: var(--dark-grey);
+  padding: 2.3rem 1.6rem;
+  border-radius: 5px;
+}
+.column-card small {
+  font-size: 12px;
+  letter-spacing: 2.4px;
+  color: var(--medium-grey);
+}
+.column-card p {
+  margin-bottom: 1.5rem;
+}
+.column-title h4 {
+  color: var(--medium-grey);
+  letter-spacing: 2.4px;
 }
