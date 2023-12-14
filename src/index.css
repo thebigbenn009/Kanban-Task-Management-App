@@ -268,6 +268,22 @@ h3 {
   padding: 2.3rem 2.9rem;
   border-radius: 5px;
   margin-bottom: 2rem;
+  cursor: pointer;
+  /* transition: transform 0.3s ease-out, box-shadow 0.3s ease-out; */
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.column-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+.column-card p,
+.column-card small {
+  transition: transform 0.3s ease-in-out;
+}
+.column-card:hover small,
+.column-card:hover p {
+  transform: scale(1);
 }
 .column-card small {
   font-size: 12px;
@@ -280,4 +296,5 @@ h3 {
 .column-title h4 {
   color: var(--medium-grey);
   letter-spacing: 2.4px;
+  text-transform: uppercase;
 }

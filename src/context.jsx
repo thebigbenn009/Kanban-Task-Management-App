@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState } from "react";
 const AppContext = createContext();
 import jsonData from "../src/data.json";
+import { setBackgroundColor } from "./utils";
 // const data = JSON.parse();
 const data = jsonData.boards;
 console.log(data);

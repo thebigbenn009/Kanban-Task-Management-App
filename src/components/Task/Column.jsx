@@ -1,12 +1,13 @@
 import React from "react";
 import ColumnCard from "./ColumnCard";
 import { useGlobalContext } from "../../context";
+import { setBackgroundColor } from "../../utils";
 
 const Column = ({ name, tasks }) => {
   return (
     <div className="column">
       <div className="column-title">
-        <span></span>
+        <span style={{ backgroundColor: `${setBackgroundColor(name)}` }}></span>
         <h4>
           {name}({tasks.length})
         </h4>
