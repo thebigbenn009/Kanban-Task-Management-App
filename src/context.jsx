@@ -1,8 +1,8 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useReducer, useState } from "react";
 const AppContext = createContext();
 import jsonData from "../src/data.json";
-import { setBackgroundColor } from "./utils";
-// const data = JSON.parse();
+import { useForm, useFieldArray } from "react-hook-form";
+
 const data = jsonData.boards;
 console.log(data);
 export const AppProvider = ({ children }) => {
@@ -12,6 +12,13 @@ export const AppProvider = ({ children }) => {
     sidebar: false,
     switchMode: false,
   };
+
+  //REACT HOOK FORM//////////
+  const { register, control, handleSubmit, formState } = useForm();
+  ////USE REDUCER///////////////////////////
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  ///////////////////******** *///////////
   const [boards, setBoards] = useState(data);
   const [switchMode, setSwitchMode] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
@@ -37,6 +44,10 @@ export const AppProvider = ({ children }) => {
         setBoardToBeDisplayed,
         activeBoard,
         setActiveBoard,
+        register,
+        control,
+        handleSubmit,
+        formState,
       }}
     >
       {children}
