@@ -9,7 +9,7 @@ const Column = ({ name, tasks }) => {
       <div className="column-title">
         <span style={{ backgroundColor: `${setBackgroundColor(name)}` }}></span>
         <h4>
-          {name}({tasks.length})
+          {name}({tasks?.length})
         </h4>
       </div>
       <div className="column-rows">

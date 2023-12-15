@@ -1,4 +1,7 @@
 export const setBackgroundColor = (taskName) => {
+  if (!taskName) {
+    return "";
+  }
   switch (taskName.toLowerCase()) {
     case "todo":
       return "#49C4E5";
