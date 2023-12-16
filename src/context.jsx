@@ -67,6 +67,12 @@ export const AppProvider = ({ children }) => {
   const closeNewBoardModal = () => {
     setNewBoardModal(false);
   };
+  const openAddTaskModal = () => {
+    setIsOpenAddTask(true);
+  };
+  const closeAddTaskModal = () => {
+    setIsOpenAddTask(false);
+  };
   return (
     <AppContext.Provider
       value={{
@@ -79,6 +85,8 @@ export const AppProvider = ({ children }) => {
         getBoardToBeDisplayed,
         boardToBeDisplayed,
         setBoardToBeDisplayed,
+        isOpenAddTask,
+        setIsOpenAddTask,
         activeBoard,
         setActiveBoard,
         register,
@@ -89,6 +97,8 @@ export const AppProvider = ({ children }) => {
         setNewBoardModal,
         closeNewBoardModal,
         openNewBoardModal,
+        openAddTaskModal,
+        closeAddTaskModal,
         fields,
         append,
         remove,
