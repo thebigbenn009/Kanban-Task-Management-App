@@ -2,31 +2,31 @@ import React from "react";
 import ColumnCard from "./ColumnCard";
 import { useGlobalContext } from "../../context";
 import { setBackgroundColor } from "../../utils";
+import EmptyColumn from "./EmptyColumn";
+import ColumnTitle from "./ColumnTitle";
 
 const Column = ({ name, tasks }) => {
   return (
     <div className="column">
-      <div className="column-title">
-        <span style={{ backgroundColor: `${setBackgroundColor(name)}` }}></span>
-        <h4>
-          {name}({tasks?.length})
-        </h4>
-      </div>
-      <div className="column-rows">
-        {tasks.map((task) => {
-          const { subtasks } = task;
-          const numCompleted = subtasks.filter(
-            (subtask) => subtask.isCompleted === true
-          ).length;
-          return (
-            <ColumnCard
-              title={task.title}
-              length={subtasks.length}
-              numCompleted={numCompleted}
-            />
-          );
-        })}
-      </div>
+      <ColumnTitle name={name} tasks={tasks} />
+      {/* IF TASKS HAS BEEN CREATED  */}
+      {tasks && (
+        <div className="column-rows">
+          {tasks.map((task) => {
+            const { subtasks } = task;
+            const numCompleted = subtasks.filter(
+              (subtask) => subtask.isCompleted === true
+            ).length;
+            return (
+              <ColumnCard
+                title={task.title}
+                length={subtasks.length}
+                numCompleted={numCompleted}
+              />
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };

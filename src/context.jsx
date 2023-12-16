@@ -20,7 +20,7 @@ export const AppProvider = ({ children }) => {
     defaultValues: {
       boardName: "Tutorials",
 
-      newColumns: [{ columnName: "JavaScript" }, { columnName: "Dart" }],
+      newColumns: [{ name: "JavaScript" }, { name: "Dart" }],
     },
   });
   const { isSubmitSuccessful } = formState;
@@ -37,6 +37,7 @@ export const AppProvider = ({ children }) => {
   const [switchMode, setSwitchMode] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
   const [newBoardModal, setNewBoardModal] = useState(false);
+  const [isOpenAddTask, setIsOpenAddTask] = useState(false);
   const [boardToBeDisplayed, setBoardToBeDisplayed] = useState(boards[0]);
   const [activeBoard, setActiveBoard] = useState("Platform Launch");
 

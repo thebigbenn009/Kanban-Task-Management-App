@@ -402,3 +402,25 @@ input:focus {
 .form-btn-container button:not(:last-child) {
   margin-bottom: 2.4rem;
 }
+.close-modal {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  z-index: 3;
+  background-color: var(--danger);
+  padding: 1rem;
+
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.close-modal svg path {
+  fill: var(--white);
+  /* height: 3rem;
+  width: 3rem; */
+}
+.close-modal:hover {
+  background-color: var(--danger-hover);
+}
+.close-modal:hover svg path {
+  fill: var(--white);
+}

@@ -11,10 +11,12 @@ const Task = () => {
     boardToBeDisplayed,
     setBoardToBeDisplayed,
   } = useGlobalContext();
+  const { columns } = boardToBeDisplayed;
   return (
     <main>
       <TaskNav />
-      <ColumnContainer />
+      {columns.length === 0 && <div>Empty colum here</div>}
+      {columns.length >= 1 && <ColumnContainer />}
     </main>
   );
 };
