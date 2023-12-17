@@ -2,7 +2,8 @@ import React from "react";
 import { useGlobalContext } from "../../context";
 
 const TaskNav = () => {
-  const { openSidebar, boardToBeDisplayed } = useGlobalContext();
+  const { openSidebar, boardToBeDisplayed, openAddTaskModal } =
+    useGlobalContext();
   return (
     <div className={`task-nav ${!openSidebar ? "nav-1fr" : ""}`}>
       {openSidebar && (
@@ -22,7 +23,7 @@ const TaskNav = () => {
       <div className="task-info p-2">
         <h2>{boardToBeDisplayed.name}</h2>
         <div className="btn-info">
-          <button className="btn btn-primary">
+          <button className="btn btn-primary" onClick={openAddTaskModal}>
             <span>
               <svg width="12" height="12" xmlns="http://www.w3.org/2000/svg">
                 <path

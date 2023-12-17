@@ -1,18 +1,22 @@
 import React from "react";
 import { useGlobalContext } from "../../context";
 import CloseModal from "./CloseModal";
+import RemoveInput from "../Task/RemoveInput";
 
 const NewBoardModal = () => {
   const {
     newBoardModal,
     closeNewBoardModal,
     register,
-    fields,
-    append,
-    remove,
-    onSubmit,
+    newColumnFields,
+    appendNewColumn,
+    removeNewColumn,
+    addNewBoard,
     handleSubmit,
   } = useGlobalContext();
+  const onSubmit = (data) => {
+    addNewBoard(data);
+  };
   return (
     newBoardModal && (
       <div className={`overlay ${newBoardModal ? "active" : ""}`}>
@@ -27,26 +31,11 @@ const NewBoardModal = () => {
             <input type="text" {...register("boardName")} />
           </div>
           <label>Board Columns</label>
-          {fields.map((field, index) => {
+          {newColumnFields.map((field, index) => {
             return (
               <div className="add-column" key={field.id}>
                 <input {...register(`newColumns.${index}.name`)} />
-                <button
-                  className="remove"
-                  type="button"
-                  onClick={() => remove(index)}
-                >
-                  <svg
-                    width="15"
-                    height="15"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g fill="#828FA3" fill-rule="evenodd">
-                      <path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z" />
-                      <path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z" />
-                    </g>
-                  </svg>
-                </button>
+                <RemoveInput remove={removeNewColumn} index={index} />
               </div>
             );
           })}
@@ -54,7 +43,7 @@ const NewBoardModal = () => {
             <button
               className="btn btn-block btn-white"
               type="button"
-              onClick={() => append({ name: "" })}
+              onClick={() => appendNewColumn({ name: "" })}
             >
               Add New Column
             </button>

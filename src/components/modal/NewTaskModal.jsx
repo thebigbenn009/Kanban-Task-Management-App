@@ -1,7 +1,68 @@
 import React from "react";
+import { useGlobalContext } from "../../context";
+import CloseModal from "./CloseModal";
+import RemoveInput from "../Task/RemoveInput";
 
 const NewTaskModal = () => {
-  return <div>NewTaskModal</div>;
+  const {
+    isOpenAddTask,
+    closeAddTaskModal,
+    register,
+    subtaskFields,
+    appendSubtask,
+    removeSubtask,
+    handleSubmit,
+  } = useGlobalContext();
+  return (
+    isOpenAddTask && (
+      <div className={`overlay ${isOpenAddTask ? "active" : ""}`}>
+        <CloseModal modalToCLose={closeAddTaskModal} />
+        <form
+          action=""
+          className={`form-modal ${isOpenAddTask ? "active" : ""}`}
+        >
+          <h3>Add New Task</h3>
+          <div className="form-control mb-2">
+            <label htmlFor="title">Title</label>
+            <input type="text" {...register("title")} />
+          </div>
+          <div className="form-control mb-2">
+            <label htmlFor="description">Description</label>
+            <textarea rows={4} cols={55} {...register("description")} />
+          </div>
+          <label htmlFor="subtasks">Subtasks</label>
+          {subtaskFields.map((field, index) => {
+            return (
+              <div className="add-column" key={field.id}>
+                <input {...register(`subtasks.${index}.title`)} />
+                <RemoveInput remove={removeSubtask} index={index} />
+              </div>
+            );
+          })}
+          <div className="form-btn-container">
+            <button
+              className="btn btn-block btn-white"
+              type="button"
+              onClick={() => appendSubtask({ title: "" })}
+            >
+              Add New Subtask
+            </button>
+          </div>
+          <div className="form-control mb-2">
+            <label htmlFor="status">status</label>
+            <select {...register("status")} id="status">
+              <option value="Todo">Todo</option>
+              <option value="Doing">Doing</option>
+              <option value="Done">Done</option>
+            </select>
+          </div>
+          <button className="btn btn-primary btn-block" type="submit">
+            create Task
+          </button>
+        </form>
+      </div>
+    )
+  );
 };
 
 export default NewTaskModal;

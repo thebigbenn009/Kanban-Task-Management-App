@@ -337,11 +337,13 @@ h3 {
   /* background: rgba(0, 0, 0, 0.5); */
   z-index: 1;
 
-  transition: background 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  transition: background 2.3s ease-in-out, opacity 2.3s ease-in-out;
 }
+
 .overlay.active {
   background: rgba(0, 0, 0, 0.5);
   opacity: 1;
+  /* transition: background 2.3s ease-in-out, opacity 2.3s ease-in-out; */
 }
 
 .form-modal {
@@ -367,7 +369,9 @@ label {
   display: block;
   margin-bottom: 8px;
 }
-input {
+input,
+textarea,
+select {
   padding: 8px 1.6rem;
   width: 100%;
   background-color: inherit;
@@ -379,8 +383,15 @@ input {
 
   /* outline: none; */
 }
-input:focus {
+
+input:focus,
+textarea:focus,
+select:focus {
   outline: solid 1px var(--medium-grey);
+}
+select > option {
+  background-color: var(--dark-grey);
+  color: inherit;
 }
 .form-control {
   width: 100%;

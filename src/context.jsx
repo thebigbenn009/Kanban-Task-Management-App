@@ -19,16 +19,29 @@ export const AppProvider = ({ children }) => {
   const { register, control, handleSubmit, formState } = useForm({
     defaultValues: {
       boardName: "Tutorials",
-
       newColumns: [{ name: "JavaScript" }, { name: "Dart" }],
+      title: "Take Coffee break",
+      description: `e.g. It’s always good to take a break. This 15 minute break will 
+      recharge the batteries a little.`,
     },
   });
-  const { isSubmitSuccessful } = formState;
-  const { fields, append, remove } = useFieldArray({
+
+  const {
+    fields: newColumnFields,
+    append: appendNewColumn,
+    remove: removeNewColumn,
+  } = useFieldArray({
     control,
     name: "newColumns",
   });
-
+  const {
+    fields: subtaskFields,
+    append: appendSubtask,
+    remove: removeSubtask,
+  } = useFieldArray({
+    control,
+    name: "subtasks",
+  });
   ////////////////////////////USE REDUCER//////////////////
   // const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -42,7 +55,7 @@ export const AppProvider = ({ children }) => {
   const [activeBoard, setActiveBoard] = useState("Platform Launch");
 
   /////////SUBMITTING A FORM/////////////
-  const onSubmit = (data) => {
+  const addNewBoard = (data) => {
     console.log(data);
     const { newColumns, boardName } = data;
     //////ADDING NEW BOARD TO EXISTING BOARD///////////////
@@ -53,6 +66,9 @@ export const AppProvider = ({ children }) => {
     const updatedBoards = [...boards, newBoard];
     setBoards(updatedBoards);
     setNewBoardModal(false);
+  };
+  const addNewTask = (data) => {
+    console.log(data);
   };
   ///////FUNCTIONS/////////////////////////
   const getBoardToBeDisplayed = (boardName) => {
@@ -99,10 +115,15 @@ export const AppProvider = ({ children }) => {
         openNewBoardModal,
         openAddTaskModal,
         closeAddTaskModal,
-        fields,
-        append,
-        remove,
-        onSubmit,
+
+        appendNewColumn,
+        removeNewColumn,
+        newColumnFields,
+        appendSubtask,
+        removeSubtask,
+        subtaskFields,
+        addNewBoard,
+        addNewTask,
       }}
     >
       {children}

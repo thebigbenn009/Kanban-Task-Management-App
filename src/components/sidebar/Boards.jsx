@@ -1,6 +1,7 @@
 import React from "react";
 import { useGlobalContext } from "../../context";
 import BoardName from "./BoardName";
+import NewTaskModal from "../modal/NewTaskModal";
 import NewBoardModal from "../modal/NewBoardModal";
 
 const Boards = () => {
@@ -38,6 +39,7 @@ const Boards = () => {
       </div>
 
       <NewBoardModal />
+      <NewTaskModal />
     </>
   );
 };
