@@ -14,15 +14,13 @@ const NewBoardModal = () => {
     addNewBoard,
     handleSubmit,
   } = useGlobalContext();
-  const onSubmit = (data) => {
-    addNewBoard(data);
-  };
+
   return (
     newBoardModal && (
       <div className={`overlay ${newBoardModal ? "active" : ""}`}>
         <CloseModal modalToCLose={closeNewBoardModal} />
         <form
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={handleSubmit(addNewBoard)}
           className={`form-modal ${newBoardModal ? "active" : ""}`}
         >
           <h3>Add New Board</h3>

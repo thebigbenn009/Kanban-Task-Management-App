@@ -16,16 +16,23 @@ export const AppProvider = ({ children }) => {
   };
 
   ////////////REACT HOOK FORM//////////
-  const { register, control, handleSubmit, formState } = useForm({
+  const { register, control, handleSubmit, formState, getValues } = useForm({
     defaultValues: {
       boardName: "Tutorials",
       newColumns: [{ name: "JavaScript" }, { name: "Dart" }],
-      title: "Take Coffee break",
-      description: `e.g. It’s always good to take a break. This 15 minute break will 
-      recharge the batteries a little.`,
     },
   });
 
+  const {
+    register: registerNewTask,
+    formState: { errors },
+    handleSubmit: submitNewTask,
+  } = useForm({
+    defaultValues: {
+      title: "Take Coffee break",
+      description: `e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little.`,
+    },
+  });
   const {
     fields: newColumnFields,
     append: appendNewColumn,
@@ -42,6 +49,10 @@ export const AppProvider = ({ children }) => {
     control,
     name: "subtasks",
   });
+
+  const onSub = (data) => {
+    console.log(data);
+  };
   ////////////////////////////USE REDUCER//////////////////
   // const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -56,7 +67,6 @@ export const AppProvider = ({ children }) => {
 
   /////////SUBMITTING A FORM/////////////
   const addNewBoard = (data) => {
-    console.log(data);
     const { newColumns, boardName } = data;
     //////ADDING NEW BOARD TO EXISTING BOARD///////////////
     const newBoard = {
@@ -69,6 +79,17 @@ export const AppProvider = ({ children }) => {
   };
   const addNewTask = (data) => {
     console.log(data);
+    const { title, description, status, subtasks = [] } = data;
+    const newTask = {
+      title,
+      description,
+      status,
+      subtasks,
+    };
+    // const updatedBoardToBeDisplayed = {
+    //   ...boardToBeDisplayed,
+    //   columns: boardToBeDisplayed.columns.map((column)=>)
+    // };
   };
   ///////FUNCTIONS/////////////////////////
   const getBoardToBeDisplayed = (boardName) => {
@@ -115,7 +136,7 @@ export const AppProvider = ({ children }) => {
         openNewBoardModal,
         openAddTaskModal,
         closeAddTaskModal,
-
+        getValues,
         appendNewColumn,
         removeNewColumn,
         newColumnFields,
@@ -124,6 +145,9 @@ export const AppProvider = ({ children }) => {
         subtaskFields,
         addNewBoard,
         addNewTask,
+        registerNewTask,
+        submitNewTask,
+        onSub,
       }}
     >
       {children}

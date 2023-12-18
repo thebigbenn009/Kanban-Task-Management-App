@@ -7,34 +7,37 @@ const NewTaskModal = () => {
   const {
     isOpenAddTask,
     closeAddTaskModal,
-    register,
+    registerNewTask,
     subtaskFields,
     appendSubtask,
     removeSubtask,
-    handleSubmit,
+    submitNewTask,
+    addNewTask,
+    getValues,
   } = useGlobalContext();
+
   return (
     isOpenAddTask && (
       <div className={`overlay ${isOpenAddTask ? "active" : ""}`}>
         <CloseModal modalToCLose={closeAddTaskModal} />
         <form
-          action=""
+          onSubmit={submitNewTask(addNewTask)}
           className={`form-modal ${isOpenAddTask ? "active" : ""}`}
         >
           <h3>Add New Task</h3>
           <div className="form-control mb-2">
             <label htmlFor="title">Title</label>
-            <input type="text" {...register("title")} />
+            <input type="text" {...registerNewTask("title")} />
           </div>
           <div className="form-control mb-2">
             <label htmlFor="description">Description</label>
-            <textarea rows={4} cols={55} {...register("description")} />
+            <textarea rows={4} cols={55} {...registerNewTask("description")} />
           </div>
           <label htmlFor="subtasks">Subtasks</label>
           {subtaskFields.map((field, index) => {
             return (
               <div className="add-column" key={field.id}>
-                <input {...register(`subtasks.${index}.title`)} />
+                <input {...registerNewTask(`subtasks.${index}.title`)} />
                 <RemoveInput remove={removeSubtask} index={index} />
               </div>
             );
@@ -50,7 +53,7 @@ const NewTaskModal = () => {
           </div>
           <div className="form-control mb-2">
             <label htmlFor="status">status</label>
-            <select {...register("status")} id="status">
+            <select {...registerNewTask("status")} id="status">
               <option value="Todo">Todo</option>
               <option value="Doing">Doing</option>
               <option value="Done">Done</option>
