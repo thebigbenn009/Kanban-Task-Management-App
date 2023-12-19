@@ -2,6 +2,7 @@ import React, { createContext, useContext, useReducer, useState } from "react";
 const AppContext = createContext();
 import jsonData from "../src/data.json";
 import { useForm, useFieldArray } from "react-hook-form";
+import { boardForm, newTaskForm } from "./form registers/Registers";
 
 const data = jsonData.boards;
 console.log(data);
@@ -16,23 +17,14 @@ export const AppProvider = ({ children }) => {
   };
 
   ////////////REACT HOOK FORM//////////
-  const { register, control, handleSubmit, formState, getValues } = useForm({
-    defaultValues: {
-      boardName: "Tutorials",
-      newColumns: [{ name: "JavaScript" }, { name: "Dart" }],
-    },
-  });
+  const { register, control, handleSubmit, formState, getValues } =
+    useForm(boardForm);
 
   const {
     register: registerNewTask,
     formState: { errors },
     handleSubmit: submitNewTask,
-  } = useForm({
-    defaultValues: {
-      title: "Take Coffee break",
-      description: `e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little.`,
-    },
-  });
+  } = useForm(newTaskForm);
   const {
     fields: newColumnFields,
     append: appendNewColumn,
@@ -50,9 +42,6 @@ export const AppProvider = ({ children }) => {
     name: "subtasks",
   });
 
-  const onSub = (data) => {
-    console.log(data);
-  };
   ////////////////////////////USE REDUCER//////////////////
   // const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -66,9 +55,9 @@ export const AppProvider = ({ children }) => {
   const [activeBoard, setActiveBoard] = useState("Platform Launch");
 
   /////////SUBMITTING A FORM/////////////
+  //////ADDING NEW BOARD TO EXISTING BOARDS///////////////
   const addNewBoard = (data) => {
     const { newColumns, boardName } = data;
-    //////ADDING NEW BOARD TO EXISTING BOARD///////////////
     const newBoard = {
       name: boardName,
       columns: newColumns,
@@ -77,6 +66,8 @@ export const AppProvider = ({ children }) => {
     setBoards(updatedBoards);
     setNewBoardModal(false);
   };
+  //////ADDING NEW TASK TO EXISTING TASKS///////////////
+
   const addNewTask = (data) => {
     console.log(data);
     const { title, description, status, subtasks = [] } = data;
@@ -107,6 +98,14 @@ export const AppProvider = ({ children }) => {
     setBoardToBeDisplayed(boardInArray);
     setActiveBoard(boardName);
   };
+
+  const displayTask = (title) => {
+    return boardToBeDisplayed.columns
+      .flatMap((column) => column.tasks)
+      .find((task) => task.title === title);
+  };
+
+  console.log(displayTask("Build UI for onboarding flow"));
   //////OPEN AND CLOSE NEW BOARD MODAL//////////////
   const openNewBoardModal = () => {
     setNewBoardModal(true);
@@ -157,7 +156,6 @@ export const AppProvider = ({ children }) => {
         addNewTask,
         registerNewTask,
         submitNewTask,
-        onSub,
       }}
     >
       {children}
