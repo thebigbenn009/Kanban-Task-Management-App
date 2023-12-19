@@ -14,6 +14,7 @@ const NewTaskModal = () => {
     submitNewTask,
     addNewTask,
     getValues,
+    boardToBeDisplayed,
   } = useGlobalContext();
 
   return (
@@ -54,9 +55,16 @@ const NewTaskModal = () => {
           <div className="form-control mb-2">
             <label htmlFor="status">status</label>
             <select {...registerNewTask("status")} id="status">
-              <option value="Todo">Todo</option>
-              <option value="Doing">Doing</option>
-              <option value="Done">Done</option>
+              {boardToBeDisplayed.columns.map((column) => {
+                return (
+                  <option key={column.name} value={column.name}>
+                    {column.name}
+                  </option>
+                );
+              })}
+
+              {/* <option value="Doing">Doing</option>
+              <option value="Done">Done</option> */}
             </select>
           </div>
           <button className="btn btn-primary btn-block" type="submit">

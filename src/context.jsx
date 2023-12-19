@@ -64,7 +64,8 @@ export const AppProvider = ({ children }) => {
   const [isOpenAddTask, setIsOpenAddTask] = useState(false);
   const [boardToBeDisplayed, setBoardToBeDisplayed] = useState(boards[0]);
   const [activeBoard, setActiveBoard] = useState("Platform Launch");
-
+  const status = boardToBeDisplayed.columns.map((column) => column.name);
+  console.log(status);
   /////////SUBMITTING A FORM/////////////
   const addNewBoard = (data) => {
     const { newColumns, boardName } = data;
@@ -86,10 +87,7 @@ export const AppProvider = ({ children }) => {
       status,
       subtasks,
     };
-    // const updatedBoardToBeDisplayed = {
-    //   ...boardToBeDisplayed,
-    //   columns: boardToBeDisplayed.columns.map((column)=>)
-    // };
+    // const newBoardToBeDisplayed = boardToBeDisplayed.columns.map((column)=>column.)
   };
   ///////FUNCTIONS/////////////////////////
   const getBoardToBeDisplayed = (boardName) => {
