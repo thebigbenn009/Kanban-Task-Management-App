@@ -99,6 +99,7 @@ export const AppProvider = ({ children }) => {
     };
 
     setBoardToBeDisplayed(updatedBoardToBeDisplayed);
+    setIsOpenAddTask(false);
   };
   ///////FUNCTIONS/////////////////////////
   const getBoardToBeDisplayed = (boardName) => {
