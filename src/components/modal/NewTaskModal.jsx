@@ -62,9 +62,6 @@ const NewTaskModal = () => {
                   </option>
                 );
               })}
-
-              {/* <option value="Doing">Doing</option>
-              <option value="Done">Done</option> */}
             </select>
           </div>
           <button className="btn btn-primary btn-block" type="submit">
