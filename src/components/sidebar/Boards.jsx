@@ -3,6 +3,7 @@ import { useGlobalContext } from "../../context";
 import BoardName from "./BoardName";
 import NewTaskModal from "../modal/NewTaskModal";
 import NewBoardModal from "../modal/NewBoardModal";
+import ViewTask from "../Task/ViewTask";
 
 const Boards = () => {
   const { boards, setBoards, openNewBoardModal } = useGlobalContext();
@@ -40,6 +41,7 @@ const Boards = () => {
 
       <NewBoardModal />
       <NewTaskModal />
+      <ViewTask />
     </>
   );
 };

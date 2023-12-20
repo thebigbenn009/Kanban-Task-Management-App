@@ -102,6 +102,8 @@ export const AppProvider = ({ children }) => {
   };
 
   const displayTask = (title) => {
+    setViewTaskModal(true);
+
     const userTask = boardToBeDisplayed.columns
       .flatMap((column) => column.tasks)
       .find((task) => task.title === title);

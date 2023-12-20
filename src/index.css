@@ -435,3 +435,11 @@ select > option {
 .close-modal:hover svg path {
   fill: var(--white);
 }
+.title-header {
+  display: flex;
+
+  justify-content: space-between;
+}
+.menu-bar {
+  cursor: pointer;
+}
