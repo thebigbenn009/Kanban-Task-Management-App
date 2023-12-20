@@ -2,6 +2,7 @@ import React from "react";
 import { useGlobalContext } from "../../context";
 import CloseModal from "./CloseModal";
 import RemoveInput from "../Task/RemoveInput";
+import ModalWrapper from "./ModalWrapper";
 
 const NewBoardModal = () => {
   const {
@@ -17,7 +18,7 @@ const NewBoardModal = () => {
 
   return (
     newBoardModal && (
-      <div className={`overlay ${newBoardModal ? "active" : ""}`}>
+      <ModalWrapper modal={newBoardModal}>
         <CloseModal modalToCLose={closeNewBoardModal} />
         <form
           onSubmit={handleSubmit(addNewBoard)}
@@ -50,7 +51,7 @@ const NewBoardModal = () => {
             </button>
           </div>
         </form>
-      </div>
+      </ModalWrapper>
     )
   );
 };

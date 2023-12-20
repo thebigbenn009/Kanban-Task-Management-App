@@ -2,6 +2,7 @@ import React from "react";
 import { useGlobalContext } from "../../context";
 import CloseModal from "./CloseModal";
 import RemoveInput from "../Task/RemoveInput";
+import ModalWrapper from "./ModalWrapper";
 
 const NewTaskModal = () => {
   const {
@@ -19,7 +20,7 @@ const NewTaskModal = () => {
 
   return (
     isOpenAddTask && (
-      <div className={`overlay ${isOpenAddTask ? "active" : ""}`}>
+      <ModalWrapper modal={isOpenAddTask}>
         <CloseModal modalToCLose={closeAddTaskModal} />
         <form
           onSubmit={submitNewTask(addNewTask)}
@@ -62,13 +63,16 @@ const NewTaskModal = () => {
                   </option>
                 );
               })}
+
+              {/* <option value="Doing">Doing</option>
+              <option value="Done">Done</option> */}
             </select>
           </div>
           <button className="btn btn-primary btn-block" type="submit">
             create Task
           </button>
         </form>
-      </div>
+      </ModalWrapper>
     )
   );
 };

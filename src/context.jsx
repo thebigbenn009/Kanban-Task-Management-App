@@ -50,8 +50,10 @@ export const AppProvider = ({ children }) => {
   const [switchMode, setSwitchMode] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
   const [newBoardModal, setNewBoardModal] = useState(false);
+  const [viewTaskModal, setViewTaskModal] = useState(false);
   const [isOpenAddTask, setIsOpenAddTask] = useState(false);
   const [boardToBeDisplayed, setBoardToBeDisplayed] = useState(boards[0]);
+  const [taskToBeDisplayed, setTaskToBeDisplayed] = useState({});
   const [activeBoard, setActiveBoard] = useState("Platform Launch");
 
   /////////SUBMITTING A FORM/////////////
@@ -100,12 +102,13 @@ export const AppProvider = ({ children }) => {
   };
 
   const displayTask = (title) => {
-    return boardToBeDisplayed.columns
+    const userTask = boardToBeDisplayed.columns
       .flatMap((column) => column.tasks)
       .find((task) => task.title === title);
+    setTaskToBeDisplayed(userTask);
   };
 
-  console.log(displayTask("Build UI for onboarding flow"));
+  // console.log(displayTask("Build UI for onboarding flow"));
   //////OPEN AND CLOSE NEW BOARD MODAL//////////////
   const openNewBoardModal = () => {
     setNewBoardModal(true);
@@ -118,6 +121,12 @@ export const AppProvider = ({ children }) => {
   };
   const closeAddTaskModal = () => {
     setIsOpenAddTask(false);
+  };
+  const openViewTaskModal = () => {
+    setViewTaskModal(true);
+  };
+  const closeViewTaskModal = () => {
+    setViewTaskModal(false);
   };
   return (
     <AppContext.Provider
@@ -156,6 +165,13 @@ export const AppProvider = ({ children }) => {
         addNewTask,
         registerNewTask,
         submitNewTask,
+        displayTask,
+        taskToBeDisplayed,
+        setTaskToBeDisplayed,
+        openViewTaskModal,
+        closeViewTaskModal,
+        viewTaskModal,
+        setViewTaskModal,
       }}
     >
       {children}
