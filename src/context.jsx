@@ -56,14 +56,18 @@ export const AppProvider = ({ children }) => {
   const [boardToBeDisplayed, setBoardToBeDisplayed] = useState(boards[0]);
   const [taskToBeDisplayed, setTaskToBeDisplayed] = useState({});
   const [activeBoard, setActiveBoard] = useState("Platform Launch");
-  const [subtaskStatus, setSubtaskStatus] = useState(false);
+
   const updateSubtaskStatus = (title) => {
-    const updatedSubtaskStatus = taskToBeDisplayed?.subtasks.map((subtask) => {
+    const updatedSubtasks = taskToBeDisplayed.subtasks.map((subtask) => {
       if (subtask.title === title) {
         return { ...subtask, isCompleted: !subtask.isCompleted };
       } else return subtask;
     });
-    return updateSubtaskStatus;
+    const newTaskToBeDisplayed = {
+      ...taskToBeDisplayed,
+      subtasks: updatedSubtasks,
+    };
+    setTaskToBeDisplayed(newTaskToBeDisplayed);
   };
 
   /////////SUBMITTING A FORM/////////////
@@ -188,6 +192,7 @@ export const AppProvider = ({ children }) => {
         closeViewTaskModal,
         viewTaskModal,
         setViewTaskModal,
+        updateSubtaskStatus,
       }}
     >
       {children}

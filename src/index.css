@@ -443,3 +443,17 @@ select > option {
 .menu-bar {
   cursor: pointer;
 }
+.subtask {
+  background-color: #8471f2;
+  color: var(--white);
+  padding: 1.6rem;
+  margin-bottom: 8px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.6rem;
+}
+.checked {
+  background-color: var(--very-dark-grey-bg);
+  color: var(--white);
+  text-decoration: line-through;
+}
