@@ -23,6 +23,7 @@ export const AppProvider = ({ children }) => {
   const {
     register: registerNewTask,
     formState: { errors },
+    control: subtaskControl,
     handleSubmit: submitNewTask,
   } = useForm(newTaskForm);
   const {
@@ -38,7 +39,7 @@ export const AppProvider = ({ children }) => {
     append: appendSubtask,
     remove: removeSubtask,
   } = useFieldArray({
-    control,
+    control: subtaskControl,
     name: "subtasks",
   });
 
@@ -55,6 +56,15 @@ export const AppProvider = ({ children }) => {
   const [boardToBeDisplayed, setBoardToBeDisplayed] = useState(boards[0]);
   const [taskToBeDisplayed, setTaskToBeDisplayed] = useState({});
   const [activeBoard, setActiveBoard] = useState("Platform Launch");
+  const [subtaskStatus, setSubtaskStatus] = useState(false);
+  const updateSubtaskStatus = (title) => {
+    const updatedSubtaskStatus = taskToBeDisplayed?.subtasks.map((subtask) => {
+      if (subtask.title === title) {
+        return { ...subtask, isCompleted: !subtask.isCompleted };
+      } else return subtask;
+    });
+    return updateSubtaskStatus;
+  };
 
   /////////SUBMITTING A FORM/////////////
   //////ADDING NEW BOARD TO EXISTING BOARDS///////////////
@@ -77,7 +87,10 @@ export const AppProvider = ({ children }) => {
       title,
       description,
       status,
-      subtasks,
+      subtasks: subtasks.map((subtask) => ({
+        ...subtask,
+        isCompleted: false,
+      })),
     };
     const updatedColumns = boardToBeDisplayed.columns.map((column) => {
       if (column.name === status) {
@@ -148,6 +161,7 @@ export const AppProvider = ({ children }) => {
         setActiveBoard,
         register,
         control,
+        subtaskControl,
         handleSubmit,
         formState,
         newBoardModal,

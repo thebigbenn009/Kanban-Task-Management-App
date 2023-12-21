@@ -48,7 +48,7 @@ const NewTaskModal = () => {
             <button
               className="btn btn-block btn-white"
               type="button"
-              onClick={() => appendSubtask({ title: "" })}
+              onClick={() => appendSubtask({ title: "", isCompleted: false })}
             >
               Add New Subtask
             </button>
