@@ -3,6 +3,7 @@ const AppContext = createContext();
 import jsonData from "../src/data.json";
 import { useForm, useFieldArray } from "react-hook-form";
 import { boardForm, newTaskForm } from "./form registers/Registers";
+import { toast } from "react-toastify";
 
 const data = jsonData.boards;
 console.log(data);
@@ -60,6 +61,10 @@ export const AppProvider = ({ children }) => {
   const updateSubtaskStatus = (title) => {
     const updatedSubtasks = taskToBeDisplayed.subtasks.map((subtask) => {
       if (subtask.title === title) {
+        if (subtask.isCompleted === false) {
+          toast.success(`marked as completed!`);
+        }
+
         return { ...subtask, isCompleted: !subtask.isCompleted };
       } else return subtask;
     });
@@ -67,6 +72,7 @@ export const AppProvider = ({ children }) => {
       ...taskToBeDisplayed,
       subtasks: updatedSubtasks,
     };
+
     setTaskToBeDisplayed(newTaskToBeDisplayed);
   };
 
