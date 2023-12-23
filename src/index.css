@@ -483,7 +483,7 @@ select > option {
   background-color: var(--very-dark-grey-bg);
   position: absolute;
   width: 100%;
-  max-height: 0;
+  /* max-height: 0; */
   opacity: 0;
   visibility: hidden;
 
