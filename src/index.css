@@ -485,7 +485,7 @@ select > option {
   width: 100%;
   max-height: 0;
   opacity: 0;
-  /* visibility: hidden; */
+  visibility: hidden;
 
   /* bottom: 10%; */
   transform: translateY(1.5rem);
