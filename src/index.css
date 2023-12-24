@@ -498,8 +498,8 @@ select > option {
 }
 .ul li {
   list-style: none;
-  padding-inline: 1.6rem;
-  padding-block: 10px;
+  /* padding-inline: 1.6rem; */
+  /* padding-block: 10px; */
   cursor: pointer;
   border-radius: 5px;
 }
