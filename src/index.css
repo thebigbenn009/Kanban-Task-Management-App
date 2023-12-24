@@ -493,7 +493,7 @@ select > option {
 }
 .ul-active {
   max-height: 40rem;
-  opacity: 1;
+  /* opacity: 1; */
   visibility: visible;
 }
 .ul li {
