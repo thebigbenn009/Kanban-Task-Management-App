@@ -494,7 +494,7 @@ select > option {
 .ul-active {
   max-height: 40rem;
   opacity: 1;
-  /* visibility: visible; */
+  visibility: visible;
 }
 .ul li {
   list-style: none;
