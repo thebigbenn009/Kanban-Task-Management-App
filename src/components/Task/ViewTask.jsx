@@ -20,37 +20,31 @@ const ViewTask = () => {
   const { title, description, status, subtasks } = taskToBeDisplayed;
 
   const [currentStatus, setCurrentStatus] = useState(status);
-  console.log(taskToBeDisplayed);
+  //   console.log(taskToBeDisplayed);
   const onCurrentStatus = (title) => {
-    setOpenDropdown(false);
+    // setOpenDropdown(true);
     setTaskToBeDisplayed((prevTask) => {
       const updatedTask = { ...prevTask, status: title };
       setCurrentStatus(title);
       return updatedTask;
     });
   };
+  useEffect(() => {
+    const updatedBoard = {
+      ...boardToBeDisplayed,
+      columns: boardToBeDisplayed.columns.map((column) => ({
+        ...column,
+        tasks: column.tasks.map((task) => {
+          if (task.title === title) {
+            return taskToBeDisplayed;
+          } else return task;
+        }),
+      })),
+    };
+    // console.log(updatedBoard);
+    setBoardToBeDisplayed(updatedBoard);
+  }, [title, taskToBeDisplayed]);
 
-  //   useEffect(() => {
-  //     // const updatedTask = { ...taskToBeDisplayed, status: currentStatus };
-  //     setTaskToBeDisplayed((prevTask) => {
-  //       const updatedTask = { ...prevTask, status: currentStatus };
-  //       return updatedTask;
-  //     });
-  //     // const update = {
-  //     //   ...boardToBeDisplayed,
-  //     //   columns: boardToBeDisplayed.columns.map((column) => ({
-  //     //     ...column,
-  //     //     tasks: column.tasks.map((task) => {
-  //     //       if (task.title === title) {
-  //     //         return updatedTask;
-  //     //       } else {
-  //     //         return task;
-  //     //       }
-  //     //     }),
-  //     //   })),
-  //     // };
-  //     // setBoardToBeDisplayed(update);
-  //   }, [currentStatus, subtasks]);
   return (
     viewTaskModal && (
       <ModalWrapper modal={viewTaskModal}>
@@ -88,7 +82,7 @@ const ViewTask = () => {
                 className="dropdown-value"
                 onClick={() => setOpenDropdown(!openDropdown)}
               >
-                {currentStatus}
+                {status}
               </div>
               <ul className={`ul ${openDropdown && "ul-active"}`}>
                 {boardToBeDisplayed.columns.map((column) => {
