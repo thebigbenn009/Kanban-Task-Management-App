@@ -487,13 +487,13 @@ select > option {
   opacity: 0;
   visibility: hidden;
 
-  bottom: 10%;
+  /* bottom: 10%; */
   transform: translateY(1.5rem);
   transition: all 0.3s ease-in-out;
 }
 .ul-active {
   max-height: 40rem;
-  /* opacity: 1; */
+  opacity: 1;
   visibility: visible;
 }
 .ul li {
