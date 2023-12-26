@@ -22,10 +22,9 @@ const ViewTask = () => {
   const [currentStatus, setCurrentStatus] = useState(status);
   //   console.log(taskToBeDisplayed);
   const onCurrentStatus = (title) => {
-    // setOpenDropdown(true);
+    setCurrentStatus(title);
     setTaskToBeDisplayed((prevTask) => {
       const updatedTask = { ...prevTask, status: title };
-      setCurrentStatus(title);
       return updatedTask;
     });
   };
@@ -41,7 +40,7 @@ const ViewTask = () => {
         }),
       })),
     };
-    // console.log(updatedBoard);
+
     setBoardToBeDisplayed(updatedBoard);
   }, [title, taskToBeDisplayed]);
 
