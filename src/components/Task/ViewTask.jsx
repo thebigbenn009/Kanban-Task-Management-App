@@ -58,7 +58,10 @@ const ViewTask = () => {
         <CloseModal modalToCLose={closeViewTaskModal} />
         <form className={`form-modal ${viewTaskModal ? "active" : ""}`}>
           <div className="title-header">
-            <h3>{title}</h3>
+            <div className="title-h3">
+              <h3>{title}</h3>
+            </div>
+
             <span
               className="menu-bar"
               onClick={() => setOpenMenuDropdown(!openMenuDropdown)}
