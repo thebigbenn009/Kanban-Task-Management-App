@@ -5,7 +5,6 @@ import CloseModal from "../modal/CloseModal";
 import Subtask from "./Subtask";
 import NumCompletedSubtasks from "./NumCompletedSubtasks";
 import TaskStatus from "./TaskStatus";
-import { produce } from "immer";
 
 const ViewTask = () => {
   const {
@@ -28,21 +27,37 @@ const ViewTask = () => {
       return updatedTask;
     });
   };
+  //   useEffect(() => {
+  //     const updatedBoard = {
+  //       ...boardToBeDisplayed,
+  //       columns: boardToBeDisplayed.columns.map((column) => ({
+  //         ...column,
+  //         tasks: column.tasks.map((task) => {
+  //           if (task.title === title) {
+  //             return taskToBeDisplayed;
+  //           } else return task;
+  //         }),
+  //       })),
+  //     };
+
+  //     setBoardToBeDisplayed(updatedBoard);
+  //   }, [title, taskToBeDisplayed]);
   useEffect(() => {
     const updatedBoard = {
       ...boardToBeDisplayed,
-      columns: boardToBeDisplayed.columns.map((column) => ({
-        ...column,
-        tasks: column.tasks.map((task) => {
-          if (task.title === title) {
-            return taskToBeDisplayed;
-          } else return task;
-        }),
-      })),
+      columns: boardToBeDisplayed.columns.map((column) => {
+        const updatedColumn = {
+          ...column,
+          tasks: column.tasks.filter((task) => task.title !== title),
+        };
+        if (column.name === currentStatus) {
+          updatedColumn.tasks.push(taskToBeDisplayed);
+        }
+        return updatedColumn;
+      }),
     };
-
     setBoardToBeDisplayed(updatedBoard);
-  }, [title, taskToBeDisplayed]);
+  }, [title, currentStatus, taskToBeDisplayed, boardToBeDisplayed]);
 
   return (
     viewTaskModal && (
