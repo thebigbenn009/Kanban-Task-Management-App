@@ -5,6 +5,8 @@ import CloseModal from "../modal/CloseModal";
 import Subtask from "./Subtask";
 import NumCompletedSubtasks from "./NumCompletedSubtasks";
 import TaskStatus from "./TaskStatus";
+import { toast } from "react-toastify";
+import DropdownMenu from "./DropdownMenu";
 
 const ViewTask = () => {
   const {
@@ -19,37 +21,28 @@ const ViewTask = () => {
   const { title, description, status, subtasks } = taskToBeDisplayed;
 
   const [currentStatus, setCurrentStatus] = useState(status);
-  //   console.log(taskToBeDisplayed);
+  const [openMenuDropdown, setOpenMenuDropdown] = useState(false);
   const onCurrentStatus = (title) => {
     setCurrentStatus(title);
+
     setTaskToBeDisplayed((prevTask) => {
       const updatedTask = { ...prevTask, status: title };
       return updatedTask;
     });
+    setOpenDropdown(false);
+    toast.success(`current status changed to ${title}`);
   };
-  //   useEffect(() => {
-  //     const updatedBoard = {
-  //       ...boardToBeDisplayed,
-  //       columns: boardToBeDisplayed.columns.map((column) => ({
-  //         ...column,
-  //         tasks: column.tasks.map((task) => {
-  //           if (task.title === title) {
-  //             return taskToBeDisplayed;
-  //           } else return task;
-  //         }),
-  //       })),
-  //     };
 
-  //     setBoardToBeDisplayed(updatedBoard);
-  //   }, [title, taskToBeDisplayed]);
   useEffect(() => {
     const updatedBoard = {
       ...boardToBeDisplayed,
       columns: boardToBeDisplayed.columns.map((column) => {
+        //we are returning updatedColumn for every column object mapped
         const updatedColumn = {
           ...column,
           tasks: column.tasks.filter((task) => task.title !== title),
         };
+        //if the column name is the same as the currentStatus, push the updatedTask object to the that column
         if (column.name === currentStatus) {
           updatedColumn.tasks.push(taskToBeDisplayed);
         }
@@ -57,7 +50,7 @@ const ViewTask = () => {
       }),
     };
     setBoardToBeDisplayed(updatedBoard);
-  }, [title, currentStatus, taskToBeDisplayed, boardToBeDisplayed]);
+  }, [title, currentStatus, taskToBeDisplayed]);
 
   return (
     viewTaskModal && (
@@ -66,7 +59,10 @@ const ViewTask = () => {
         <form className={`form-modal ${viewTaskModal ? "active" : ""}`}>
           <div className="title-header">
             <h3>{title}</h3>
-            <span className="menu-bar">
+            <span
+              className="menu-bar"
+              onClick={() => setOpenMenuDropdown(!openMenuDropdown)}
+            >
               <svg width="5" height="20" xmlns="http://www.w3.org/2000/svg">
                 <g fill="#828FA3" fill-rule="evenodd">
                   <circle cx="2.308" cy="2.308" r="2.308" />
@@ -75,6 +71,7 @@ const ViewTask = () => {
                 </g>
               </svg>
             </span>
+            <DropdownMenu openMenuDropdown={openMenuDropdown} />
           </div>
           <p className="description">{description}</p>
           <div className="subtasks">

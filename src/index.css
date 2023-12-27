@@ -5,12 +5,13 @@
 ::before {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  box-sizing: inherit;
 }
 
 html {
   font-size: 62.5%;
   font-family: "Plus Jakarta Sans", sans-serif;
+  box-sizing: border-box;
 }
 :root {
   /* COLORS */
@@ -446,6 +447,7 @@ select > option {
   display: flex;
 
   justify-content: space-between;
+  position: relative;
 }
 .menu-bar {
   cursor: pointer;
@@ -511,4 +513,21 @@ select > option {
 }
 .ul li:hover {
   background-color: #979797;
+}
+.dropdown-menu {
+  width: 16.2rem;
+  background-color: var(--very-dark-grey-bg);
+  padding: 1.6rem;
+  position: absolute;
+  bottom: -2rem;
+  right: -7rem;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+  opacity: 0;
+  visibility: hidden;
+}
+.dropdown-menu-active {
+  transform: translateY(3rem);
+  opacity: 1;
+  visibility: visible;
 }
