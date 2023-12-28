@@ -36,13 +36,16 @@ const ViewTask = () => {
     toast.success(`current status changed to ${title}`);
   };
   useEffect(() => {
+    // Somehow, this managed to work.
+    // I observed that the initial state of the destructured "title" gotten from the taskToBeDisplayed state is undefined.
+    // AFter clicking on the task, the taskToBeDisplayed becomes a defined object, and so does the destructured title.
+    // Setting the currentStatus to the destructured status happens only when the title changes, which makes sense, since the title did in fact, change from undefined to a defined value.
+    //Now, when the onCurrent function is being called, setCurrentStatus would be updated to the name of the column whenever the user changes the status of the task.
+    // the status property of the updatedTask is set to the currentStatus
+
     setCurrentStatus(status);
   }, [title]);
   useEffect(() => {
-    //Get the original index of the task
-    const originalIndex = boardToBeDisplayed.columns
-      .flatMap((column) => column.tasks)
-      .findIndex((task) => task.title === title);
     const updatedBoard = {
       ...boardToBeDisplayed,
       columns: boardToBeDisplayed.columns.map((column) => {
