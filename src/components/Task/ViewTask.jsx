@@ -7,6 +7,7 @@ import NumCompletedSubtasks from "./NumCompletedSubtasks";
 import TaskStatus from "./TaskStatus";
 import { toast } from "react-toastify";
 import DropdownMenu from "./DropdownMenu";
+import DeleteModal from "../modal/DeleteModal";
 
 const ViewTask = () => {
   const {
@@ -16,24 +17,32 @@ const ViewTask = () => {
     setTaskToBeDisplayed,
     boardToBeDisplayed,
     setBoardToBeDisplayed,
+    openMenuDropdown,
+    setOpenMenuDropdown,
   } = useGlobalContext();
   const [openDropdown, setOpenDropdown] = useState(false);
   const { title, description, status, subtasks } = taskToBeDisplayed;
 
-  const [currentStatus, setCurrentStatus] = useState(status);
-  const [openMenuDropdown, setOpenMenuDropdown] = useState(false);
+  const [currentStatus, setCurrentStatus] = useState("");
+
   const onCurrentStatus = (title) => {
     setCurrentStatus(title);
 
     setTaskToBeDisplayed((prevTask) => {
-      const updatedTask = { ...prevTask, status: title };
+      const updatedTask = { ...prevTask, status: currentStatus };
       return updatedTask;
     });
     setOpenDropdown(false);
     toast.success(`current status changed to ${title}`);
   };
-
   useEffect(() => {
+    setCurrentStatus(status);
+  }, [title]);
+  useEffect(() => {
+    //Get the original index of the task
+    const originalIndex = boardToBeDisplayed.columns
+      .flatMap((column) => column.tasks)
+      .findIndex((task) => task.title === title);
     const updatedBoard = {
       ...boardToBeDisplayed,
       columns: boardToBeDisplayed.columns.map((column) => {
@@ -44,7 +53,8 @@ const ViewTask = () => {
         };
         //if the column name is the same as the currentStatus, push the updatedTask object to the that column
         if (column.name === currentStatus) {
-          updatedColumn.tasks.push(taskToBeDisplayed);
+          updatedColumn.tasks = [taskToBeDisplayed, ...updatedColumn.tasks];
+          //   updatedColumn.tasks.splice(originalIndex, 0, taskToBeDisplayed);
         }
         return updatedColumn;
       }),

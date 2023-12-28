@@ -533,13 +533,57 @@ select > option {
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
     rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
-.dropdown-menu p {
+.task-options p {
   cursor: pointer;
 }
-.dropdown-menu p:not(:last-child) {
+.task-options p:not(:last-child) {
   margin-bottom: 1.6rem;
 }
 .title-h3 {
   width: 85%;
   text-align: left;
+}
+.delete-task {
+  color: var(--danger);
+}
+.delete-task:hover {
+  color: var(--danger-hover);
+}
+.edit-task {
+  color: var(--medium-grey);
+}
+.edit-task:hover {
+  color: var(--white);
+}
+.max-wrapper {
+  max-width: 1140px;
+  margin-inline: auto;
+}
+.btn-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.6rem;
+  margin-top: 2.4rem;
+}
+.btn-container > * {
+  display: grid;
+  place-items: center;
+}
+.btn-delete {
+  background-color: var(--danger);
+  color: var(--white);
+}
+.btn-delete:hover {
+  background-color: var(--danger-hover);
+}
+.btn-cancel {
+  background-color: #fff;
+  color: var(--main-purple);
+}
+.delete-h3 {
+  color: var(--danger);
+  margin-bottom: 2.4rem;
+}
+.delete-p {
+  color: var(--medium-grey);
 }

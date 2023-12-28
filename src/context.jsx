@@ -57,7 +57,14 @@ export const AppProvider = ({ children }) => {
   const [boardToBeDisplayed, setBoardToBeDisplayed] = useState(boards[0]);
   const [taskToBeDisplayed, setTaskToBeDisplayed] = useState({});
   const [activeBoard, setActiveBoard] = useState("Platform Launch");
-
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [openMenuDropdown, setOpenMenuDropdown] = useState(false);
+  const openDeleteModal = () => {
+    setDeleteModal(true);
+  };
+  const closeDeleteModal = () => {
+    setDeleteModal(false);
+  };
   const updateSubtaskStatus = (title) => {
     const updatedSubtasks = taskToBeDisplayed.subtasks.map((subtask) => {
       if (subtask.title === title) {
@@ -132,7 +139,22 @@ export const AppProvider = ({ children }) => {
       .find((task) => task.title === title);
     setTaskToBeDisplayed(userTask);
   };
-
+  const deleteTask = (title) => {
+    const newBoard = {
+      ...boardToBeDisplayed,
+      columns: boardToBeDisplayed.columns.map((column) => {
+        const updatedColumn = {
+          ...column,
+          tasks: column.tasks.filter((task) => task.title !== title),
+        };
+        return updatedColumn;
+      }),
+    };
+    setBoardToBeDisplayed(newBoard);
+    setDeleteModal(false);
+    setOpenMenuDropdown(false);
+    setTaskToBeDisplayed({});
+  };
   // console.log(displayTask("Build UI for onboarding flow"));
   //////OPEN AND CLOSE NEW BOARD MODAL//////////////
   const openNewBoardModal = () => {
@@ -199,6 +221,13 @@ export const AppProvider = ({ children }) => {
         viewTaskModal,
         setViewTaskModal,
         updateSubtaskStatus,
+        deleteModal,
+        setDeleteModal,
+        openDeleteModal,
+        closeDeleteModal,
+        deleteTask,
+        openMenuDropdown,
+        setOpenMenuDropdown,
       }}
     >
       {children}

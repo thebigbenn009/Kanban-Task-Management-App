@@ -15,14 +15,14 @@ const Column = ({ name, tasks }) => {
         {tasks && (
           <div className="column-rows">
             {tasks.map((task) => {
-              const { subtasks } = task;
-              const numCompleted = subtasks.filter(
-                (subtask) => subtask.isCompleted === true
-              ).length;
+              const numCompleted =
+                task.subtasks &&
+                task.subtasks.filter((subtask) => subtask.isCompleted === true)
+                  .length;
               return (
                 <ColumnCard
                   title={task.title}
-                  length={subtasks.length}
+                  length={task.subtasks && task.subtasks.length}
                   numCompleted={numCompleted}
                 />
               );
