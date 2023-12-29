@@ -4,8 +4,18 @@ import { useGlobalContext } from "../../context";
 import Brand from "../sidebar/Brand";
 
 const Sidebar = () => {
-  const { switchMode, setSwitchMode, openSidebar, setOpenSidebar } =
-    useGlobalContext();
+  const {
+    switchMode,
+    setSwitchMode,
+    openSidebar,
+    setOpenSidebar,
+    switchTheme,
+    theme,
+  } = useGlobalContext();
+  const toggleSwitch = () => {
+    switchTheme();
+    setSwitchMode(!switchMode);
+  };
   return (
     <div
       className={`${
@@ -27,10 +37,10 @@ const Sidebar = () => {
             fill="#828FA3"
           />
         </svg>
-        <div className="switch" onClick={() => setSwitchMode(!switchMode)}>
+        <div className="switch" onClick={() => toggleSwitch()}>
           <span
             style={{
-              transform: ` translateX(${switchMode === true ? "20px" : "0px"})`,
+              transform: ` translateX(${switchMode === true ? "0px" : "20px"})`,
             }}
           ></span>
         </div>

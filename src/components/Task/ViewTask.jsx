@@ -29,7 +29,7 @@ const ViewTask = () => {
     setCurrentStatus(title);
 
     setTaskToBeDisplayed((prevTask) => {
-      const updatedTask = { ...prevTask, status: currentStatus };
+      const updatedTask = { ...prevTask, status: title };
       return updatedTask;
     });
     setOpenDropdown(false);
@@ -42,10 +42,13 @@ const ViewTask = () => {
     // Setting the currentStatus to the destructured status happens only when the title changes, which makes sense, since the title did in fact, change from undefined to a defined value.
     //Now, when the onCurrent function is being called, setCurrentStatus would be updated to the name of the column whenever the user changes the status of the task.
     // the status property of the updatedTask is set to the currentStatus
-
     setCurrentStatus(status);
   }, [title]);
   useEffect(() => {
+    //Get the original index of the task
+    const originalIndex = boardToBeDisplayed.columns
+      .flatMap((column) => column.tasks)
+      .findIndex((task) => task.title === title);
     const updatedBoard = {
       ...boardToBeDisplayed,
       columns: boardToBeDisplayed.columns.map((column) => {
@@ -57,7 +60,6 @@ const ViewTask = () => {
         //if the column name is the same as the currentStatus, push the updatedTask object to the that column
         if (column.name === currentStatus) {
           updatedColumn.tasks = [taskToBeDisplayed, ...updatedColumn.tasks];
-          //   updatedColumn.tasks.splice(originalIndex, 0, taskToBeDisplayed);
         }
         return updatedColumn;
       }),

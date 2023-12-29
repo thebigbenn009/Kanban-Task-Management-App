@@ -4,6 +4,7 @@ import jsonData from "../src/data.json";
 import { useForm, useFieldArray } from "react-hook-form";
 import { boardForm, newTaskForm } from "./form registers/Registers";
 import { toast } from "react-toastify";
+import useLocalStorage from "use-local-storage";
 
 const data = jsonData.boards;
 console.log(data);
@@ -59,6 +60,11 @@ export const AppProvider = ({ children }) => {
   const [activeBoard, setActiveBoard] = useState("Platform Launch");
   const [deleteModal, setDeleteModal] = useState(false);
   const [openMenuDropdown, setOpenMenuDropdown] = useState(false);
+  const [theme, setTheme] = useLocalStorage("theme" ? "dark" : "light");
+  const switchTheme = () => {
+    const newTheme = theme === "dark" ? "light" : "dark";
+    setTheme(newTheme);
+  };
   const openDeleteModal = () => {
     setDeleteModal(true);
   };
@@ -228,6 +234,8 @@ export const AppProvider = ({ children }) => {
         deleteTask,
         openMenuDropdown,
         setOpenMenuDropdown,
+        switchTheme,
+        theme,
       }}
     >
       {children}

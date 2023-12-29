@@ -16,11 +16,7 @@ const Subtask = ({ title, isCompleted }) => {
         onChange={handleChecked}
         className="checkbox"
       />
-      <p
-        style={{ textDecoration: `${!isCompleted ? "none" : "line-through"}` }}
-      >
-        {title}
-      </p>
+      <p className={isCompleted && "completed"}>{title}</p>
     </div>
   );
 };
