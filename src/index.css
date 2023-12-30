@@ -16,7 +16,7 @@ html {
 :root {
   /* COLORS */
   --main-purple: #635fc7;
-  /* --btn-primary: #635fc7; */
+  --btn-primary: #635fc7;
   --btn-secondary: #fff;
 
   --btn-secondary-hover: rgba(99, 95, 199, 0.25);
