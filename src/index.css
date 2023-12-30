@@ -16,7 +16,7 @@ html {
 :root {
   /* COLORS */
   --main-purple: #635fc7;
-  --btn-primary: #635fc7;
+  /* --btn-primary: #635fc7; */
   --btn-secondary: #fff;
 
   --btn-secondary-hover: rgba(99, 95, 199, 0.25);
@@ -457,7 +457,7 @@ select > option {
   transition: all 0.3s ease-in-out;
 }
 .close-modal svg path {
-  fill: var(--white);
+  fill: #fff;
   /* height: 3rem;
   width: 3rem; */
 }
@@ -465,7 +465,7 @@ select > option {
   background-color: var(--danger-hover);
 }
 .close-modal:hover svg path {
-  fill: var(--white);
+  fill: #fff;
 }
 .title-header {
   display: flex;
@@ -485,9 +485,12 @@ select > option {
   grid-template-columns: auto 1fr;
   gap: 1.6rem;
   cursor: pointer;
+  transition: all 0.3s ease-in-out;
 }
 .subtask:hover {
   background-color: var(--main-purple);
+}
+.subtask:hover .completed {
   color: var(--white);
 }
 .completed {
@@ -545,7 +548,8 @@ select > option {
   cursor: pointer;
 }
 .ul li:hover {
-  background-color: #979797;
+  background-color: var(--btn-primary);
+  color: #fff;
 }
 .dropdown-menu {
   width: 16.2rem;
@@ -604,7 +608,7 @@ select > option {
 }
 .btn-delete {
   background-color: var(--danger);
-  color: var(--white);
+  color: #fff;
 }
 .btn-delete:hover {
   background-color: var(--danger-hover);

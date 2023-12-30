@@ -9,11 +9,14 @@ const Subtask = ({ title, isCompleted }) => {
     updateSubtaskStatus(title);
   };
   return (
-    <div className={`subtask ${isCompleted && "checked"}`}>
+    <div
+      onClick={handleChecked}
+      className={`subtask ${isCompleted && "checked"}`}
+    >
       <input
         type="checkbox"
         checked={isCompleted}
-        onChange={handleChecked}
+        // onChange={handleChecked}
         className="checkbox"
       />
       <p className={isCompleted && "completed"}>{title}</p>

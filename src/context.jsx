@@ -61,6 +61,7 @@ export const AppProvider = ({ children }) => {
   const [deleteModal, setDeleteModal] = useState(false);
   const [openMenuDropdown, setOpenMenuDropdown] = useState(false);
   const [theme, setTheme] = useLocalStorage("theme" ? "dark" : "light");
+  const [openDropdown, setOpenDropdown] = useState(false);
   const switchTheme = () => {
     const newTheme = theme === "dark" ? "light" : "dark";
     setTheme(newTheme);
@@ -180,6 +181,7 @@ export const AppProvider = ({ children }) => {
   };
   const closeViewTaskModal = () => {
     setViewTaskModal(false);
+    setOpenMenuDropdown(false);
   };
   return (
     <AppContext.Provider
@@ -236,6 +238,8 @@ export const AppProvider = ({ children }) => {
         setOpenMenuDropdown,
         switchTheme,
         theme,
+        openDropdown,
+        setOpenDropdown,
       }}
     >
       {children}

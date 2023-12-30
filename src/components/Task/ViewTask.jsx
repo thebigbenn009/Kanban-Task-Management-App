@@ -19,8 +19,10 @@ const ViewTask = () => {
     setBoardToBeDisplayed,
     openMenuDropdown,
     setOpenMenuDropdown,
+    openDropdown,
+    setOpenDropdown,
   } = useGlobalContext();
-  const [openDropdown, setOpenDropdown] = useState(false);
+
   const { title, description, status, subtasks } = taskToBeDisplayed;
 
   const [currentStatus, setCurrentStatus] = useState("");
@@ -35,6 +37,10 @@ const ViewTask = () => {
     setOpenDropdown(false);
     toast.success(`current status changed to ${title}`);
   };
+  const closeModal = () => {
+    closeViewTaskModal();
+    setOpenDropdown(false);
+  };
   useEffect(() => {
     // Somehow, this managed to work.
     // I observed that the initial state of the destructured "title" gotten from the taskToBeDisplayed state is undefined.
@@ -45,10 +51,6 @@ const ViewTask = () => {
     setCurrentStatus(status);
   }, [title]);
   useEffect(() => {
-    //Get the original index of the task
-    const originalIndex = boardToBeDisplayed.columns
-      .flatMap((column) => column.tasks)
-      .findIndex((task) => task.title === title);
     const updatedBoard = {
       ...boardToBeDisplayed,
       columns: boardToBeDisplayed.columns.map((column) => {
