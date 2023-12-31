@@ -12,6 +12,8 @@ html {
   font-size: 62.5%;
   font-family: "Plus Jakarta Sans", sans-serif;
   box-sizing: border-box;
+  height: 100vh;
+  overflow: auto;
 }
 :root {
   /* COLORS */
@@ -52,6 +54,9 @@ html {
 
 body {
   font-size: 1.3rem;
+  height: 100vh;
+  overflow: hidden;
+
   /* color: var(--white); */
 }
 h1 {
@@ -76,6 +81,7 @@ p {
   position: relative;
   grid-template-columns: 25rem 1fr;
   height: 100vh;
+
   transition: grid-template-columns 0.3s ease-in-out;
 }
 .hidden {
@@ -87,6 +93,8 @@ p {
 }
 .sidebar {
   background-color: var(--dark-grey);
+  /* height: 100vh; */
+  overflow: hidden;
   padding: 2rem;
   display: grid;
   grid-template-rows: auto 1fr auto auto;
@@ -202,6 +210,7 @@ p {
   padding: 10px;
   display: flex;
   justify-content: center;
+  transform: translateY(-3rem);
   gap: 2rem;
   margin-bottom: 2rem;
 }
@@ -298,6 +307,8 @@ p {
 .columns {
   /* max-width: 112rem; */
   /* background-color: #ea5555; */
+  height: 100vh;
+  overflow: auto;
   padding-block: 2.4rem;
   padding-left: 2.4rem;
   display: grid;
