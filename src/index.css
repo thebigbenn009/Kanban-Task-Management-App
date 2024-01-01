@@ -135,7 +135,7 @@ p {
   margin-bottom: 2.4rem;
 } */
 .visibility-hidden {
-  visibility: hidden;
+  /* visibility: hidden; */
 }
 .brand span {
   margin-right: 1.5rem;
