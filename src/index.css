@@ -13,7 +13,6 @@ html {
   font-family: "Plus Jakarta Sans", sans-serif;
   box-sizing: border-box;
   height: 100vh;
-  overflow: auto;
 }
 :root {
   /* COLORS */
@@ -93,8 +92,8 @@ p {
 }
 .sidebar {
   background-color: var(--dark-grey);
-  /* height: 100vh; */
-  overflow: hidden;
+  height: 100vh;
+  /* overflow: hidden; */
   padding: 2rem;
   display: grid;
   grid-template-rows: auto 1fr auto auto;
@@ -107,7 +106,7 @@ p {
 }
 .open-sidebar {
   position: absolute;
-  bottom: 3rem;
+  bottom: 11rem;
   height: 5rem;
   width: 5rem;
   background-color: var(--main-purple);
@@ -136,7 +135,7 @@ p {
   margin-bottom: 2.4rem;
 } */
 .visibility-hidden {
-  visibility: hidden;
+  /* visibility: hidden; */
 }
 .brand span {
   margin-right: 1.5rem;
@@ -223,6 +222,10 @@ p {
   display: flex;
   align-items: center;
   cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.switch:hover {
+  background-color: var(--purple-hover);
 }
 .switch span {
   height: 1.65rem;
@@ -235,6 +238,7 @@ p {
 .hide-sidebar {
   display: flex;
   gap: 1rem;
+  margin-top: -3rem;
   color: var(--medium-grey);
   cursor: pointer;
 }
@@ -308,7 +312,7 @@ p {
   /* max-width: 112rem; */
   /* background-color: #ea5555; */
   height: 100vh;
-  overflow: auto;
+  overflow-x: auto;
   padding-block: 2.4rem;
   padding-left: 2.4rem;
   display: grid;
@@ -319,6 +323,8 @@ p {
   display: flex;
   gap: 1.2rem;
   align-items: center;
+  /* position: fixed;
+  z-index: 100; */
   margin-bottom: 2.4rem;
 }
 .column-title span {
