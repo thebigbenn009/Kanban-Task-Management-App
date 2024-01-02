@@ -9,6 +9,9 @@ const DropdownMenu = ({ openMenuDropdown }) => {
     closeViewTaskModal();
     openDeleteModal();
   };
+  const onEdit = () => {
+    closeViewTaskModal();
+  };
   return (
     <div
       className={`dropdown-menu ${

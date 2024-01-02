@@ -7,8 +7,7 @@ import ViewTask from "../Task/ViewTask";
 import DeleteModal from "../modal/DeleteModal";
 
 const Boards = () => {
-  const { boards, setBoards, openNewBoardModal, taskToBeDisplayed } =
-    useGlobalContext();
+  const { boards, setBoards, openNewBoardModal } = useGlobalContext();
   return (
     <>
       <div className="boards">
@@ -40,11 +39,6 @@ const Boards = () => {
           <p>create new board</p>
         </div>
       </div>
-
-      <NewBoardModal />
-      <NewTaskModal />
-      <ViewTask />
-      <DeleteModal task={taskToBeDisplayed.title} />
     </>
   );
 };

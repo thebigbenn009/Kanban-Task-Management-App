@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { useGlobalContext } from "../../context";
 import Task from "../Task/Task";
-
+import NewTaskModal from "../modal/NewTaskModal";
+import NewBoardModal from "../modal/NewBoardModal";
+import ViewTask from "../Task/ViewTask";
+import DeleteModal from "../modal/DeleteModal";
 const MainContent = () => {
-  const { openSidebar, setOpenSidebar } = useGlobalContext();
+  const { openSidebar, setOpenSidebar, taskToBeDisplayed } = useGlobalContext();
   return (
     <section className="main-content">
       {openSidebar && (
@@ -27,6 +30,11 @@ const MainContent = () => {
       <div className="task-pad">
         <Task />
       </div>
+      <ViewTask />
+      <NewBoardModal />
+      <NewTaskModal />
+
+      <DeleteModal task={taskToBeDisplayed.title} />
     </section>
   );
 };
