@@ -5,6 +5,7 @@ import NewTaskModal from "../modal/NewTaskModal";
 import NewBoardModal from "../modal/NewBoardModal";
 import ViewTask from "../Task/ViewTask";
 import DeleteModal from "../modal/DeleteModal";
+import EditTaskModal from "../modal/EditTaskModal";
 const MainContent = () => {
   const { openSidebar, setOpenSidebar, taskToBeDisplayed } = useGlobalContext();
   return (
@@ -33,6 +34,7 @@ const MainContent = () => {
       <ViewTask />
       <NewBoardModal />
       <NewTaskModal />
+      <EditTaskModal />
 
       <DeleteModal task={taskToBeDisplayed.title} />
     </section>

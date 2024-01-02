@@ -11,7 +11,7 @@ const NewTaskModal = () => {
     registerNewTask,
     subtaskFields,
     appendSubtask,
-    removeSubtask,
+    removeEditColumn,
     submitNewTask,
     addNewTask,
     getValues,
@@ -40,7 +40,7 @@ const NewTaskModal = () => {
             return (
               <div className="add-column" key={field.id}>
                 <input {...registerNewTask(`subtasks.${index}.title`)} />
-                <RemoveInput remove={removeSubtask} index={index} />
+                <RemoveInput remove={removeEditColumn} index={index} />
               </div>
             );
           })}

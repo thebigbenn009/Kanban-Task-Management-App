@@ -28,23 +28,7 @@ export const AppProvider = ({ children }) => {
     control: subtaskControl,
     handleSubmit: submitNewTask,
   } = useForm(newTaskForm);
-  /////////EDIT TASK FORM////////////////
-  const {
-    register: editTask,
-    // formState: { errors },
-    control: editTaskControl,
-    handleSubmit: submitEditTask,
-  } = useForm({
-    defaultValues: taskToBeDisplayed,
-  });
-  const {
-    fields: editTaskFields,
-    append: editColumn,
-    remove: removeEditColumn,
-  } = useFieldArray({
-    control: editTaskControl,
-    name: "editColumns",
-  });
+
   /////////NEW COLUMN FORM////////////////
 
   const {
@@ -82,6 +66,24 @@ export const AppProvider = ({ children }) => {
   const [theme, setTheme] = useLocalStorage("theme" ? "dark" : "light");
   const [openDropdown, setOpenDropdown] = useState(false);
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
+
+  /////////EDIT TASK FORM////////////////
+  const {
+    register: registerEditTask,
+    control: editTaskControl,
+    handleSubmit: submitEditTask,
+    setValue: setValueForEditForm,
+    reset: resetEditForm,
+  } = useForm();
+  const {
+    fields: editTaskFields,
+    append: appendEditColumn,
+    remove: removeEditColumn,
+  } = useFieldArray({
+    control: editTaskControl,
+    name: "editColumns",
+  });
+
   const openEditModal = () => {
     setIsOpenEditModal(true);
   };
@@ -267,18 +269,20 @@ export const AppProvider = ({ children }) => {
         theme,
         openDropdown,
         setOpenDropdown,
-        editTask,
-        editTaskControl,
+        registerEditTask,
+
         submitEditTask,
-        editFormDefaultValues,
+
         editTaskFields,
-        editColumn,
+        appendEditColumn,
         removeEditColumn,
         editTaskControl,
         isOpenEditModal,
         setIsOpenEditModal,
         openEditModal,
         closeEditModal,
+        setValueForEditForm,
+        resetEditForm,
       }}
     >
       {children}

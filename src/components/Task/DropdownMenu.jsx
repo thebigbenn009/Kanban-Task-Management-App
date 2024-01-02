@@ -3,14 +3,20 @@ import { useGlobalContext } from "../../context";
 import DeleteModal from "../modal/DeleteModal";
 
 const DropdownMenu = ({ openMenuDropdown }) => {
-  const { closeViewTaskModal, openDeleteModal, openDropdown, setOpenDropdown } =
-    useGlobalContext();
+  const {
+    closeViewTaskModal,
+    openDeleteModal,
+    openDropdown,
+    setOpenDropdown,
+    openEditModal,
+  } = useGlobalContext();
   const onDelete = () => {
     closeViewTaskModal();
     openDeleteModal();
   };
   const onEdit = () => {
     closeViewTaskModal();
+    openEditModal();
   };
   return (
     <div
@@ -19,7 +25,9 @@ const DropdownMenu = ({ openMenuDropdown }) => {
       }`}
     >
       <div className="task-options">
-        <p className="edit-task">Edit Task</p>
+        <p className="edit-task" onClick={() => onEdit()}>
+          Edit Task
+        </p>
         <p onClick={() => onDelete()} className="delete-task">
           Delete Task
         </p>
