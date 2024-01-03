@@ -24,10 +24,18 @@ export const AppProvider = ({ children }) => {
 
   const {
     register: registerNewTask,
-    formState: { errors },
     control: subtaskControl,
     handleSubmit: submitNewTask,
+    reset: resetNewTask,
   } = useForm(newTaskForm);
+  const {
+    fields: subtaskFields,
+    append: appendSubtask,
+    remove: removeSubtask,
+  } = useFieldArray({
+    control: subtaskControl,
+    name: "subtasks",
+  });
 
   /////////NEW COLUMN FORM////////////////
 
@@ -38,14 +46,6 @@ export const AppProvider = ({ children }) => {
   } = useFieldArray({
     control,
     name: "newColumns",
-  });
-  const {
-    fields: subtaskFields,
-    append: appendSubtask,
-    remove: removeSubtask,
-  } = useFieldArray({
-    control: subtaskControl,
-    name: "subtasks",
   });
 
   ////////////////////////////USE REDUCER//////////////////
@@ -159,6 +159,7 @@ export const AppProvider = ({ children }) => {
 
     setBoardToBeDisplayed(updatedBoardToBeDisplayed);
     setIsOpenAddTask(false);
+    resetNewTask();
   };
   ///////FUNCTIONS/////////////////////////
   const getBoardToBeDisplayed = (boardName) => {
@@ -250,6 +251,7 @@ export const AppProvider = ({ children }) => {
         addNewTask,
         registerNewTask,
         submitNewTask,
+        resetNewTask,
         displayTask,
         taskToBeDisplayed,
         setTaskToBeDisplayed,

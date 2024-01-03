@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useGlobalContext } from "../../context";
 import CloseModal from "./CloseModal";
 import RemoveInput from "../Task/RemoveInput";
@@ -11,13 +11,17 @@ const NewTaskModal = () => {
     registerNewTask,
     subtaskFields,
     appendSubtask,
-    removeEditColumn,
+    removeSubtask,
     submitNewTask,
     addNewTask,
     getValues,
     boardToBeDisplayed,
+    resetNewTask,
   } = useGlobalContext();
 
+  useEffect(() => {
+    resetNewTask();
+  }, [isOpenAddTask]);
   return (
     isOpenAddTask && (
       <ModalWrapper modal={isOpenAddTask}>
@@ -40,7 +44,7 @@ const NewTaskModal = () => {
             return (
               <div className="add-column" key={field.id}>
                 <input {...registerNewTask(`subtasks.${index}.title`)} />
-                <RemoveInput remove={removeEditColumn} index={index} />
+                <RemoveInput remove={removeSubtask} index={index} />
               </div>
             );
           })}
