@@ -2,7 +2,7 @@ import React, { createContext, useContext, useReducer, useState } from "react";
 const AppContext = createContext();
 import jsonData from "../src/data.json";
 import { useForm, useFieldArray } from "react-hook-form";
-import { boardForm, newTaskForm } from "./form registers/Registers";
+import { boardForm, editForm, newTaskForm } from "./form registers/Registers";
 import { toast } from "react-toastify";
 import useLocalStorage from "use-local-storage";
 
@@ -74,14 +74,14 @@ export const AppProvider = ({ children }) => {
     handleSubmit: submitEditTask,
     setValue: setValueForEditForm,
     reset: resetEditForm,
-  } = useForm();
+  } = useForm(editForm);
   const {
     fields: editTaskFields,
     append: appendEditColumn,
     remove: removeEditColumn,
   } = useFieldArray({
     control: editTaskControl,
-    name: "editColumns",
+    name: "esubtasks",
   });
 
   const openEditModal = () => {
