@@ -1,13 +1,17 @@
-import React, { createContext, useContext, useReducer, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 const AppContext = createContext();
-import jsonData from "../src/data.json";
+import jsonFile from "../src/data.json";
 import { useForm, useFieldArray } from "react-hook-form";
-import { boardForm, editForm, newTaskForm } from "./form registers/Registers";
+import { assignIds, boardForm, newTaskForm } from "./form registers/Registers";
 import { toast } from "react-toastify";
 import useLocalStorage from "use-local-storage";
 
-const data = jsonData.boards;
-console.log(data);
+const jsonData = () => {
+  assignIds(jsonFile);
+  return JSON.stringify(jsonFile, null, 2);
+};
+
+const data = JSON.parse(jsonData()).boards;
 export const AppProvider = ({ children }) => {
   ///////TODO INITIAL STATE OBJECT//////////////
   const initialState = {
@@ -66,23 +70,6 @@ export const AppProvider = ({ children }) => {
   const [theme, setTheme] = useLocalStorage("theme" ? "dark" : "light");
   const [openDropdown, setOpenDropdown] = useState(false);
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
-
-  /////////EDIT TASK FORM////////////////
-  const {
-    register: registerEditTask,
-    control: editTaskControl,
-    handleSubmit: submitEditTask,
-    setValue: setValueForEditForm,
-    reset: resetEditForm,
-  } = useForm(editForm);
-  const {
-    fields: editTaskFields,
-    append: appendEditColumn,
-    remove: removeEditColumn,
-  } = useFieldArray({
-    control: editTaskControl,
-    name: "esubtasks",
-  });
 
   const openEditModal = () => {
     setIsOpenEditModal(true);
@@ -161,6 +148,14 @@ export const AppProvider = ({ children }) => {
     setIsOpenAddTask(false);
     resetNewTask();
   };
+
+  //////////////EDITING OR UPDATING A TASK-//////////////////
+
+  const updateTask = (data) => {
+    console.log(data);
+    // const updatedBoard = boardToBeDisplayed.columns.map((column)=>)
+  };
+
   ///////FUNCTIONS/////////////////////////
   const getBoardToBeDisplayed = (boardName) => {
     const boardInArray = boards.find((board) => board.name === boardName);
@@ -271,20 +266,12 @@ export const AppProvider = ({ children }) => {
         theme,
         openDropdown,
         setOpenDropdown,
-        registerEditTask,
 
-        submitEditTask,
-
-        editTaskFields,
-        appendEditColumn,
-        removeEditColumn,
-        editTaskControl,
         isOpenEditModal,
         setIsOpenEditModal,
         openEditModal,
         closeEditModal,
-        setValueForEditForm,
-        resetEditForm,
+        updateTask,
       }}
     >
       {children}

@@ -21,6 +21,7 @@ const Column = ({ name, tasks }) => {
                   .length;
               return (
                 <ColumnCard
+                  key={task.id}
                   title={task.title}
                   length={task.subtasks && task.subtasks.length}
                   numCompleted={numCompleted}

@@ -1,6 +1,7 @@
 import React from "react";
 import Column from "./Column";
 import { useGlobalContext } from "../../context";
+import { nanoid } from "nanoid";
 
 const ColumnContainer = () => {
   const { boardToBeDisplayed, boards } = useGlobalContext();
@@ -11,7 +12,7 @@ const ColumnContainer = () => {
       {columns.map((column) => {
         const { name, tasks } = column;
         if (name || tasks) {
-          return <Column name={name} tasks={tasks} />;
+          return <Column name={name} tasks={tasks} key={column.id} />;
         }
       })}
       {/* <div className="new-column">jeu</div> */}
