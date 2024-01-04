@@ -153,7 +153,22 @@ export const AppProvider = ({ children }) => {
 
   const updateTask = (data) => {
     console.log(data);
-    // const updatedBoard = boardToBeDisplayed.columns.map((column)=>)
+    const updatedBoard = boardToBeDisplayed.columns.map((column) => {
+      if (column.name === data.status) {
+        return {
+          ...column,
+          tasks: column.tasks.map((task) => {
+            if (task.id === data.id) {
+              setTaskToBeDisplayed(data);
+              return { ...taskToBeDisplayed };
+            } else return task;
+          }),
+        };
+      } else {
+        return column;
+      }
+    });
+    console.log(updatedBoard);
   };
 
   ///////FUNCTIONS/////////////////////////
