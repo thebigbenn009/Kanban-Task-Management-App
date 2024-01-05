@@ -151,25 +151,29 @@ export const AppProvider = ({ children }) => {
 
   //////////////EDITING OR UPDATING A TASK-//////////////////
 
-  const updateTask = (data) => {
-    console.log(data);
-    const updatedBoard = boardToBeDisplayed.columns.map((column) => {
-      if (column.name === data.status) {
-        return {
-          ...column,
-          tasks: column.tasks.map((task) => {
-            if (task.id === data.id) {
-              setTaskToBeDisplayed(data);
-              return { ...taskToBeDisplayed };
-            } else return task;
-          }),
-        };
-      } else {
-        return column;
-      }
-    });
-    console.log(updatedBoard);
-  };
+  // const updateTask = (data) => {
+  //   console.log(data);
+  //   const updatedBoard = {
+  //     ...boardToBeDisplayed,
+  //     columns: boardToBeDisplayed.columns.map((column) => {
+  //       if (column.name === data.status) {
+  //         return {
+  //           ...column,
+  //           tasks: column.tasks.map((task) => {
+  //             if (task.id === data.id) {
+  //               setTaskToBeDisplayed(data);
+
+  //               return { ...data };
+  //             } else return task;
+  //           }),
+  //         };
+  //       } else {
+  //         return column;
+  //       }
+  //     }),
+  //   };
+  //   setBoardToBeDisplayed(updatedBoard);
+  // };
 
   ///////FUNCTIONS/////////////////////////
   const getBoardToBeDisplayed = (boardName) => {
@@ -286,7 +290,7 @@ export const AppProvider = ({ children }) => {
         setIsOpenEditModal,
         openEditModal,
         closeEditModal,
-        updateTask,
+        // updateTask,
       }}
     >
       {children}

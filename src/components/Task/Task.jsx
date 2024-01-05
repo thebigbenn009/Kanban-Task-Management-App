@@ -15,8 +15,8 @@ const Task = () => {
   return (
     <main>
       <TaskNav />
-      {columns.length === 0 && <div>Empty colum here</div>}
-      {columns.length >= 1 && <ColumnContainer />}
+      {columns?.length === 0 && <div>Empty colum here</div>}
+      {columns?.length >= 1 && <ColumnContainer />}
     </main>
   );
 };
