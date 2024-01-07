@@ -21,11 +21,11 @@ const ViewTask = () => {
     setOpenMenuDropdown,
     openDropdown,
     setOpenDropdown,
+    currentStatus,
+    setCurrentStatus,
   } = useGlobalContext();
 
   const { title, description, status, subtasks } = taskToBeDisplayed;
-
-  const [currentStatus, setCurrentStatus] = useState("");
 
   const onCurrentStatus = (title) => {
     setCurrentStatus(title);
@@ -37,17 +37,8 @@ const ViewTask = () => {
     setOpenDropdown(false);
     toast.success(`current status changed to ${title}`);
   };
-  const closeModal = () => {
-    closeViewTaskModal();
-    setOpenDropdown(false);
-  };
+
   useEffect(() => {
-    // Somehow, this managed to work.
-    // I observed that the initial state of the destructured "title" gotten from the taskToBeDisplayed state is undefined.
-    // AFter clicking on the task, the taskToBeDisplayed becomes a defined object, and so does the destructured title.
-    // Setting the currentStatus to the destructured status happens only when the title changes, which makes sense, since the title did in fact, change from undefined to a defined value.
-    //Now, when the onCurrent function is being called, setCurrentStatus would be updated to the name of the column whenever the user changes the status of the task.
-    // the status property of the updatedTask is set to the currentStatus
     setCurrentStatus(status);
   }, [title]);
   useEffect(() => {
