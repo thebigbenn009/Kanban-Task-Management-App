@@ -5,11 +5,23 @@ import { setBackgroundColor } from "../../utils";
 import EmptyColumn from "./EmptyColumn";
 import ColumnTitle from "./ColumnTitle";
 import NewTaskModal from "../modal/NewTaskModal";
+import { useDrop } from "react-dnd";
 
 const Column = ({ name, tasks }) => {
+  const [{ isOver }, drop] = useDrop(() => ({
+    accept: "TASK",
+    drop: ({ id }) => addItemToColumn(id),
+    collect: (monitor) => ({
+      isOver: !!monitor.isOver(),
+    }),
+  }));
+
+  const addItemToColumn = (id) => {
+    console.log("dropped", id);
+  };
   return (
     <>
-      <div className="column">
+      <div className="column" ref={drop}>
         <ColumnTitle name={name} tasks={tasks} />
         {/* IF TASKS HAS BEEN CREATED  */}
         {tasks && (
@@ -21,6 +33,7 @@ const Column = ({ name, tasks }) => {
                   .length;
               return (
                 <ColumnCard
+                  id={task.id}
                   key={task.id}
                   title={task.title}
                   length={task.subtasks && task.subtasks.length}

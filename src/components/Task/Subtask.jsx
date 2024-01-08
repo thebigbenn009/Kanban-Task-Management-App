@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useGlobalContext } from "../../context";
 
-const Subtask = ({ title, isCompleted }) => {
+const Subtask = ({ title, isCompleted, id }) => {
   const [isChecked, setIsChecked] = useState(false);
   const { updateSubtaskStatus } = useGlobalContext();
   const handleChecked = (e) => {

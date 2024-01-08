@@ -5,6 +5,7 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { assignIds, boardForm, newTaskForm } from "./form registers/Registers";
 import { toast } from "react-toastify";
 import useLocalStorage from "use-local-storage";
+import { nanoid } from "nanoid";
 
 const jsonData = () => {
   assignIds(jsonFile);
@@ -114,6 +115,7 @@ export const AppProvider = ({ children }) => {
     const newBoard = {
       name: boardName,
       columns: newColumns,
+      id: nanoid(),
     };
     const updatedBoards = [...boards, newBoard];
     setBoards(updatedBoards);
@@ -128,6 +130,7 @@ export const AppProvider = ({ children }) => {
       title,
       description,
       status,
+      id: nanoid(),
       subtasks: subtasks.map((subtask) => ({
         ...subtask,
         isCompleted: false,
@@ -193,21 +196,21 @@ export const AppProvider = ({ children }) => {
     setActiveBoard(boardName);
   };
 
-  const displayTask = (title) => {
+  const displayTask = (id) => {
     setViewTaskModal(true);
 
     const userTask = boardToBeDisplayed.columns
       .flatMap((column) => column.tasks)
-      .find((task) => task.title === title);
+      .find((task) => task.id === id);
     setTaskToBeDisplayed(userTask);
   };
-  const deleteTask = (title) => {
+  const deleteTask = (id) => {
     const newBoard = {
       ...boardToBeDisplayed,
       columns: boardToBeDisplayed.columns.map((column) => {
         const updatedColumn = {
           ...column,
-          tasks: column.tasks.filter((task) => task.title !== title),
+          tasks: column.tasks.filter((task) => task.id !== id),
         };
         return updatedColumn;
       }),

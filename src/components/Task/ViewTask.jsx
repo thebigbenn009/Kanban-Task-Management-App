@@ -8,6 +8,7 @@ import TaskStatus from "./TaskStatus";
 import { toast } from "react-toastify";
 import DropdownMenu from "./DropdownMenu";
 import DeleteModal from "../modal/DeleteModal";
+import { nanoid } from "nanoid";
 
 const ViewTask = () => {
   const {
@@ -25,7 +26,7 @@ const ViewTask = () => {
     setCurrentStatus,
   } = useGlobalContext();
 
-  const { title, description, status, subtasks } = taskToBeDisplayed;
+  const { title, description, status, subtasks, id } = taskToBeDisplayed;
 
   const onCurrentStatus = (title) => {
     setCurrentStatus(title);
@@ -40,7 +41,7 @@ const ViewTask = () => {
 
   useEffect(() => {
     setCurrentStatus(status);
-  }, [title]);
+  }, [id]);
   useEffect(() => {
     const updatedBoard = {
       ...boardToBeDisplayed,
@@ -48,7 +49,7 @@ const ViewTask = () => {
         //we are returning updatedColumn for every column object mapped
         const updatedColumn = {
           ...column,
-          tasks: column.tasks.filter((task) => task.title !== title),
+          tasks: column.tasks && column.tasks.filter((task) => task.id !== id),
         };
         //if the column name is the same as the currentStatus, push the updatedTask object to the that column
         if (column.name === currentStatus) {
@@ -58,7 +59,7 @@ const ViewTask = () => {
       }),
     };
     setBoardToBeDisplayed(updatedBoard);
-  }, [title, currentStatus, taskToBeDisplayed]);
+  }, [title, currentStatus, taskToBeDisplayed, id]);
 
   return (
     viewTaskModal && (

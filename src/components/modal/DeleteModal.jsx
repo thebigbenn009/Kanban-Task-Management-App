@@ -16,7 +16,7 @@ const DeleteModal = ({ task }) => {
           </p>
           <div className="btn-container">
             <button
-              onClick={() => deleteTask(taskToBeDisplayed.title)}
+              onClick={() => deleteTask(taskToBeDisplayed.id)}
               type="button"
               className="btn btn-delete"
             >
