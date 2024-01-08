@@ -17,7 +17,7 @@ const Column = ({ name, tasks }) => {
   }));
 
   const addItemToColumn = (id) => {
-    console.log("dropped", id);
+    // console.log("dropped", id);
   };
   return (
     <>
