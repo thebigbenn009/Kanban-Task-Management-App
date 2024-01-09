@@ -220,6 +220,36 @@ export const AppProvider = ({ children }) => {
     setOpenMenuDropdown(false);
     setTaskToBeDisplayed({});
   };
+
+  const addItemToColumn = (id, name) => {
+    const dragged = boardToBeDisplayed.columns
+      .flatMap((column) => column.tasks)
+      .find((task) => task.id === id);
+
+    const updatedColumns = boardToBeDisplayed.columns.map((column) => {
+      const updatedColumn = {
+        ...column,
+        tasks: column.tasks.filter((task) => task.id !== id),
+      };
+
+      if (column.name === name) {
+        updatedColumn.tasks = [
+          { ...dragged, status: name },
+          ...updatedColumn.tasks,
+        ];
+      }
+
+      return updatedColumn;
+    });
+
+    const updatedBoard = {
+      ...boardToBeDisplayed,
+      columns: updatedColumns,
+    };
+
+    setBoardToBeDisplayed(updatedBoard);
+  };
+
   // console.log(displayTask("Build UI for onboarding flow"));
   //////OPEN AND CLOSE NEW BOARD MODAL//////////////
   const openNewBoardModal = () => {
@@ -307,6 +337,7 @@ export const AppProvider = ({ children }) => {
         updateTask,
         currentStatus,
         setCurrentStatus,
+        addItemToColumn,
       }}
     >
       {children}

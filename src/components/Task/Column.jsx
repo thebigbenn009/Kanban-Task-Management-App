@@ -5,20 +5,22 @@ import { setBackgroundColor } from "../../utils";
 import EmptyColumn from "./EmptyColumn";
 import ColumnTitle from "./ColumnTitle";
 import NewTaskModal from "../modal/NewTaskModal";
+import { useEffect } from "react";
 import { useDrop } from "react-dnd";
 
-const Column = ({ name, tasks }) => {
+const Column = ({ tasks, name }) => {
+  const { addItemToColumn } = useGlobalContext();
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "TASK",
-    drop: ({ id }) => addItemToColumn(id),
+    drop: ({ id }) => addItemToColumn(id, name),
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),
   }));
 
-  const addItemToColumn = (id) => {
-    console.log("dropped", id);
-  };
+  // const addItemToColumn = (id) => {
+  //   console.log("dropped", id, name);
+  // };
   return (
     <>
       <div className="column" ref={drop}>
