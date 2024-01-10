@@ -105,7 +105,7 @@ p {
   position: relative;
 }
 .open-sidebar {
-  position: absolute;
+  /* position: absolute; */
   bottom: 11rem;
   height: 5rem;
   width: 5rem;
