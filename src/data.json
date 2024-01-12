@@ -182,7 +182,7 @@
           ]
         },
         {
-          // "name": "Done",
+          "name": "Done",
           "tasks": [
             {
               "title": "Conduct 5 wireframe tests",
