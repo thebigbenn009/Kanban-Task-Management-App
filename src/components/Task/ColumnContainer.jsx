@@ -12,7 +12,13 @@ const ColumnContainer = () => {
       {columns.map((column) => {
         const { name, tasks } = column;
         if (name || tasks) {
-          return <Column name={name} tasks={tasks} key={column.id} />;
+          return (
+            <Column
+              name={name}
+              tasks={tasks.filter((task) => task.status === name)}
+              key={column.id}
+            />
+          );
         }
       })}
       {/* <div className="new-column">jeu</div> */}

@@ -1,13 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useGlobalContext } from "../../context";
 
 const Subtask = ({ title, isCompleted, id }) => {
   const [isChecked, setIsChecked] = useState(false);
-  const { updateSubtaskStatus } = useGlobalContext();
+  const {
+    updateSubtaskStatus,
+    taskToBeDisplayed,
+    setLocalStorage,
+    boardToBeDisplayed,
+    setBoardToBeDisplayed,
+  } = useGlobalContext();
+
   const handleChecked = (e) => {
     setIsChecked(e.target.checked);
     updateSubtaskStatus(title);
   };
+
   return (
     <div
       onClick={handleChecked}

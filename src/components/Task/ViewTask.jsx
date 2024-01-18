@@ -24,42 +24,51 @@ const ViewTask = () => {
     setOpenDropdown,
     currentStatus,
     setCurrentStatus,
+    setLocalStorage,
   } = useGlobalContext();
 
   const { title, description, status, subtasks, id } = taskToBeDisplayed;
 
-  const onCurrentStatus = (title) => {
+  const onCurrentStatus = (title, id) => {
+    const changedTask = boardToBeDisplayed.columns
+      .flatMap((column) => column.tasks)
+      .find((task) => task.id === id);
     setCurrentStatus(title);
 
-    setTaskToBeDisplayed((prevTask) => {
-      const updatedTask = { ...prevTask, status: title };
-      return updatedTask;
-    });
+    // setTaskToBeDisplayed((prevTask) => {
+    //   return {
+    //     ...prevTask,
+    //     status: title,
+    //   };
+    // });
     setOpenDropdown(false);
-    toast.success(`current status changed to ${title}`);
-  };
+    // toast.success(`current status changed to ${title}`);
 
-  useEffect(() => {
-    setCurrentStatus(status);
-  }, [id]);
-  useEffect(() => {
-    const updatedBoard = {
-      ...boardToBeDisplayed,
-      columns: boardToBeDisplayed.columns.map((column) => {
-        //we are returning updatedColumn for every column object mapped
-        const updatedColumn = {
-          ...column,
-          tasks: column.tasks && column.tasks.filter((task) => task.id !== id),
-        };
-        //if the column name is the same as the currentStatus, push the updatedTask object to the that column
-        if (column.name === currentStatus) {
-          updatedColumn.tasks = [taskToBeDisplayed, ...updatedColumn.tasks];
-        }
-        return updatedColumn;
-      }),
-    };
-    setBoardToBeDisplayed(updatedBoard);
-  }, [title, currentStatus, taskToBeDisplayed, id]);
+    setBoardToBeDisplayed((prevBoard) => {
+      return {
+        ...prevBoard,
+        columns: prevBoard.columns.map((column) => {
+          if (column.name === status) {
+            return {
+              ...column,
+              tasks: column.tasks.map((task) => {
+                if (task.id === id) {
+                  return { ...task, status: title };
+                } else return task;
+              }),
+            };
+          }
+          if (column.name === title) {
+            return {
+              ...column,
+              tasks: [{ ...changedTask, status: title }, ...column.tasks],
+            };
+          } else return column;
+        }),
+      };
+    });
+    // console.log(`status changed from ${status} to ${title}`);
+  };
 
   return (
     viewTaskModal && (
@@ -113,7 +122,7 @@ const ViewTask = () => {
                     <TaskStatus
                       key={column.name}
                       status={column.name}
-                      onCurrentStatus={() => onCurrentStatus(column.name)}
+                      onCurrentStatus={() => onCurrentStatus(column.name, id)}
                     />
                   );
                 })}

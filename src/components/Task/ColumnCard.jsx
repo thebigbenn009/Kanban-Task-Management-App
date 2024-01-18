@@ -2,10 +2,10 @@ import React from "react";
 import { useGlobalContext } from "../../context";
 import { useDrag } from "react-dnd";
 
-const ColumnCard = ({ title, length, numCompleted, id }) => {
+const ColumnCard = ({ title, length, numCompleted, id, initColumn }) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "TASK",
-    item: { id },
+    item: { id, initColumn },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),

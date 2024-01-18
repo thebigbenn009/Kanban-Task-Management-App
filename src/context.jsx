@@ -6,6 +6,7 @@ import { assignIds, boardForm, newTaskForm } from "./form registers/Registers";
 import { toast } from "react-toastify";
 import useLocalStorage from "use-local-storage";
 import { nanoid } from "nanoid";
+import { setBackgroundColor } from "./utils";
 
 const jsonData = () => {
   assignIds(jsonFile);
@@ -55,16 +56,29 @@ export const AppProvider = ({ children }) => {
 
   ////////////////////////////USE REDUCER//////////////////
   // const [state, dispatch] = useReducer(reducer, initialState);
-
-  ///////////////////GLOBAL STATE VARIABLES *///////////
   const [boards, setBoards] = useState(data);
+
+  const setLocalStorage = (data, identifier) => {
+    localStorage.setItem(identifier, JSON.stringify(data));
+  };
+  const defaultBoardToBeDisplayed = JSON.parse(
+    localStorage.getItem("boardToBeDisplayed") || `${JSON.stringify(boards[0])}`
+  );
+  const defaultTaskToBeDisplayed = JSON.parse(
+    localStorage.getItem("taskToBeDisplayed") || "{}"
+  );
+  ///////////////////GLOBAL STATE VARIABLES *///////////
   const [switchMode, setSwitchMode] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
   const [newBoardModal, setNewBoardModal] = useState(false);
   const [viewTaskModal, setViewTaskModal] = useState(false);
   const [isOpenAddTask, setIsOpenAddTask] = useState(false);
-  const [boardToBeDisplayed, setBoardToBeDisplayed] = useState(boards[0]);
-  const [taskToBeDisplayed, setTaskToBeDisplayed] = useState({});
+  const [boardToBeDisplayed, setBoardToBeDisplayed] = useState(
+    defaultBoardToBeDisplayed
+  );
+  const [taskToBeDisplayed, setTaskToBeDisplayed] = useState(
+    defaultTaskToBeDisplayed
+  );
   const [activeBoard, setActiveBoard] = useState("Platform Launch");
   const [deleteModal, setDeleteModal] = useState(false);
   const [openMenuDropdown, setOpenMenuDropdown] = useState(false);
@@ -90,6 +104,7 @@ export const AppProvider = ({ children }) => {
   const closeDeleteModal = () => {
     setDeleteModal(false);
   };
+
   const updateSubtaskStatus = (title) => {
     const updatedSubtasks = taskToBeDisplayed.subtasks.map((subtask) => {
       if (subtask.title === title) {
@@ -106,6 +121,9 @@ export const AppProvider = ({ children }) => {
     };
 
     setTaskToBeDisplayed(newTaskToBeDisplayed);
+    // setLocalStorage(taskToBeDisplayed, "taskToBeDisplayed");
+
+    // setLocalStorage(boardToBeDisplayed, "boardToBeDisplayed");
   };
 
   /////////SUBMITTING A FORM/////////////
@@ -159,6 +177,7 @@ export const AppProvider = ({ children }) => {
     };
 
     setBoardToBeDisplayed(updatedBoardToBeDisplayed);
+    setLocalStorage(boardToBeDisplayed, "boardToBeDisplayed");
     setIsOpenAddTask(false);
     resetNewTask();
   };
@@ -167,6 +186,31 @@ export const AppProvider = ({ children }) => {
 
   const updateTask = (data) => {
     console.log(data);
+    console.log(taskToBeDisplayed, { ...data, id: taskToBeDisplayed.id });
+    // const updatedData = { ...data, id: taskToBeDisplayed.id };
+    // setBoardToBeDisplayed((prevBoard) => {
+    //   return {
+    //     ...prevBoard,
+    //     columns: prevBoard.columns.map((column) => {
+    //       if (column.name === data.status) {
+    //         console.log(`${column.name} is equal to ${data.status}`);
+    //         return {
+    //           ...column,
+    //           tasks: column.tasks.map((task) => {
+    //             if (task.id === updatedData.id) {
+    //               return updatedData;
+    //             } else return task;
+    //           }),
+    //         };
+    //       } else
+    //         return {
+    //           ...column,
+    //           tasks: column.tasks.filter((task) => task.id !== updatedData.id),
+    //         };
+    //     }),
+    //   };
+    // });
+
     const updatedBoard = {
       ...boardToBeDisplayed,
       columns: boardToBeDisplayed.columns.map((column) => {
@@ -187,6 +231,7 @@ export const AppProvider = ({ children }) => {
       }),
     };
     setBoardToBeDisplayed(updatedBoard);
+    // setLocalStorage(boardToBeDisplayed, "boardToBeDisplayed");
   };
 
   ///////FUNCTIONS/////////////////////////
@@ -226,25 +271,18 @@ export const AppProvider = ({ children }) => {
       .flatMap((column) => column.tasks)
       .find((task) => task.id === id);
 
-    const updatedColumns = boardToBeDisplayed.columns.map((column) => {
-      const updatedColumn = {
-        ...column,
-        tasks: column.tasks.filter((task) => task.id !== id),
-      };
-
-      if (column.name === name) {
-        updatedColumn.tasks = [
-          { ...dragged, status: name },
-          ...updatedColumn.tasks,
-        ];
-      }
-
-      return updatedColumn;
-    });
-
+    console.log({ ...dragged, status: name }, name);
+    setTaskToBeDisplayed({ ...dragged, status: name });
     const updatedBoard = {
       ...boardToBeDisplayed,
-      columns: updatedColumns,
+      columns: boardToBeDisplayed.columns.map((column) => {
+        if (column.name === name) {
+          return {
+            ...column,
+            tasks: [taskToBeDisplayed, ...column.tasks],
+          };
+        } else return column;
+      }),
     };
 
     setBoardToBeDisplayed(updatedBoard);
@@ -274,6 +312,7 @@ export const AppProvider = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
+        setLocalStorage,
         boards,
         setBoards,
         switchMode,
