@@ -8,7 +8,7 @@ const ThemeSwitch = () => {
   const handleToggleTheme = () => {
     dispatch(themeActions.switchTheme());
   };
-  console.log(themeSwitch);
+
   return (
     <div className="theme-switch">
       <div className="switch-container">
@@ -22,7 +22,9 @@ const ThemeSwitch = () => {
         </span>
         <span className="switch" onClick={handleToggleTheme}>
           <span
-            className={`switch-toggle ${themeSwitch && "move-switch"}`}
+            className={`switch-toggle ${
+              themeSwitch === "dark" && "move-switch"
+            }`}
           ></span>
         </span>
         <span className="dark-switch">
