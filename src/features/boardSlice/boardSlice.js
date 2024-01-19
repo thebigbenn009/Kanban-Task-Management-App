@@ -1,15 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import data from "../../data.json";
 const initialState = {
-  boardData: data,
+  data,
+  boardData: {},
 };
 
 export const boardSlice = createSlice({
   name: "board-slice",
   initialState,
   reducers: {
-    donot(state) {
-      return state;
+    displayBoard(state, action) {
+      state.boardData = state.data.boards.find(
+        (board) => board.name === action.payload
+      );
     },
   },
 });

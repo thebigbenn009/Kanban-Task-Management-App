@@ -9,7 +9,7 @@ const AppContainer = () => {
   return (
     <section
       data-theme={themeSwitch}
-      className={`app-container ${isSidebarOpen ? "" : "close-sidebar"}`}
+      className={`app-container ${isSidebarOpen ? "" : "close-sidebar "}`}
     >
       <Sidebar />
       <MainContent />

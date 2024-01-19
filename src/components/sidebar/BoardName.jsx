@@ -1,8 +1,14 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { boardActions } from "../../features/boardSlice/boardSlice";
 
 const BoardName = ({ boardName }) => {
+  const dispatch = useDispatch();
+  const handleDisplayBoard = () => {
+    dispatch(boardActions.displayBoard(boardName));
+  };
   return (
-    <li className="board-name">
+    <li className="board-name" onClick={handleDisplayBoard}>
       <span>
         <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
           <path
