@@ -1,8 +1,14 @@
 import React from "react";
 import jsonData from "../../data.json";
 import BoardName from "./BoardName";
+import { useDispatch } from "react-redux";
+import { modalActions } from "../../features/modal/modalSlice";
 
 const BoardNames = () => {
+  const dispatch = useDispatch();
+  const openNewBoardModalHandler = () => {
+    dispatch(modalActions.openNewBoardModal());
+  };
   return (
     <div className="all-boards">
       <p className="board-text">all boards ()</p>
@@ -11,7 +17,7 @@ const BoardNames = () => {
           {jsonData.boards.map((board) => {
             return <BoardName boardName={board.name} />;
           })}
-          <li className="board-name">
+          <li className="board-name" onClick={openNewBoardModalHandler}>
             <span>
               <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
                 <path

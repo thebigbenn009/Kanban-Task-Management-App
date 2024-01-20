@@ -14,6 +14,9 @@ export const boardSlice = createSlice({
         (board) => board.name === action.payload
       );
     },
+    addNewBoard(state, action) {
+      state.data = state.data.boards.push(action.payload);
+    },
   },
 });
 
