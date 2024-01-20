@@ -1,11 +1,12 @@
 import React from "react";
 import jsonData from "../../data.json";
 import BoardName from "./BoardName";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../../features/modal/modalSlice";
 
 const BoardNames = () => {
   const dispatch = useDispatch();
+  const data = useSelector((state) => state.board.data);
   const openNewBoardModalHandler = () => {
     dispatch(modalActions.openNewBoardModal());
   };
@@ -14,8 +15,8 @@ const BoardNames = () => {
       <p className="board-text">all boards ()</p>
       <div className="boards-container">
         <ul>
-          {jsonData.boards.map((board) => {
-            return <BoardName boardName={board.name} />;
+          {data.boards.map((board) => {
+            return <BoardName key={board.id} boardName={board.name} />;
           })}
           <li className="board-name" onClick={openNewBoardModalHandler}>
             <span>

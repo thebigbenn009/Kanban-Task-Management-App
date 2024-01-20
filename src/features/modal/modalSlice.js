@@ -13,6 +13,12 @@ export const modalSlice = createSlice({
     closeNewBoardModal(state) {
       state.addNewBoardModal = false;
     },
+    openNewTaskModal(state) {
+      state.addNewTaskModal = true;
+    },
+    closeNewTaskModal(state) {
+      state.addNewTaskModal = false;
+    },
   },
 });
 

@@ -1,9 +1,15 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import LogoContainer from "../sidebar/LogoContainer";
+import { modalActions } from "../../features/modal/modalSlice";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
   const isSidebarOpen = useSelector((state) => state.sidebar.isSidebarOpen);
+
+  const openTaskModalHandler = () => {
+    dispatch(modalActions.openNewTaskModal());
+  };
   if (!isSidebarOpen) {
     return (
       <nav className="sidebar-nav">
@@ -33,7 +39,11 @@ const Navbar = () => {
     <nav className="nav">
       <h1>Navbar</h1>
       <div className="btn-container">
-        <button type="button" className="btn btn-primary">
+        <button
+          onClick={openTaskModalHandler}
+          type="button"
+          className="btn btn-primary"
+        >
           <svg width="12" height="12" xmlns="http://www.w3.org/2000/svg">
             <path
               fill="#FFF"

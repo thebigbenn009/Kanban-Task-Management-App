@@ -12,7 +12,7 @@ const ColumnContainer = () => {
           <SingleColumn
             column={column}
             key={column.id}
-            taskLength={column.tasks.length}
+            taskLength={column?.tasks?.length}
           />
         );
       })}

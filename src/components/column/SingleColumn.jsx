@@ -1,7 +1,7 @@
 import React from "react";
 import SingleTask from "./SingleTask";
 
-const SingleColumn = ({ column, taskLength }) => {
+const SingleColumn = ({ column, taskLength = 0 }) => {
   return (
     <div className="single-column">
       <p className="status">
@@ -9,8 +9,8 @@ const SingleColumn = ({ column, taskLength }) => {
       </p>
 
       <div className="column-parent">
-        {column.tasks
-          .filter((task) => task.title !== column.name)
+        {column?.tasks
+          ?.filter((task) => task.title !== column.name)
           .map((task) => {
             return (
               <SingleTask
