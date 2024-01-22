@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   addNewBoardModal: false,
   addNewTaskModal: false,
+  viewTaskModal: false,
 };
 export const modalSlice = createSlice({
   name: "modal",
@@ -18,6 +19,12 @@ export const modalSlice = createSlice({
     },
     closeNewTaskModal(state) {
       state.addNewTaskModal = false;
+    },
+    openViewTaskModal(state) {
+      state.viewTaskModal = true;
+    },
+    closeViewTaskModal(state) {
+      state.viewTaskModal = false;
     },
   },
 });

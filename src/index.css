@@ -70,11 +70,14 @@ h1,
 h2,
 h3,
 h4,
-h5,
-p {
+h5 {
   line-height: 1.7;
   text-transform: capitalize;
 }
+p {
+  line-height: 1.7;
+}
+
 .app-container {
   height: 100vh;
   overflow: auto;
@@ -360,7 +363,8 @@ article h4 {
 .close-modal:hover path {
   fill: var(--danger-hover);
 }
-form {
+form,
+.view-task-container {
   width: 48rem;
   padding: 3.2rem;
   background-color: var(--dark-grey);
@@ -380,6 +384,7 @@ form label {
   width: 100%;
 }
 input,
+select,
 textarea {
   width: 100%;
   padding-block: 8px;
@@ -389,6 +394,9 @@ textarea {
   background-color: inherit;
   color: inherit;
   font-family: inherit;
+}
+option {
+  background-color: var(--dark-grey);
 }
 textarea {
   resize: none;
@@ -402,6 +410,7 @@ textarea {
   margin-bottom: 1.2rem;
 }
 input:focus,
+select:focus,
 textarea:focus {
   border: solid 1px var(--medium-grey);
   outline: none;
@@ -430,6 +439,54 @@ textarea:focus {
 .btn-white {
   color: var(--main-purple);
 }
+
+.view-task-container {
+  display: grid;
+  gap: 2.4rem;
+}
+.task-header {
+  display: flex;
+  justify-content: space-between;
+}
+.task-header h3 {
+  text-align: left;
+  width: 80%;
+}
+.view-task-container p {
+  color: var(--medium-grey);
+}
+.subtask {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.6rem;
+  color: #979797;
+  padding: 1.3rem 1.2rem;
+  cursor: pointer;
+}
+.is-completed {
+  background-color: var(--very-dark-grey-bg);
+}
+.not-completed {
+  background-color: var(--main-purple);
+}
+.subtask.not-completed p {
+  color: var(--white);
+}
+.subtask.is-completed p {
+  transition: all 0.3s ease-in-out;
+  text-decoration: line-through;
+}
+.subtask.is-completed:hover p {
+  color: var(--white);
+}
+.subtask:not(:last-child) {
+  margin-bottom: 8px;
+}
+.current-status {
+  color: var(--white) !important;
+  text-transform: capitalize;
+}
+
 /* MEDIA QUERIES */
 @media only screen and (max-width: 900px) {
   html {

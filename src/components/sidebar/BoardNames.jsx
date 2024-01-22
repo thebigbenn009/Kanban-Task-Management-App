@@ -10,9 +10,11 @@ const BoardNames = () => {
   const openNewBoardModalHandler = () => {
     dispatch(modalActions.openNewBoardModal());
   };
+  const boardLength = data.boards.map((board) => board.name).length;
+
   return (
     <div className="all-boards">
-      <p className="board-text">all boards ()</p>
+      <p className="board-text">all boards ({boardLength})</p>
       <div className="boards-container">
         <ul>
           {data.boards.map((board) => {

@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import ModalWrapper from "./ModalWrapper";
 import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../../features/modal/modalSlice";
 import { useFieldArray, useForm } from "react-hook-form";
 import RemoveInput from "./RemoveInput";
+import { nanoid } from "nanoid";
+import { boardActions } from "../../features/boardSlice/boardSlice";
 
 const AddNewTask = () => {
+  const [columnName, setColumnName] = useState("");
   const dispatch = useDispatch();
   const addNewTaskModal = useSelector((state) => state.modal.addNewTaskModal);
+  const boardData = useSelector((state) => state.board.boardData);
   const handleCloseModal = () => {
     dispatch(modalActions.closeNewTaskModal());
   };
@@ -24,10 +28,6 @@ const AddNewTask = () => {
           title: "Review common customer pain points and suggestions",
           isCompleted: false,
         },
-        {
-          title: "Outline next steps for our roadmap",
-          isCompleted: false,
-        },
       ],
     },
   });
@@ -35,10 +35,25 @@ const AddNewTask = () => {
     name: "subtasks",
     control,
   });
+  const onSubmit = (data) => {
+    const dataToBeSubmitted = {
+      id: nanoid(),
+      ...data,
+      subtasks: data.subtasks.map((subtask) => {
+        return {
+          id: nanoid(),
+          isCompleted: false,
+          ...subtask,
+        };
+      }),
+    };
+    console.log(dataToBeSubmitted);
+    dispatch(boardActions.addNewTask(dataToBeSubmitted));
+  };
   return (
     addNewTaskModal && (
       <ModalWrapper>
-        <form action="">
+        <form onSubmit={handleSubmit(onSubmit)}>
           <span className="close-modal" onClick={handleCloseModal}>
             <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
               <g fill="#828FA3" fill-rule="evenodd">
@@ -77,6 +92,22 @@ const AddNewTask = () => {
             >
               <strong>+</strong> Add New subtask
             </button>
+          </div>
+
+          <div className="form-control">
+            <label htmlFor="">status</label>
+            <select
+              {...register("status")}
+              onChange={(e) => setColumnName(e.target.value)}
+            >
+              {boardData.columns.map((column) => {
+                return (
+                  <option value={column.name} key={column.name}>
+                    {column.name}
+                  </option>
+                );
+              })}
+            </select>
           </div>
           <button className="btn btn-primary btn-block" type="submit">
             add new task
