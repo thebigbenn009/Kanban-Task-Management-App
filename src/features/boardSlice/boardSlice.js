@@ -161,6 +161,14 @@ export const boardSlice = createSlice({
         column.name === updatedColumn.name ? updatedColumn : column
       );
     },
+
+    dropItemToColumn(state, action) {
+      //find the item that is being dragged
+      const itemDraggable = 
+      //find the column the item is to be dropped onto
+
+
+    },
   },
 });
 

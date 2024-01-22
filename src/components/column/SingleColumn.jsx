@@ -3,12 +3,16 @@ import SingleTask from "./SingleTask";
 import { useDispatch } from "react-redux";
 import { modalActions } from "../../features/modal/modalSlice";
 import { boardActions } from "../../features/boardSlice/boardSlice";
+import { useDrop } from "react-dnd";
 
 const SingleColumn = ({ column, taskLength = 0 }) => {
   const dispatch = useDispatch();
-
+  const [, drop] = useDrop(() => ({
+    accept: "SINGLE-TASK",
+    drop: ({ id }) => dispatch(boardActions.dropItemToColumn(id)),
+  }));
   return (
-    <div className="single-column">
+    <div ref={drop} className="single-column">
       <p className="status">
         {column.name} ({taskLength})
       </p>
