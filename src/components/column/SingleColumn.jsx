@@ -6,9 +6,7 @@ import { boardActions } from "../../features/boardSlice/boardSlice";
 
 const SingleColumn = ({ column, taskLength = 0 }) => {
   const dispatch = useDispatch();
-  // const handleOpenTask = () => {
-  //   dispatch(modalActions.openViewTaskModal());
-  // };
+
   return (
     <div className="single-column">
       <p className="status">
