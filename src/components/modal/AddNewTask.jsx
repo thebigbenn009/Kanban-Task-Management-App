@@ -81,7 +81,7 @@ const AddNewTask = () => {
               return (
                 <div className="add-column" key={field.id}>
                   <input type="text" {...register(`subtasks.${index}.title`)} />
-                  <RemoveInput removeInput={remove} />
+                  <RemoveInput removeInput={() => remove(index)} />
                 </div>
               );
             })}

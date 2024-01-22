@@ -4,12 +4,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../../features/modal/modalSlice";
 import Subtask from "./Subtask";
 import { boardActions } from "../../features/boardSlice/boardSlice";
+import TaskMenu from "./TaskMenu";
+import { taskMenuActions } from "../../features/task-menu/taskMenuSlice";
 const ViewTask = () => {
   const dispatch = useDispatch();
   const viewTaskModal = useSelector((state) => state.modal.viewTaskModal);
   const boardData = useSelector((state) => state.board.boardData);
+  const isTaskMenuOpen = useSelector((state) => state.taskMenu.isTaskMenuOpen);
   const handleCloseModal = () => {
     dispatch(modalActions.closeViewTaskModal());
+    dispatch(taskMenuActions.closeTaskMenu());
   };
   const currentTask = useSelector((state) => state.board.currentTask);
   const { title, description, id, subtasks, status } = currentTask;
@@ -17,9 +21,9 @@ const ViewTask = () => {
     (subtask) => subtask.isCompleted !== false
   ).length;
   const totalSubtasks = subtasks?.length;
-  //   const handleCheckboxChange = () => {
-  //     dispatch(boardActions.updateCheckboxChange(id));
-  //   };
+  const taskMenuHandler = () => {
+    dispatch(taskMenuActions.toggleTaskMenu());
+  };
   return (
     viewTaskModal && (
       <ModalWrapper>
@@ -34,13 +38,21 @@ const ViewTask = () => {
           </span>
           <div className="task-header">
             <h3>{title}</h3>
-            <svg width="5" height="20" xmlns="http://www.w3.org/2000/svg">
-              <g fill="#828FA3" fill-rule="evenodd">
-                <circle cx="2.308" cy="2.308" r="2.308" />
-                <circle cx="2.308" cy="10" r="2.308" />
-                <circle cx="2.308" cy="17.692" r="2.308" />
-              </g>
-            </svg>
+            <span className="task-menu-dropdown" onClick={taskMenuHandler}>
+              <svg
+                className=""
+                width="5"
+                height="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g fill="#828FA3" fill-rule="evenodd">
+                  <circle cx="2.308" cy="2.308" r="2.308" />
+                  <circle cx="2.308" cy="10" r="2.308" />
+                  <circle cx="2.308" cy="17.692" r="2.308" />
+                </g>
+              </svg>
+            </span>
+            <TaskMenu />
           </div>
           <p>{description}</p>
           <h4>

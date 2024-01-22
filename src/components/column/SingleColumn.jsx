@@ -16,22 +16,20 @@ const SingleColumn = ({ column, taskLength = 0 }) => {
       </p>
 
       <div className="column-parent">
-        {column?.tasks
-          ?.filter((task) => task.status === column.name)
-          .map((task) => {
-            return (
-              <SingleTask
-                handleOpenTask={() => {
-                  dispatch(modalActions.openViewTaskModal());
-                  dispatch(boardActions.displayTask({ column, task }));
-                }}
-                key={task.id}
-                id={task.id}
-                title={task.title}
-                subtasks={task.subtasks}
-              />
-            );
-          })}
+        {column?.tasks?.map((task) => {
+          return (
+            <SingleTask
+              handleOpenTask={() => {
+                dispatch(modalActions.openViewTaskModal());
+                dispatch(boardActions.displayTask({ column, task }));
+              }}
+              key={task.id}
+              id={task.id}
+              title={task.title}
+              subtasks={task.subtasks}
+            />
+          );
+        })}
       </div>
     </div>
   );

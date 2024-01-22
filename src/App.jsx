@@ -3,6 +3,8 @@ import AppContainer from "./components/app-wrapper/AppContainer";
 import NewBoardModal from "./components/modal/NewBoardModal";
 import AddNewTask from "./components/modal/AddNewTask";
 import ViewTask from "./components/modal/ViewTask";
+import EditTaskModal from "./components/modal/EditTaskModal";
+import DeleteModal from "./components/modal/DeleteModal";
 
 const App = () => {
   return (
@@ -11,6 +13,8 @@ const App = () => {
       <NewBoardModal />
       <AddNewTask />
       <ViewTask />
+      <EditTaskModal />
+      <DeleteModal />
     </>
   );
 };

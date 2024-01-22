@@ -38,12 +38,13 @@ const Navbar = () => {
   return (
     <nav className="nav">
       <h1>Navbar</h1>
-      <div className="btn-container">
-        <button
-          onClick={openTaskModalHandler}
-          type="button"
-          className="btn btn-primary"
-        >
+
+      <button
+        onClick={openTaskModalHandler}
+        type="button"
+        className="btn btn-primary"
+      >
+        <div>
           <svg width="12" height="12" xmlns="http://www.w3.org/2000/svg">
             <path
               fill="#FFF"
@@ -51,8 +52,8 @@ const Navbar = () => {
             />
           </svg>
           add new task
-        </button>
-      </div>
+        </div>
+      </button>
     </nav>
   );
 };
