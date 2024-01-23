@@ -5,6 +5,7 @@ import AddNewTask from "./components/modal/AddNewTask";
 import ViewTask from "./components/modal/ViewTask";
 import EditTaskModal from "./components/modal/EditTaskModal";
 import DeleteModal from "./components/modal/DeleteModal";
+import EditBoardModal from "./components/modal/EditBoardModal";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
       <ViewTask />
       <EditTaskModal />
       <DeleteModal />
+      <EditBoardModal />
     </>
   );
 };
