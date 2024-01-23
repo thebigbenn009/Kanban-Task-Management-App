@@ -9,7 +9,7 @@ const SingleColumn = ({ column, taskLength = 0 }) => {
   const dispatch = useDispatch();
   const [, drop] = useDrop(() => ({
     accept: "SINGLE-TASK",
-    drop: ({ id }) => dispatch(boardActions.dropItemToColumn(id)),
+    drop: ({ id }) => dispatch(boardActions.dragAndDrop({ id, column })),
   }));
   return (
     <div ref={drop} className="single-column">

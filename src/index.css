@@ -89,6 +89,7 @@ p {
 .main-section {
   height: 100vh;
   overflow-y: auto;
+  background-color: var(--very-dark-grey-bg);
 }
 
 .close-sidebar {
@@ -300,6 +301,7 @@ p {
 }
 .column-container {
   display: grid;
+  background-color: var(--very-dark-grey-bg);
   grid-template-columns: repeat(3, 28rem);
   gap: 2.4rem;
 }
@@ -521,6 +523,39 @@ textarea:focus {
 }
 .task-menu-visible {
   transform: translateY(3.5rem);
+  opacity: 1;
+}
+.board-menu {
+  position: absolute;
+
+  gap: 2.4rem;
+  grid-template-columns: 1fr auto;
+  z-index: 33;
+  right: 6%;
+  width: 19.2rem;
+  background-color: var(--very-dark-grey-bg);
+  padding: 1.6rem;
+  transform: translateY(1rem);
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+.board-menu > * {
+  cursor: pointer;
+}
+.nav-btn-container {
+  position: relative;
+  display: grid;
+  gap: 2.4rem;
+  grid-template-columns: 1fr auto;
+  text-transform: capitalize;
+  z-index: 33;
+}
+.nav-btn-container > svg {
+  align-self: center;
+  cursor: pointer;
+}
+.board-menu-visible {
+  transform: translateY(5rem);
   opacity: 1;
 }
 .task-menu-visible p {

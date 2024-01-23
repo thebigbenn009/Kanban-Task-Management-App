@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ModalWrapper from "./ModalWrapper";
 import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../../features/modal/modalSlice";
@@ -15,7 +15,8 @@ const AddNewTask = () => {
   const handleCloseModal = () => {
     dispatch(modalActions.closeNewTaskModal());
   };
-  const { register, control, handleSubmit } = useForm({
+  // const first = boardData.columns.find((column)=>)
+  const { register, control, handleSubmit, reset } = useForm({
     defaultValues: {
       title: "Take Coffee break",
       description: `e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little.`,
@@ -49,7 +50,9 @@ const AddNewTask = () => {
     };
     console.log(dataToBeSubmitted);
     dispatch(boardActions.addNewTask(dataToBeSubmitted));
+    setColumnName("");
   };
+
   return (
     addNewTaskModal && (
       <ModalWrapper>
@@ -99,6 +102,7 @@ const AddNewTask = () => {
             <select
               {...register("status")}
               onChange={(e) => setColumnName(e.target.value)}
+              value={columnName}
             >
               {boardData.columns.map((column) => {
                 return (

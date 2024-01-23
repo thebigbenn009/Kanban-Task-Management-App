@@ -5,6 +5,7 @@ import { modalActions } from "../../features/modal/modalSlice";
 import { useFieldArray, useForm } from "react-hook-form";
 import RemoveInput from "./RemoveInput";
 import { boardActions } from "../../features/boardSlice/boardSlice";
+import { nanoid } from "nanoid";
 
 const NewBoardModal = () => {
   const { register, control, handleSubmit, formState } = useForm({
@@ -24,7 +25,19 @@ const NewBoardModal = () => {
   };
 
   const onSubmit = (data) => {
-    dispatch(boardActions.addNewBoard(data));
+    const newBoardData = {
+      name: data.name,
+      id: nanoid(),
+      columns: data.columns.map((column) => {
+        return {
+          name: column.name,
+          tasks: [],
+          id: nanoid(),
+        };
+      }),
+    };
+
+    dispatch(boardActions.addNewBoard(newBoardData));
   };
   return (
     isModalOpen && (

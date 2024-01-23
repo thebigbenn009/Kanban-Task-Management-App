@@ -162,12 +162,40 @@ export const boardSlice = createSlice({
       );
     },
 
-    dropItemToColumn(state, action) {
+    dragAndDrop(state, action) {
+      const { id, column } = action.payload;
+      console.log(id, column.name);
+
       //find the item that is being dragged
-      const itemDraggable = 
+      const itemDraggable = state.boardData.columns
+        .flatMap((column) => column.tasks)
+        .find((task) => task.id === id);
+      //find column where the draggable item is
+      const prevColumn = state.boardData.columns.find(
+        (col) => col.name === itemDraggable.status
+      );
       //find the column the item is to be dropped onto
-
-
+      const columnToBeDropped = state.boardData.columns.find(
+        (col) => col.name === column.name
+      );
+      //if there is actually a change in the column
+      if (columnToBeDropped.name !== prevColumn.name) {
+        //remove task from the previous column
+        prevColumn.tasks = prevColumn.tasks.filter(
+          (task) => task.id !== itemDraggable.id
+        );
+        //update the status of the dragged item
+        itemDraggable.status = columnToBeDropped.name;
+        //add task to the column name gotten from the payload
+        columnToBeDropped.tasks = [itemDraggable, ...columnToBeDropped.tasks];
+        //update the board
+        state.boardData.columns = state.boardData.columns.map((column) =>
+          column.name === prevColumn.name ? prevColumn : column
+        );
+        state.boardData.columns = state.boardData.columns.map((column) =>
+          column.name === columnToBeDropped.name ? columnToBeDropped : column
+        );
+      }
     },
   },
 });

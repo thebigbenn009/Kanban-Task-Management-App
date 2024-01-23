@@ -24,6 +24,9 @@ const ViewTask = () => {
   const taskMenuHandler = () => {
     dispatch(taskMenuActions.toggleTaskMenu());
   };
+
+  const droppable = boardData?.columns?.flatMap((column) => column.tasks);
+  //   console.log(droppable);
   return (
     viewTaskModal && (
       <ModalWrapper>

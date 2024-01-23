@@ -3,6 +3,8 @@ const initialState = {
   addNewBoardModal: false,
   addNewTaskModal: false,
   viewTaskModal: false,
+  editBoardModal: false,
+  deleteBoardModal: false,
 };
 export const modalSlice = createSlice({
   name: "modal",

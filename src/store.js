@@ -4,6 +4,7 @@ import { themeSlice } from "./features/themeSlice/themeSlice";
 import { sidebarSlice } from "./features/sidebarSlice/sidebarSlice";
 import { modalSlice } from "./features/modal/modalSlice";
 import { taskMenuSlice } from "./features/task-menu/taskMenuSlice";
+import { boardMenuSlice } from "./features/boardMenu/boardMenuSlice";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     sidebar: sidebarSlice.reducer,
     modal: modalSlice.reducer,
     taskMenu: taskMenuSlice.reducer,
+    boardMenu: boardMenuSlice.reducer,
   },
 });
 
