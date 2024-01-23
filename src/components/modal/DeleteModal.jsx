@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { taskMenuActions } from "../../features/task-menu/taskMenuSlice";
 import { boardActions } from "../../features/boardSlice/boardSlice";
 
-const DeleteModal = () => {
+const DeleteModal = ({ itemToBeDeleted, deleteTaskHandler, opener }) => {
   const dispatch = useDispatch();
   const currentTask = useSelector((state) => state.board.currentTask);
   const isDeleteTaskOpen = useSelector(
@@ -13,18 +13,18 @@ const DeleteModal = () => {
   const cancelDeleteHandler = () => {
     dispatch(taskMenuActions.closeDeleteTask());
   };
-  const deleteTaskHandler = () => {
-    dispatch(taskMenuActions.closeDeleteTask());
-    dispatch(boardActions.deleteTask(currentTask));
-  };
+  //   const deleteTaskHandler = () => {
+  //     dispatch(taskMenuActions.closeDeleteTask());
+  //     dispatch;
+  //   };
 
   return (
-    isDeleteTaskOpen && (
+    opener && (
       <ModalWrapper>
         <div className="delete-modal">
           <h3 className="delete-h3">Delete this task?</h3>
           <p>
-            Are you sure you want to delete the {currentTask.title} and its
+            Are you sure you want to delete the {itemToBeDeleted} and its
             subtasks? This action cannot be reversed.
           </p>
           <div className="btn-container">
