@@ -12,7 +12,6 @@ const BoardMenu = () => {
     dispatch(boardMenuActions.closeEditBoardMenu());
   };
   const openDeleteBoardHandler = () => {
-    dispatch(boardMenuActions.openEditBoardModal());
     dispatch(boardMenuActions.closeEditBoardMenu());
   };
   return (

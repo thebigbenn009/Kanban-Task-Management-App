@@ -22,7 +22,10 @@ export const boardSlice = createSlice({
       state.data.boards = [...state.data.boards, newBoard];
       console.log(state.data.boards);
     },
-
+    editBoard(state, action) {
+      const updatedBoardData = action.payload;
+      state.boardData = updatedBoardData;
+    },
     addNewTask(state, action) {
       const columnToBeUpdated = state.boardData.columns.find(
         (column) => column.name === action.payload.status
