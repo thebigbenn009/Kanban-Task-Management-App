@@ -62,7 +62,7 @@ const NewBoardModal = () => {
               return (
                 <div className="add-column" key={field.id}>
                   <input type="text" {...register(`columns.${index}.name`)} />
-                  <RemoveInput removeInput={remove} />
+                  <RemoveInput removeInput={() => remove(index)} />
                 </div>
               );
             })}

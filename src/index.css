@@ -79,7 +79,8 @@ p {
 }
 
 .app-container {
-  height: 100vh;
+  /* max-height: 100vh; */
+
   overflow: auto;
   display: grid;
   grid-template-columns: 30rem 1fr;
@@ -87,6 +88,8 @@ p {
   transition: grid-template-columns 0.3s ease-in-out;
 }
 .main-section {
+  position: relative;
+
   height: 100vh;
   overflow-y: auto;
   background-color: var(--very-dark-grey-bg);
@@ -143,6 +146,11 @@ p {
   align-self: center;
 }
 .nav {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 333;
+  opacity: 0.95;
   padding: 2rem;
   background-color: var(--dark-grey);
   display: flex;
@@ -154,7 +162,7 @@ p {
   align-content: center;
 }
 .board-container {
-  height: 100vh;
+  /* height: 100vh; */
 
   position: relative;
   padding: 2.4rem;
@@ -281,6 +289,9 @@ p {
   gap: 1.5rem;
 }
 .status {
+  position: sticky;
+  top: 0;
+  z-index: 33;
   text-transform: uppercase;
   color: var(--medium-grey);
   letter-spacing: 2.4px;
@@ -302,7 +313,7 @@ p {
 .column-container {
   display: grid;
   background-color: var(--very-dark-grey-bg);
-  grid-template-columns: repeat(3, 28rem);
+  grid-template-columns: repeat(auto-fit, 28rem);
   gap: 2.4rem;
 }
 
@@ -521,12 +532,14 @@ textarea:focus {
   right: -30%;
   transform: translateY(1rem);
   opacity: 0;
+  visibility: hidden;
   transition: all 0.3s ease-in-out;
   /* top: 4.5rem; */
 }
 .task-menu-visible {
   transform: translateY(3.5rem);
   opacity: 1;
+  visibility: visible;
 }
 .board-menu {
   position: absolute;
@@ -541,6 +554,7 @@ textarea:focus {
   transform: translateY(1rem);
   opacity: 0;
   transition: all 0.3s ease-in-out;
+  visibility: hidden;
 }
 .board-menu > * {
   cursor: pointer;
@@ -560,6 +574,7 @@ textarea:focus {
 .board-menu-visible {
   transform: translateY(5rem);
   opacity: 1;
+  visibility: visible;
 }
 .task-menu-visible p {
   cursor: pointer;

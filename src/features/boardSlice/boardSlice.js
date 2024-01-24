@@ -26,6 +26,13 @@ export const boardSlice = createSlice({
       const updatedBoardData = action.payload;
       state.boardData = updatedBoardData;
     },
+    deleteBoard(state, action) {
+      const boardToBeDeletedID = action.payload;
+      state.data.boards = state.data.boards.filter(
+        (board) => board.id !== boardToBeDeletedID
+      );
+      state.boardData = {};
+    },
     addNewTask(state, action) {
       const columnToBeUpdated = state.boardData.columns.find(
         (column) => column.name === action.payload.status

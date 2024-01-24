@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import SingleColumn from "./SingleColumn";
 
 const ColumnContainer = () => {
   const boardData = useSelector((state) => state.board.boardData);
-  if (Object.keys(boardData) === 0) return;
+  const changeScroll = () => {
+    console.log(window.scrollY);
+  };
+  window.addEventListener("scroll", changeScroll);
 
   return (
     <section className="column-container">
@@ -17,6 +20,7 @@ const ColumnContainer = () => {
           />
         );
       })}
+      <div>Add New Column</div>
     </section>
   );
 };

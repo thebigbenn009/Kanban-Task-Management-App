@@ -13,6 +13,7 @@ const BoardMenu = () => {
   };
   const openDeleteBoardHandler = () => {
     dispatch(boardMenuActions.closeEditBoardMenu());
+    dispatch(boardMenuActions.openDeleteBoardModal());
   };
   return (
     <div className={`board-menu ${isBoardMenuOpen && "board-menu-visible"}`}>

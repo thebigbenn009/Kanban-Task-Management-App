@@ -6,6 +6,7 @@ import { useFieldArray, useForm } from "react-hook-form";
 import RemoveInput from "./RemoveInput";
 import { nanoid } from "nanoid";
 import { boardActions } from "../../features/boardSlice/boardSlice";
+import { boardMenuActions } from "../../features/boardMenu/boardMenuSlice";
 
 const AddNewTask = () => {
   const [columnName, setColumnName] = useState("");
@@ -50,6 +51,7 @@ const AddNewTask = () => {
     };
     console.log(dataToBeSubmitted);
     dispatch(boardActions.addNewTask(dataToBeSubmitted));
+    dispatch(modalActions.closeNewTaskModal());
     setColumnName("");
   };
 

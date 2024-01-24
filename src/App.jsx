@@ -9,9 +9,12 @@ import EditBoardModal from "./components/modal/EditBoardModal";
 import { useDispatch, useSelector } from "react-redux";
 import { boardActions } from "./features/boardSlice/boardSlice";
 import { taskMenuActions } from "./features/task-menu/taskMenuSlice";
+import { boardMenuActions } from "./features/boardMenu/boardMenuSlice";
 
 const App = () => {
   const currentTask = useSelector((state) => state.board.currentTask);
+  const boardData = useSelector((state) => state.board.boardData);
+
   const isDeleteTaskOpen = useSelector(
     (state) => state.taskMenu.isDeleteTaskOpen
   );
@@ -23,6 +26,10 @@ const App = () => {
     dispatch(taskMenuActions.closeDeleteTask());
     dispatch(boardActions.deleteTask(currentTask));
   };
+  const deleteBoardHandler = () => {
+    dispatch(boardActions.deleteBoard(boardData.id));
+    dispatch(boardMenuActions.closeDeleteBoardModal());
+  };
   return (
     <>
       <AppContainer />
@@ -31,11 +38,19 @@ const App = () => {
       <ViewTask />
       <EditTaskModal />
       <DeleteModal
+        sub="subtasks"
+        taskOrBoard="task"
         itemToBeDeleted={currentTask.title}
         deleteTaskHandler={deleteTaskHandler}
         opener={isDeleteTaskOpen}
       />
-      <DeleteModal opener={deleteBoardModal} />
+      <DeleteModal
+        opener={deleteBoardModal}
+        itemToBeDeleted={boardData.name}
+        sub="columns"
+        taskOrBoard="board"
+        deleteTaskHandler={deleteBoardHandler}
+      />
       <EditBoardModal />
     </>
   );
