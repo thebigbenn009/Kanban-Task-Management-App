@@ -72,6 +72,7 @@ const AddNewTask = () => {
           <div className="form-control">
             <label htmlFor="title">title</label>
             <input
+              className={errors.title ? "input-error" : ""}
               type="text"
               {...register("title", {
                 required: {

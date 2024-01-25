@@ -10,6 +10,7 @@ const DeleteModal = ({
   opener,
   sub,
   taskOrBoard,
+  singularOrPlural,
 }) => {
   const dispatch = useDispatch();
   const currentTask = useSelector((state) => state.board.currentTask);
@@ -19,10 +20,6 @@ const DeleteModal = ({
   const cancelDeleteHandler = () => {
     dispatch(taskMenuActions.closeDeleteTask());
   };
-  //   const deleteTaskHandler = () => {
-  //     dispatch(taskMenuActions.closeDeleteTask());
-  //     dispatch;
-  //   };
 
   return (
     opener && (
@@ -30,8 +27,8 @@ const DeleteModal = ({
         <div className="delete-modal">
           <h3 className="delete-h3">Delete this {taskOrBoard}?</h3>
           <p>
-            Are you sure you want to delete the {itemToBeDeleted} and its {sub}?
-            This action cannot be reversed.
+            Are you sure you want to delete the {itemToBeDeleted} and its {sub}
+            {singularOrPlural}? This action cannot be reversed.
           </p>
           <div className="btn-container">
             <button

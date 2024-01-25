@@ -452,6 +452,9 @@ textarea:focus {
 .remove-input:hover path {
   fill: var(--danger-hover);
 }
+.input-error {
+  border: solid 1px var(--danger);
+}
 .form-btn-container {
   width: 100%;
 }

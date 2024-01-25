@@ -38,18 +38,20 @@ const App = () => {
       <ViewTask />
       <EditTaskModal />
       <DeleteModal
-        sub="subtasks"
+        sub="subtask"
         taskOrBoard="task"
         itemToBeDeleted={currentTask.title}
         deleteTaskHandler={deleteTaskHandler}
         opener={isDeleteTaskOpen}
+        singularOrPlural={currentTask?.subtasks?.length > 1 && "s"}
       />
       <DeleteModal
         opener={deleteBoardModal}
         itemToBeDeleted={boardData.name}
-        sub="columns"
+        sub="column"
         taskOrBoard="board"
         deleteTaskHandler={deleteBoardHandler}
+        singularOrPlural={boardData?.columns?.length > 1 && "s"}
       />
       <EditBoardModal />
     </>
