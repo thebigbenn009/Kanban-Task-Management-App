@@ -17,7 +17,7 @@ const AddNewTask = () => {
     dispatch(modalActions.closeNewTaskModal());
   };
   // const first = boardData.columns.find((column)=>)
-  const { register, control, handleSubmit, reset } = useForm({
+  const { register, control, handleSubmit, formState, reset } = useForm({
     defaultValues: {
       title: "Take Coffee break",
       description: `e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little.`,
@@ -33,6 +33,7 @@ const AddNewTask = () => {
       ],
     },
   });
+  const { errors } = formState;
   const { fields, append, remove } = useFieldArray({
     name: "subtasks",
     control,
@@ -58,7 +59,7 @@ const AddNewTask = () => {
   return (
     addNewTaskModal && (
       <ModalWrapper>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <span className="close-modal" onClick={handleCloseModal}>
             <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
               <g fill="#828FA3" fill-rule="evenodd">
@@ -70,7 +71,16 @@ const AddNewTask = () => {
           <h3>add new task</h3>
           <div className="form-control">
             <label htmlFor="title">title</label>
-            <input type="text" {...register("title")} />
+            <input
+              type="text"
+              {...register("title", {
+                required: {
+                  value: true,
+                  message: "task title required!",
+                },
+              })}
+            />
+            <p className="form-error">{errors?.title?.message}</p>
           </div>
           <div className="form-control">
             <label htmlFor="description">description</label>

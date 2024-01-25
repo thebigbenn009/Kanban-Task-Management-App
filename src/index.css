@@ -149,7 +149,7 @@ p {
   position: sticky;
   top: 0;
   left: 0;
-  z-index: 333;
+  z-index: 1;
   opacity: 0.95;
   padding: 2rem;
   background-color: var(--dark-grey);
@@ -290,13 +290,17 @@ p {
 }
 .status {
   position: sticky;
-  top: 0;
+  top: 85px;
   z-index: 33;
   text-transform: uppercase;
   color: var(--medium-grey);
   letter-spacing: 2.4px;
   font-weight: bold;
   margin-bottom: 2.4rem;
+}
+.sticky-status {
+  background-color: var(--very-dark-grey-bg);
+  border-radius: 3px;
 }
 .single-task {
   padding: 2.3rem 1.6rem;
@@ -376,6 +380,10 @@ article h4 {
 }
 .close-modal:hover path {
   fill: var(--danger-hover);
+}
+.form-error {
+  color: var(--danger);
+  font-size: 1.3rem;
 }
 form,
 .view-task-container {

@@ -1,26 +1,26 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Navbar from "./Navbar";
 import BoardContainer from "../board-components/BoardContainer";
 
 const MainContent = () => {
-  const mainRef = useRef(null);
+  const mainRef = useRef();
+  const [scrollPosition, setScrollPosition] = useState(0);
+
   useEffect(() => {
-    const handleScroll = () => {
-      // Your scroll event logic here
-      console.log("Scrolled:", mainRef.current.scrollTop);
+    const getScroll = () => {
+      console.log("scrollY: ", mainRef.current.scrollTop);
+      setScrollPosition(mainRef.current.scrollTop);
     };
 
-    // Attach the event listener to the main section element
-    mainRef.current.addEventListener("scroll", handleScroll);
+    mainRef.current.addEventListener("scroll", getScroll);
 
-    // Clean up the event listener when the component unmounts
     return () => {
-      mainRef.current.removeEventListener("scroll", handleScroll);
+      mainRef.current.removeEventListener("scroll", getScroll);
     };
   }, []);
   return (
-    <section ref={mainRef} className="main-section">
-      <Navbar />
+    <section className="main-section" ref={mainRef}>
+      <Navbar scrollPosition={scrollPosition} />
       <BoardContainer />
     </section>
   );

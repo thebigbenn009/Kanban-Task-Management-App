@@ -1,15 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import LogoContainer from "../sidebar/LogoContainer";
 import { modalActions } from "../../features/modal/modalSlice";
 import { boardMenuActions } from "../../features/boardMenu/boardMenuSlice";
 import BoardMenu from "./boardMenu";
 
-const Navbar = () => {
+const Navbar = ({ scrollPosition }) => {
+  const navRef = useRef(null);
   const dispatch = useDispatch();
   const isSidebarOpen = useSelector((state) => state.sidebar.isSidebarOpen);
   const boardData = useSelector((state) => state.board.boardData);
-
+  const [isSticky, setIsSticky] = useState(false);
   const openTaskModalHandler = () => {
     dispatch(modalActions.openNewTaskModal());
   };
@@ -41,8 +42,27 @@ const Navbar = () => {
       </nav>
     );
   }
+  useEffect(() => {
+    const getNavHeight = () => {
+      const navHeight = navRef.current.offsetHeight;
+
+      console.log("navHeight: ", navHeight);
+    };
+    // getNavHeight();
+    if (scrollPosition >= navRef.current.offsetHeight) {
+      setIsSticky(true);
+    } else {
+      setIsSticky(false);
+    }
+
+    window.addEventListener("resize", getNavHeight);
+    return () => {
+      window.removeEventListener("resize", getNavHeight);
+    };
+  }, [scrollPosition]);
+
   return (
-    <nav className="nav">
+    <nav className="nav" ref={navRef}>
       <h1>{boardData.name}</h1>
       <div className="nav-btn-container">
         <button
