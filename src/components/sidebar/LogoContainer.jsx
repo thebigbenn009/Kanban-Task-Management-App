@@ -1,6 +1,6 @@
 import React from "react";
 
-function LogoContainer() {
+const LogoContainer = () => {
   return (
     <div className="logo-container">
       <div className="logo">
@@ -21,6 +21,6 @@ function LogoContainer() {
       </div>
     </div>
   );
-}
+};
 
 export default LogoContainer;

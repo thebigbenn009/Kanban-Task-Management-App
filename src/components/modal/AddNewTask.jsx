@@ -17,22 +17,23 @@ const AddNewTask = () => {
     dispatch(modalActions.closeNewTaskModal());
   };
   // const first = boardData.columns.find((column)=>)
-  const { register, control, handleSubmit, formState, reset } = useForm({
-    defaultValues: {
-      title: "Take Coffee break",
-      description: `e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little.`,
-      subtasks: [
-        {
-          title: "Interview 10 customers",
-          isCompleted: false,
-        },
-        {
-          title: "Review common customer pain points and suggestions",
-          isCompleted: false,
-        },
-      ],
-    },
-  });
+  const { register, control, handleSubmit, formState, reset, trigger } =
+    useForm({
+      defaultValues: {
+        title: "Take Coffee break",
+        description: `e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little.`,
+        subtasks: [
+          {
+            title: "Interview 10 customers",
+            isCompleted: false,
+          },
+          {
+            title: "Review common customer pain points and suggestions",
+            isCompleted: false,
+          },
+        ],
+      },
+    });
   const { errors } = formState;
   const { fields, append, remove } = useFieldArray({
     name: "subtasks",
@@ -55,7 +56,9 @@ const AddNewTask = () => {
     dispatch(modalActions.closeNewTaskModal());
     setColumnName("");
   };
-
+  useEffect(() => {
+    reset();
+  }, [addNewTaskModal]);
   return (
     addNewTaskModal && (
       <ModalWrapper>
@@ -71,16 +74,18 @@ const AddNewTask = () => {
           <h3>add new task</h3>
           <div className="form-control">
             <label htmlFor="title">title</label>
+
             <input
-              className={errors.title ? "input-error" : ""}
+              className={errors?.title && "border-error"}
               type="text"
               {...register("title", {
                 required: {
                   value: true,
-                  message: "task title required!",
+                  message: "cannot be empty!",
                 },
               })}
             />
+
             <p className="form-error">{errors?.title?.message}</p>
           </div>
           <div className="form-control">
@@ -96,8 +101,24 @@ const AddNewTask = () => {
             {fields.map((field, index) => {
               return (
                 <div className="add-column" key={field.id}>
-                  <input type="text" {...register(`subtasks.${index}.title`)} />
+                  <input
+                    className={
+                      errors?.subtasks?.[index]?.title && "border-error"
+                    }
+                    type="text"
+                    {...register(`subtasks.${index}.title`, {
+                      required: {
+                        value: true,
+                        message: "cannot be empty!",
+                      },
+                    })}
+                  />
                   <RemoveInput removeInput={() => remove(index)} />
+                  {errors?.subtasks?.[index]?.title && (
+                    <p className="subtask-error">
+                      {errors.subtasks[index].title.message}
+                    </p>
+                  )}
                 </div>
               );
             })}

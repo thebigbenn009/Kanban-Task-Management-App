@@ -17,10 +17,32 @@ const Navbar = ({ scrollPosition }) => {
   const boardMenuToggle = () => {
     dispatch(boardMenuActions.toggleBoardMenu());
   };
-  if (!isSidebarOpen) {
-    return (
-      <nav className="sidebar-nav">
-        <div className="logo-parent">
+
+  //////////////////////
+  // useEffect(() => {
+  //   const getNavHeight = () => {
+  //     const navHeight = navRef.current.offsetHeight;
+
+  //     console.log("navHeight: ", navHeight);
+  //   };
+  //   // getNavHeight();
+  //   if (scrollPosition >= navRef.current.offsetHeight) {
+  //     setIsSticky(true);
+  //   } else {
+  //     setIsSticky(false);
+  //   }
+
+  //   window.addEventListener("resize", getNavHeight);
+  //   return () => {
+  //     window.removeEventListener("resize", getNavHeight);
+  //   };
+  // }, [scrollPosition]);
+
+  return (
+    <nav className={`nav ${!isSidebarOpen && "open"}`} ref={navRef}>
+      {/* {!isSidebarOpen && <LogoContainer />} */}
+      <div className="nav-flexible">
+        {!isSidebarOpen && (
           <svg width="153" height="26" xmlns="http://www.w3.org/2000/svg">
             <g fill="none" fill-rule="evenodd">
               <path
@@ -35,35 +57,9 @@ const Navbar = ({ scrollPosition }) => {
               </g>
             </g>
           </svg>
-        </div>
-        <div className="nav-text-parent">
-          <h1>Navbar</h1>
-        </div>
-      </nav>
-    );
-  }
-  useEffect(() => {
-    const getNavHeight = () => {
-      const navHeight = navRef.current.offsetHeight;
-
-      console.log("navHeight: ", navHeight);
-    };
-    // getNavHeight();
-    if (scrollPosition >= navRef.current.offsetHeight) {
-      setIsSticky(true);
-    } else {
-      setIsSticky(false);
-    }
-
-    window.addEventListener("resize", getNavHeight);
-    return () => {
-      window.removeEventListener("resize", getNavHeight);
-    };
-  }, [scrollPosition]);
-
-  return (
-    <nav className="nav" ref={navRef}>
-      <h1>{boardData.name}</h1>
+        )}
+        <h1 className={!isSidebarOpen && "flexible"}>{boardData.name}</h1>
+      </div>
       <div className="nav-btn-container">
         <button
           onClick={openTaskModalHandler}

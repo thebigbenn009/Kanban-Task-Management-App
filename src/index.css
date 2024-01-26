@@ -131,8 +131,12 @@ p {
   cursor: pointer;
   border-top-right-radius: 2000rem;
   border-bottom-right-radius: 2000rem;
-  position: absolute;
+  /* position: absolute; */
+  /* position: sticky; */
+  position: fixed;
+
   bottom: 0;
+  z-index: 1;
 }
 .sidebar-nav {
   display: flex;
@@ -156,6 +160,31 @@ p {
   display: flex;
   justify-content: space-between;
 }
+.nav::after {
+  content: "";
+  position: absolute;
+  width: 1px;
+  background-color: var(--dark-lines);
+  left: 20rem;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  opacity: 0;
+}
+.nav.open::after {
+  opacity: 1;
+}
+.nav-flexible {
+  display: flex;
+  align-items: center;
+  gap: 3.2rem;
+}
+
+.flexible {
+  margin-left: 3.2rem;
+  transition: all 0.3s ease-in-out;
+}
+
 .nav-text-parent {
   padding-left: 3.2rem;
   display: flex;
@@ -384,6 +413,9 @@ article h4 {
 .form-error {
   color: var(--danger);
   font-size: 1.3rem;
+  position: absolute;
+  right: 8px;
+  transform: translateY(-25px);
 }
 form,
 .view-task-container {
@@ -407,6 +439,7 @@ form label {
 }
 .form-control {
   margin-bottom: 2.4rem;
+  position: relative;
   width: 100%;
 }
 input,
@@ -445,6 +478,8 @@ textarea:focus {
   cursor: pointer;
   align-self: center;
 }
+input {
+}
 .remove-input path {
   transition: all 0.2s ease-in-out;
   fill: var(--danger);
@@ -452,8 +487,16 @@ textarea:focus {
 .remove-input:hover path {
   fill: var(--danger-hover);
 }
-.input-error {
+.border-error {
   border: solid 1px var(--danger);
+}
+.subtask-error {
+  font-size: 1.2rem;
+  color: var(--danger);
+  position: absolute;
+
+  right: 4rem;
+  transform: translateY(12px);
 }
 .form-btn-container {
   width: 100%;

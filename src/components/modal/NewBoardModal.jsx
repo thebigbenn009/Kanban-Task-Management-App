@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ModalWrapper from "./ModalWrapper";
 import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../../features/modal/modalSlice";
@@ -6,9 +6,16 @@ import { useFieldArray, useForm } from "react-hook-form";
 import RemoveInput from "./RemoveInput";
 import { boardActions } from "../../features/boardSlice/boardSlice";
 import { nanoid } from "nanoid";
+import { boardMenuActions } from "../../features/boardMenu/boardMenuSlice";
 
 const NewBoardModal = () => {
-  const { register, control, handleSubmit, formState } = useForm({
+  const {
+    register,
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       name: "Tutorials",
       columns: [{ name: "Todo" }, { name: "Doing" }],
@@ -38,7 +45,11 @@ const NewBoardModal = () => {
     };
 
     dispatch(boardActions.addNewBoard(newBoardData));
+    dispatch(modalActions.closeNewBoardModal());
   };
+  useEffect(() => {
+    reset();
+  }, [isModalOpen]);
   return (
     isModalOpen && (
       <ModalWrapper>
@@ -55,17 +66,43 @@ const NewBoardModal = () => {
             <h3>Add New Board</h3>
             <div className="form-control">
               <label htmlFor="boardName">Board Name</label>
-              <input type="text" {...register("name")} />
+              <input
+                className={errors?.name?.message && "border-error"}
+                type="text"
+                {...register("name", {
+                  required: {
+                    value: true,
+                    message: "cannot be empty!",
+                  },
+                })}
+              />
+              <p className="form-error">{errors?.name?.message}</p>
             </div>
             <label>Board Columns</label>
-            {fields.map((field, index) => {
-              return (
-                <div className="add-column" key={field.id}>
-                  <input type="text" {...register(`columns.${index}.name`)} />
-                  <RemoveInput removeInput={() => remove(index)} />
-                </div>
-              );
-            })}
+            <div className="form-control">
+              {fields.map((field, index) => {
+                return (
+                  <div className="add-column" key={field.id}>
+                    <input
+                      className={
+                        errors?.columns?.[index]?.name && "border-error"
+                      }
+                      type="text"
+                      {...register(`columns.${index}.name`, {
+                        required: {
+                          value: true,
+                          message: "cannot be empty",
+                        },
+                      })}
+                    />
+                    <RemoveInput removeInput={() => remove(index)} />
+                    <p className="subtask-error">
+                      {errors?.columns?.[index]?.name.message}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
 
             <div className="form-btn-container">
               <button

@@ -20,7 +20,7 @@ const ColumnContainer = () => {
           />
         );
       })}
-      <div>Add New Column</div>
+      {/* <div>Add New Column</div> */}
     </section>
   );
 };
