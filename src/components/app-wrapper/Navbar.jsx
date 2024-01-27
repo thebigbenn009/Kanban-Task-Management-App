@@ -4,9 +4,19 @@ import LogoContainer from "../sidebar/LogoContainer";
 import { modalActions } from "../../features/modal/modalSlice";
 import { boardMenuActions } from "../../features/boardMenu/boardMenuSlice";
 import BoardMenu from "./boardMenu";
+import BoardNames from "../sidebar/BoardNames";
+import Dropdown from "../Dropdown";
+import {
+  sidebarActions,
+  sidebarSlice,
+} from "../../features/sidebarSlice/sidebarSlice";
 
 const Navbar = ({ scrollPosition }) => {
+  const isMobileMenuOpen = useSelector(
+    (state) => state.sidebar.isMobileMenuOpen
+  );
   const navRef = useRef(null);
+  const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const dispatch = useDispatch();
   const isSidebarOpen = useSelector((state) => state.sidebar.isSidebarOpen);
   const boardData = useSelector((state) => state.board.boardData);
@@ -17,31 +27,13 @@ const Navbar = ({ scrollPosition }) => {
   const boardMenuToggle = () => {
     dispatch(boardMenuActions.toggleBoardMenu());
   };
-
-  //////////////////////
-  // useEffect(() => {
-  //   const getNavHeight = () => {
-  //     const navHeight = navRef.current.offsetHeight;
-
-  //     console.log("navHeight: ", navHeight);
-  //   };
-  //   // getNavHeight();
-  //   if (scrollPosition >= navRef.current.offsetHeight) {
-  //     setIsSticky(true);
-  //   } else {
-  //     setIsSticky(false);
-  //   }
-
-  //   window.addEventListener("resize", getNavHeight);
-  //   return () => {
-  //     window.removeEventListener("resize", getNavHeight);
-  //   };
-  // }, [scrollPosition]);
-
+  const handleDropdown = () => {
+    dispatch(sidebarActions.toggleMobileMenu());
+  };
   return (
     <nav className={`nav ${!isSidebarOpen && "open"}`} ref={navRef}>
       {/* {!isSidebarOpen && <LogoContainer />} */}
-      <div className="nav-flexible">
+      <div className="nav-flexible" onClick={handleDropdown}>
         {!isSidebarOpen && (
           <svg width="153" height="26" xmlns="http://www.w3.org/2000/svg">
             <g fill="none" fill-rule="evenodd">
@@ -58,8 +50,35 @@ const Navbar = ({ scrollPosition }) => {
             </g>
           </svg>
         )}
+        <svg
+          className="logo-mobile"
+          width="24"
+          height="25"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g fill="#635FC7" fill-rule="evenodd">
+            <rect width="6" height="25" rx="2" />
+            <rect opacity=".75" x="9" width="6" height="25" rx="2" />
+            <rect opacity=".5" x="18" width="6" height="25" rx="2" />
+          </g>
+        </svg>
         <h1 className={!isSidebarOpen && "flexible"}>{boardData.name}</h1>
+        <svg
+          className="nav-dropdown"
+          width="10"
+          height="7"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            stroke="#635FC7"
+            stroke-width="2"
+            fill="none"
+            d="m1 1 4 4 4-4"
+          />
+        </svg>
       </div>
+      {/* {isDropDownOpen && <Dropdown />} */}
+      <Dropdown />
       <div className="nav-btn-container">
         <button
           onClick={openTaskModalHandler}
@@ -73,7 +92,7 @@ const Navbar = ({ scrollPosition }) => {
                 d="M7.368 12V7.344H12V4.632H7.368V0H4.656v4.632H0v2.712h4.656V12z"
               />
             </svg>
-            add new task
+            <span className="new-task">add new task</span>
           </div>
         </button>
         <svg

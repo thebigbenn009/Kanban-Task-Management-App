@@ -1,11 +1,13 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { boardActions } from "../../features/boardSlice/boardSlice";
+import { sidebarActions } from "../../features/sidebarSlice/sidebarSlice";
 
 const BoardName = ({ boardName }) => {
   const dispatch = useDispatch();
   const handleDisplayBoard = () => {
     dispatch(boardActions.displayBoard(boardName));
+    dispatch(sidebarActions.closeMobileMenu());
   };
   return (
     <li className="board-name" onClick={handleDisplayBoard}>

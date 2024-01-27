@@ -190,6 +190,10 @@ p {
   display: flex;
   align-content: center;
 }
+.menu-dropdown {
+  display: none;
+  width: 30rem;
+}
 .board-container {
   /* height: 100vh; */
 
@@ -319,8 +323,8 @@ p {
 }
 .status {
   position: sticky;
-  top: 85px;
-  z-index: 33;
+  /* top: 85px; */
+  /* z-index: 33; */
   text-transform: uppercase;
   color: var(--medium-grey);
   letter-spacing: 2.4px;
@@ -384,6 +388,7 @@ article h4 {
   top: 0;
   left: 0;
   height: 100%;
+  overflow: auto;
   width: 100%;
   display: grid;
   place-items: center;
@@ -676,12 +681,119 @@ input {
 .btn-danger:hover {
   background-color: var(--danger-hover);
 }
+.nav-dropdown {
+  display: none;
+}
+.logo-mobile {
+  display: none;
+}
+.dropdown {
+  display: none;
+  transition: all 0.3s ease-in-out;
+  transform: translateY(-40%);
+}
 /* MEDIA QUERIES */
 @media only screen and (max-width: 900px) {
   html {
     font-size: 55%;
   }
+}
+@media only screen and (max-width: 768px) {
+  html {
+    /* font-size: 52%; */
+  }
   .app-container {
-    grid-template-columns: 26.1rem 1fr;
+    grid-template-columns: 26rem 1fr;
+  }
+  .theme-switch {
+    left: 0.4rem;
+  }
+
+  .close-sidebar {
+    grid-template-columns: 0rem 1fr;
+  }
+
+  .column-container {
+    grid-template-columns: 1fr 1fr;
+  }
+  .single-task {
+    padding: 2rem 1.4rem;
+  }
+  form {
+    padding: 2.8rem;
+  }
+  .close-modal {
+    position: fixed;
+  }
+}
+@media only screen and (max-width: 500px) {
+  html {
+    font-size: 52%;
+  }
+  .app-container {
+    grid-template-columns: 1fr;
+  }
+  .column-container {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    display: none;
+  }
+  .new-task {
+    display: none;
+  }
+  .nav {
+    padding: 1rem;
+    opacity: 1;
+  }
+  .nav-flexible {
+    gap: 1.6rem;
+  }
+  .nav-dropdown {
+    display: block;
+    cursor: pointer;
+  }
+  .logo-mobile {
+    display: block;
+  }
+  form {
+    width: 87vw;
+  }
+  .close-modal {
+    right: 9vw;
+  }
+  .delete-modal {
+    padding: 2.5rem;
+    width: 88vw;
+  }
+  .view-task-container {
+    padding: 3rem;
+    gap: 2rem;
+    width: 89vw;
+  }
+  .task-menu {
+    padding: 1rem;
+    width: 14rem;
+    right: -9%;
+  }
+  .task-menu-visible {
+    transform: translateY(4rem);
+  }
+  .nav-btn-container {
+    gap: 1.8rem;
+  }
+  .dropdown {
+    display: block;
+    width: 75vw;
+    background-color: var(--very-dark-grey-bg);
+    transform: translateY(28rem);
+    position: absolute;
+    bottom: 3.1rem;
+    z-index: 4;
+    transform: translateY(-18%);
+    padding: 1rem;
+  }
+  .show-dropdown {
+    transform: translateY(116%);
   }
 }

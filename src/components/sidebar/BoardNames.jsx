@@ -3,11 +3,13 @@ import jsonData from "../../data.json";
 import BoardName from "./BoardName";
 import { useDispatch, useSelector } from "react-redux";
 import { modalActions } from "../../features/modal/modalSlice";
+import { sidebarActions } from "../../features/sidebarSlice/sidebarSlice";
 
 const BoardNames = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.board.data);
   const openNewBoardModalHandler = () => {
+    dispatch(sidebarActions.closeMobileMenu());
     dispatch(modalActions.openNewBoardModal());
   };
   const boardLength = data.boards.map((board) => board.name).length;
