@@ -4,6 +4,7 @@ import { nanoid } from "nanoid";
 
 const initialState = {
   data,
+  activeBoard: "",
   boardData: {},
   currentTask: {},
 };
@@ -16,6 +17,7 @@ export const boardSlice = createSlice({
       state.boardData = state.data.boards.find(
         (board) => board.name === action.payload
       );
+      state.activeBoard = action.payload;
     },
     addNewBoard(state, action) {
       const newBoard = { id: nanoid(), ...action.payload };

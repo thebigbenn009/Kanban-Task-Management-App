@@ -1,16 +1,21 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { boardActions } from "../../features/boardSlice/boardSlice";
 import { sidebarActions } from "../../features/sidebarSlice/sidebarSlice";
 
 const BoardName = ({ boardName }) => {
   const dispatch = useDispatch();
+  const activeBoard = useSelector((state) => state.board.activeBoard);
+
   const handleDisplayBoard = () => {
     dispatch(boardActions.displayBoard(boardName));
     dispatch(sidebarActions.closeMobileMenu());
   };
   return (
-    <li className="board-name" onClick={handleDisplayBoard}>
+    <li
+      className={`board-name ${activeBoard === boardName && "active-class"}`}
+      onClick={handleDisplayBoard}
+    >
       <span>
         <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
           <path
