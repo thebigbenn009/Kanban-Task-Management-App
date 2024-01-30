@@ -229,6 +229,7 @@ p {
   color: var(--medium-grey);
   transition: all 0.3s ease-in-out;
   cursor: pointer;
+
   /* margin-bottom: 1rem; */
   z-index: 3;
 }
@@ -249,9 +250,21 @@ p {
   width: 0;
   margin-left: -4rem;
   height: 100%;
+  /* background-color: var(--main-purple); */
   transition: all 0.3s ease-in-out;
 }
+.active-class {
+  color: var(--white);
+  background-color: var(--main-purple);
+  border-top-right-radius: 200rem;
+  border-bottom-right-radius: 200rem;
+  width: 100%;
+  position: relative;
+}
 
+.active-class svg path {
+  fill: var(--white);
+}
 .board-name:hover::before {
   width: 100%;
   background-color: var(--main-purple);
