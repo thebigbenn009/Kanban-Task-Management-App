@@ -4,8 +4,8 @@ import { nanoid } from "nanoid";
 
 const initialState = {
   data,
-  activeBoard: "",
-  boardData: {},
+  activeBoard: data.boards.find((board, index) => index === 0).name,
+  boardData: data.boards.find((board, index) => index === 0),
   currentTask: {},
 };
 
