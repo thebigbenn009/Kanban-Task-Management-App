@@ -1,31 +1,47 @@
 import React from "react";
 import ModalWrapper from "./ModalWrapper";
-import { useGlobalContext } from "../../context";
+import { useDispatch, useSelector } from "react-redux";
+import { taskMenuActions } from "../../features/task-menu/taskMenuSlice";
+import { boardActions } from "../../features/boardSlice/boardSlice";
 
-const DeleteModal = ({ task }) => {
-  const { deleteModal, deleteTask, taskToBeDisplayed, closeDeleteModal } =
-    useGlobalContext();
+const DeleteModal = ({
+  itemToBeDeleted,
+  deleteTaskHandler,
+  opener,
+  sub,
+  taskOrBoard,
+  singularOrPlural,
+}) => {
+  const dispatch = useDispatch();
+  const currentTask = useSelector((state) => state.board.currentTask);
+  const isDeleteTaskOpen = useSelector(
+    (state) => state.taskMenu.isDeleteTaskOpen
+  );
+  const cancelDeleteHandler = () => {
+    dispatch(taskMenuActions.closeDeleteTask());
+  };
+
   return (
-    deleteModal && (
-      <ModalWrapper modal={deleteModal}>
-        <div className={`form-modal ${deleteModal ? "active" : ""}`}>
-          <h3 className="delete-h3">Delete this task?</h3>
-          <p className="delete-p">
-            Are you sure you want to delete the <strong>{task}</strong> task and
-            its subtasks? This action cannot be reversed.
+    opener && (
+      <ModalWrapper>
+        <div className="delete-modal">
+          <h3 className="delete-h3">Delete this {taskOrBoard}?</h3>
+          <p>
+            Are you sure you want to delete the {itemToBeDeleted} and its {sub}
+            {singularOrPlural}? This action cannot be reversed.
           </p>
           <div className="btn-container">
             <button
-              onClick={() => deleteTask(taskToBeDisplayed.id)}
               type="button"
-              className="btn btn-delete"
+              className="btn btn-danger"
+              onClick={deleteTaskHandler}
             >
               Delete
             </button>
             <button
-              onClick={closeDeleteModal}
+              onClick={cancelDeleteHandler}
               type="button"
-              className="btn btn-cancel"
+              className="btn btn-white"
             >
               Cancel
             </button>

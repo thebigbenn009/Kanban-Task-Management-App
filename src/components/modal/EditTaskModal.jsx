@@ -1,110 +1,124 @@
 import React, { useEffect, useState } from "react";
-import { useForm, useFieldArray } from "react-hook-form";
-
-import { useGlobalContext } from "../../context";
 import ModalWrapper from "./ModalWrapper";
-import CloseModal from "./CloseModal";
-import RemoveInput from "../Task/RemoveInput";
+import { useDispatch, useSelector } from "react-redux";
+import { taskMenuActions } from "../../features/task-menu/taskMenuSlice";
+import { useFieldArray, useForm } from "react-hook-form";
+import RemoveInput from "./RemoveInput";
+import { nanoid } from "nanoid";
+import { boardActions } from "../../features/boardSlice/boardSlice";
+
 const EditTaskModal = () => {
-  const {
-    boardToBeDisplayed,
-    isOpenEditModal,
-    closeEditModal,
-    updateTask,
-    taskToBeDisplayed,
-    setCurrentStatus,
-    setTaskToBeDisplayed,
-    setBoardToBeDisplayed,
-  } = useGlobalContext();
-  const {
-    register: registerEditTask,
-    control: editTaskControl,
-    handleSubmit: submitEditTask,
-
-    reset: resetEditForm,
-  } = useForm({
-    defaultValues: {
-      ...taskToBeDisplayed,
-      subtasks: taskToBeDisplayed.subtasks || [],
-    },
-  });
-  const {
-    fields: editTaskFields,
-    append: appendEditColumn,
-    remove: removeEditColumn,
-  } = useFieldArray({
-    control: editTaskControl,
-    name: "subtasks",
-  });
-
-  useEffect(() => {
-    resetEditForm({
-      ...taskToBeDisplayed,
-      subtasks: taskToBeDisplayed.subtasks || [],
-    });
-  }, [taskToBeDisplayed]);
-  const onCurrentStatus = (status) => {
-    setCurrentStatus(status);
+  const dispatch = useDispatch();
+  const isEditTaskOpen = useSelector((state) => state.taskMenu.isEditTaskOpen);
+  const boardData = useSelector((state) => state.board.boardData);
+  const currentTask = useSelector((state) => state.board.currentTask);
+  const subtasks = currentTask.subtasks;
+  const title = currentTask.title;
+  const status = currentTask.status;
+  const description = currentTask.description;
+  const [newStatus, setNewStatus] = useState("");
+  const handleCloseModal = () => {
+    dispatch(taskMenuActions.closeEditTask());
   };
+  const { register, handleSubmit, control, formState, reset, setValue } =
+    useForm({
+      defaultValues: {
+        subtasks,
+        title,
+        description,
+      },
+    });
+  const { fields, append, remove } = useFieldArray({
+    name: "subtasks",
+    control,
+  });
 
+  const onSubmit = (data) => {
+    const dataToBeSubmitted = {
+      id: currentTask.id,
+      ...data,
+      status: newStatus,
+    };
+    console.log(currentTask, dataToBeSubmitted);
+    dispatch(taskMenuActions.closeEditTask());
+    dispatch(boardActions.editTask(dataToBeSubmitted));
+  };
+  useEffect(() => {
+    //This is to set the default values once the subtasks are available
+    if (currentTask) {
+      reset({
+        subtasks,
+        title,
+        description,
+      });
+      setNewStatus(status);
+    }
+  }, [currentTask]);
   return (
-    isOpenEditModal && (
-      <ModalWrapper modal={isOpenEditModal}>
-        <CloseModal modalToCLose={closeEditModal} />
-        <form
-          onSubmit={submitEditTask(updateTask)}
-          className={`form-modal ${isOpenEditModal ? "active" : ""}`}
-        >
-          <h3>Edit Task</h3>
-          <div className="form-control mb-2">
-            <label htmlFor="title">Title</label>
-            <input type="text" {...registerEditTask("title")} />
+    isEditTaskOpen && (
+      <ModalWrapper>
+        <span className="close-modal" onClick={handleCloseModal}>
+          <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
+            <g fill="#828FA3" fill-rule="evenodd">
+              <path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z" />
+              <path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z" />
+            </g>
+          </svg>
+        </span>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <h3>edit task</h3>
+          <div className="form-control">
+            <label>title</label>
+            <input type="text" {...register("title")} />
           </div>
-          <div className="form-control mb-2">
-            <label htmlFor="description">Description</label>
-            <textarea rows={4} cols={55} {...registerEditTask("description")} />
+          <div className="form-control">
+            <label htmlFor=""></label>
+            <div className="form-control">
+              <label htmlFor="description">description</label>
+              <textarea
+                cols="30"
+                rows="5"
+                {...register("description")}
+              ></textarea>
+            </div>
           </div>
-          <label htmlFor="subtasks">Subtasks</label>
-          {editTaskFields.map((field, index) => {
-            return (
-              <div className="add-column" key={field.id}>
-                <input {...registerEditTask(`subtasks.${index}.title`)} />
-                <RemoveInput remove={removeEditColumn} index={index} />
-              </div>
-            );
-          })}
-          <div className="form-btn-container">
+          <div className="form-control">
+            <label htmlFor="">subtasks</label>
+            {fields.map((field, index) => {
+              return (
+                <div className="add-column" key={field.id}>
+                  <input type="text" {...register(`subtasks.${index}.title`)} />
+                  <RemoveInput removeInput={() => remove(index)} />
+                </div>
+              );
+            })}
             <button
               className="btn btn-block btn-white"
               type="button"
               onClick={() =>
-                appendEditColumn({ title: "", isCompleted: false })
+                append({ title: "", isCompleted: false, id: nanoid() })
               }
             >
-              Add New Subtask
+              <strong>+</strong> Add New subtask
             </button>
           </div>
-          <div className="form-control mb-2">
-            <label htmlFor="status">status</label>
+          <div className="form-control">
+            <label htmlFor="">status</label>
             <select
-              {...registerEditTask("status")}
-              id="status"
-              onChange={(e) => onCurrentStatus(e.target.value)}
+              onChange={(e) => setNewStatus(e.target.value)}
+              value={newStatus}
             >
-              {boardToBeDisplayed?.columns?.map((column) => {
+              {boardData.columns.map((column) => {
                 return (
-                  <option key={column.name} value={column.name}>
+                  <option value={column.name} key={column.name}>
                     {column.name}
                   </option>
                 );
               })}
-
-              {/* <option value="Doing">Doing</option>
-              <option value="Done">Done</option> */}
             </select>
           </div>
-          <button className="btn btn-primary btn-block" type="submit">
-            Update Task
+          <button type="submit" className="btn btn-block btn-primary">
+            save changes
           </button>
         </form>
       </ModalWrapper>
