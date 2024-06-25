@@ -17,7 +17,7 @@
   --very-dark-grey: #20212c;
   --hover: #635fc7;
   --input-border: rgba(130, 143, 163, 0.25);
-  --black: #000112;
+  /* --black: #000112; */
 }
 .light-theme {
   --btn-primary: #635fc7;
