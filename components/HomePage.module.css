@@ -1,0 +1,41 @@
+.homepage {
+  background: linear-gradient(135deg, #20212c 0%, #2e2f3a 100%);
+  padding: 2rem;
+
+  color: var(--btn-primary);
+  display: grid;
+  place-items: center;
+  height: 100vh;
+}
+.homeContainer {
+  background-color: var(--dark-grey);
+  padding: 3.2rem;
+  width: 100%;
+  text-align: center;
+  display: grid;
+  gap: 2.4rem;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+.homeContainer h1 {
+  font-weight: 800;
+}
+.homeContainer a {
+  justify-self: center;
+  padding: 1.4rem 2.8rem;
+  background-color: var(--btn-primary);
+  border-radius: 5px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  transition: all 0.3s ease-in-out;
+}
+.homeContainer a:hover {
+  background-color: var(--btn-primary-hover);
+}
+@media only screen and (min-width: 1024px) {
+  .homeContainer {
+    width: 56rem;
+  }
+  .homeContainer h1 {
+    font-size: 5.2rem;
+  }
+}

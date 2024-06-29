@@ -1,5 +1,13 @@
 import { SignUp } from "@clerk/nextjs";
 
 export default function Page() {
-  return <SignUp />;
+  return (
+    <div className="sign-up">
+      <SignUp appearance={{
+        variables:{
+          // fontSize:"100%"
+        }
+      }} />
+    </div>
+  );
 }
