@@ -1,14 +1,14 @@
 "use client";
 import React from "react";
-import cross from "@/public/icon-cross.svg";
-import Image from "next/image";
+
 import { useDispatch } from "react-redux";
-import { closeModal } from "@/app/features/modalSlice";
+import { closeBoard, closeModal } from "@/app/features/modalSlice";
 
 const Modal = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useDispatch();
   const handleCoseModal = () => {
     dispatch(closeModal());
+    dispatch(closeBoard())
   };
   return (
     <div className="overlay">

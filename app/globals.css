@@ -174,6 +174,8 @@ main {
   left: 0;
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 1;
+  display: grid;
+  place-items: center;
 }
 .close-btn {
   display: grid;
@@ -203,4 +205,67 @@ box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 
  fill: var(--btn-danger-hover);
 
 
+}
+.form{
+  width: 48rem;
+  padding: 3.2rem;
+  background-color: var(--dark-grey);
+  color: var(--btn-secondary);
+  display: grid;
+  gap: 2.4rem;
+  border-radius: 5px;
+
+}
+.form label{
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 700;font-size: 1.2rem;
+}
+.form input{
+  width: 100%;
+  padding: .9rem 1.6rem;
+  background-color: inherit; 
+  border: solid 1px var(--input-border);  
+  border-radius: 5px;
+  color: var(--btn-secondary);
+  font-size: inherit;
+  font-weight: 300;
+}
+
+.form input::placeholder{
+  font-size: 1.2rem;
+}
+
+input:focus {
+  outline: none;
+  border: 2px solid #4A90E2; 
+  border: 2px solid var(--input-border); 
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.5); 
+}
+.add-column{
+  display: flex;
+  gap: 1.6rem;
+ margin-bottom: 1.2rem;
+}
+.add-column span{
+  align-self: center;
+  cursor: pointer;
+  
+}
+.add-column svg path {
+  transition:  all .3s ease-in-out;
+}
+.add-column span:hover svg path{
+fill: var(--btn-danger);
+}
+.mar-b{
+  margin-bottom: 2.4rem;
+}
+.btn-block{
+  width: 100%;
+
+}
+.error{
+  color: var(--btn-danger);
+  font-size: 1rem;
 }

@@ -1,9 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 export interface ModalState {
   modalOpen: boolean;
+  isBoardOpen: boolean;
 }
 const initialState: ModalState = {
   modalOpen: false,
+  isBoardOpen: false
 };
 export const modalSlice = createSlice({
   name: "modal",
@@ -15,6 +17,13 @@ export const modalSlice = createSlice({
     closeModal(state) {
       state.modalOpen = false;
     },
+    openBoard(state){
+state.isBoardOpen = true;
+    }, 
+    closeBoard(state){
+state.isBoardOpen = false;
+    }
+    
   },
 });
-export const { openModal, closeModal } = modalSlice.actions;
+export const { openModal, closeModal, openBoard, closeBoard } = modalSlice.actions;

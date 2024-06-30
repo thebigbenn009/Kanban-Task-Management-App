@@ -6,13 +6,14 @@ import cross from "@/public/icon-add-task-mobile.svg";
 import { useDispatch, useSelector } from "react-redux";
 
 import { RootState } from "@/app/store";
-import { openModal } from "@/app/features/modalSlice";
+import { openBoard, openModal } from "@/app/features/modalSlice";
 
 const EmptyBoard = () => {
   const dispatch = useDispatch();
   const modalOpen = useSelector((state: RootState) => state.modal.modalOpen);
   const handleOpenModal = () => {
     dispatch(openModal());
+    dispatch(openBoard())
   };
   return (
     <div className="empty-board">
