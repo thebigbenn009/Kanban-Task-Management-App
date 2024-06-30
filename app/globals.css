@@ -262,7 +262,7 @@ fill: var(--btn-danger);
   margin-bottom: 2.4rem;
 }
 .btn-block{
-  width: 100%;
+  /* width: 100%; */
 
 }
 .error{
