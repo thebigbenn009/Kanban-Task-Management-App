@@ -40,6 +40,23 @@ const NewBoard = () => {
        
 <div className='board-columns'>
     <label>Board Columns</label>
+    {/* {fields.map((field, index) => (
+          <div key={field.id} className="add-column">
+            <input
+              type="text"
+              {...register(`columns.${index}.name`, {
+                required: {
+                  value: true,
+                  message: "Cannot be empty",
+                },
+              })}
+            />
+            <span className="error">
+              {errors.columns?.[index]?.name?.message}
+            </span>
+            <RemoveInput removeInput={() => remove(index)} />
+          </div>
+        ))} */}
 
     {fields.map((field, index)=>{
         return <div key={field.id} className="add-column">
