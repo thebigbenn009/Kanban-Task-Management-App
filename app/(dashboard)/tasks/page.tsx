@@ -7,8 +7,7 @@ import { auth, currentUser } from "@clerk/nextjs/server";
 import { UserButton } from "@clerk/nextjs";
 
 const TasksPage = async () => {
-  const user = await currentUser();
-  console.log(user);
+
   return (
     <section className="tasks">
       <div className="task-header">

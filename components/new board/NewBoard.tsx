@@ -3,6 +3,7 @@
 import React from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import RemoveInput from '../RemoveInput'
+import { createNewBoard } from '@/utils/actions'
 
 const NewBoard = () => {
     const {register, control,handleSubmit, reset, formState:{errors}} = useForm({
@@ -16,8 +17,9 @@ const NewBoard = () => {
         name:"columns",
         control
     })
-    const onSubmit = (data:any) => {
-        console.log(data)
+    const onSubmit = async (data:any) => {
+       
+        await createNewBoard(data)
     }
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='form new-board-form'>
