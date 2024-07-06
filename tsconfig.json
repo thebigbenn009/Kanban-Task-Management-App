@@ -28,6 +28,6 @@
     ".next/types/**/*.ts",
     "app/store.ts",
     "app/providers.js"
-  ],
+, "app/(dashboard)/loading.ps"  ],
   "exclude": ["node_modules"]
 }

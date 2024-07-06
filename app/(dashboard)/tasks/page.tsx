@@ -3,10 +3,17 @@ import cross from "@/public/icon-add-task-mobile.svg";
 import verticalEllipse from "@/public/icon-vertical-ellipsis.svg";
 import Image from "next/image";
 import EmptyBoard from "@/components/EmptyBoard";
-import { auth, currentUser } from "@clerk/nextjs/server";
+
 import { UserButton } from "@clerk/nextjs";
+import prisma from "@/utils/db";
 
 const TasksPage = async () => {
+  const boards = await prisma.board.findMany({
+    include: {
+      columns: true,
+    },
+  });
+  console.log(JSON.stringify(boards, null, 2));
 
   return (
     <section className="tasks">
@@ -23,16 +30,11 @@ const TasksPage = async () => {
             <Image alt="ellipse" src={verticalEllipse} />
           </span>
           <span className="user-icon">
-           
-            
             <UserButton />
-            
-            </span>
+          </span>
         </div>
       </div>
-      <div className="task-body">
-        <EmptyBoard />
-      </div>
+      <div className="task-body">{boards.length === 0 && <EmptyBoard />}</div>
     </section>
   );
 };

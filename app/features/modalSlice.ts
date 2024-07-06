@@ -2,10 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 export interface ModalState {
   modalOpen: boolean;
   isBoardOpen: boolean;
+  activeBoardId: string;
 }
 const initialState: ModalState = {
   modalOpen: false,
-  isBoardOpen: false
+  isBoardOpen: false,
+  activeBoardId: "",
 };
 export const modalSlice = createSlice({
   name: "modal",
@@ -17,13 +19,16 @@ export const modalSlice = createSlice({
     closeModal(state) {
       state.modalOpen = false;
     },
-    openBoard(state){
-state.isBoardOpen = true;
-    }, 
-    closeBoard(state){
-state.isBoardOpen = false;
-    }
-    
+    openBoard(state) {
+      state.isBoardOpen = true;
+    },
+    closeBoard(state) {
+      state.isBoardOpen = false;
+    },
+    setActiveClass(state, action) {
+      state.activeBoardId = action.payload;
+    },
   },
 });
-export const { openModal, closeModal, openBoard, closeBoard } = modalSlice.actions;
+export const { openModal, closeModal, openBoard, closeBoard, setActiveClass } =
+  modalSlice.actions;

@@ -12,10 +12,9 @@ html {
 [class^="cl-"] {
   /* font-size: 100% !important; */
 }
-body{
- 
+body {
 }
-.cl-internal-180wb59{
+.cl-internal-180wb59 {
   display: none;
 }
 :root {
@@ -62,9 +61,7 @@ body {
   display: grid;
   place-items: center;
   height: 100vh;
-  
 }
-
 
 main {
   position: relative;
@@ -76,7 +73,7 @@ main {
 }
 .sidebar {
   background-color: var(--dark-grey);
-  padding-right: 2.3rem;
+
   padding-left: 3.2rem;
 }
 .tasks {
@@ -107,8 +104,6 @@ main {
   border-radius: 50%;
   width: 6rem;
   background-color: var(--btn-primary); */
-
- 
 }
 /* BUTTONS */
 /* .btn {
@@ -190,23 +185,21 @@ main {
   border-radius: 5px;
   /* border-radius: 50%; */
   background-color: var(--btn-secondary);
-padding: 1rem;
-box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  padding: 1rem;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
   color: white;
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   background-color: var(--btn-secondary);
 }
-.close-btn svg path{
+.close-btn svg path {
   fill: var(--btn-danger);
-   transition: all .3s ease-in-out;
-
+  transition: all 0.3s ease-in-out;
 }
-.close-btn:hover.close-btn svg path{
- fill: var(--btn-danger-hover);
-
-
+.close-btn:hover.close-btn svg path {
+  fill: var(--btn-danger-hover);
 }
-.form{
+.form {
   width: 48rem;
   padding: 3.2rem;
   background-color: var(--dark-grey);
@@ -214,58 +207,162 @@ box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 
   display: grid;
   gap: 2.4rem;
   border-radius: 5px;
-
 }
-.form label{
+.form label {
   display: block;
   margin-bottom: 8px;
-  font-weight: 700;font-size: 1.2rem;
+  font-weight: 700;
+  font-size: 1.2rem;
 }
-.form input{
+.form input {
   width: 100%;
-  padding: .9rem 1.6rem;
-  background-color: inherit; 
-  border: solid 1px var(--input-border);  
+  padding: 0.9rem 1.6rem;
+  background-color: inherit;
+  border: solid 1px var(--input-border);
   border-radius: 5px;
   color: var(--btn-secondary);
   font-size: inherit;
   font-weight: 300;
 }
 
-.form input::placeholder{
+.form input::placeholder {
   font-size: 1.2rem;
 }
 
 input:focus {
   outline: none;
-  border: 2px solid #4A90E2; 
-  border: 2px solid var(--input-border); 
-  box-shadow: 0 0 5px rgba(74, 144, 226, 0.5); 
+  border: 2px solid #4a90e2;
+  border: 2px solid var(--input-border);
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
 }
-.add-column{
+.add-column {
   display: flex;
   gap: 1.6rem;
- margin-bottom: 1.2rem;
+  margin-bottom: 1.2rem;
 }
-.add-column span{
+.add-column span {
   align-self: center;
   cursor: pointer;
-  
 }
 .add-column svg path {
-  transition:  all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
-.add-column span:hover svg path{
-fill: var(--btn-danger);
+.add-column span:hover svg path {
+  fill: var(--btn-danger);
 }
-.mar-b{
+.mar-b {
   margin-bottom: 2.4rem;
 }
-.btn-block{
+.btn-block {
   width: 100%;
-
 }
-.error{
+.error {
   color: var(--btn-danger);
   font-size: 1rem;
+}
+.logo {
+  padding-top: 3.278rem;
+  display: block;
+  margin-bottom: 5.46rem;
+}
+.all-boards {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--medium-grey);
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  margin-bottom: 1.9rem;
+}
+.single-board {
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  padding-block: 1.5rem;
+  color: var(--medium-grey);
+  cursor: pointer;
+  position: relative;
+  z-index: 4;
+  transition: all 0.3s ease-in-out;
+}
+
+.single-board::before {
+  content: "";
+  height: 100%;
+  width: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  background-color: var(--btn-primary);
+  border-top-right-radius: 50rem;
+  border-bottom-right-radius: 50rem;
+  margin-left: -5rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.single-board:hover::before,
+.single-board.active::before {
+  width: 100%;
+}
+
+.single-board:hover,
+.single-board:hover .board-icon svg path,
+.single-board.active,
+.single-board.active .board-icon svg path {
+  color: var(--btn-secondary);
+  fill: var(--btn-secondary);
+}
+/* ///////////// */
+
+.board-name {
+  text-transform: capitalize;
+  position: relative;
+  padding-block: 1.4rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  width: 100%;
+  color: var(--medium-grey);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+
+  /* margin-bottom: 1rem; */
+  z-index: 3;
+}
+.board-name::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 0;
+  margin-left: -4rem;
+  height: 100%;
+  transition: all 0.3s ease-in-out;
+}
+.board-name:hover,
+.board-name:hover .icon {
+  color: var(--main-purple);
+  fill: var(--main-purple);
+}
+
+.active-class {
+  color: var(--white);
+}
+.active-class::before {
+  background-color: var(--main-purple);
+  border-top-right-radius: 500rem;
+  border-bottom-right-radius: 500rem;
+  width: 100%;
+}
+.active-class svg path {
+  fill: var(--white);
+}
+.board-name:hover::before {
+  width: 100%;
+  background-color: var(--btn-secondary);
+  border-top-right-radius: 200rem;
+  border-bottom-right-radius: 200rem;
 }
