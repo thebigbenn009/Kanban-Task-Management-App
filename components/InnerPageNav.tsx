@@ -4,28 +4,12 @@ import verticalEllipse from "@/public/icon-vertical-ellipsis.svg";
 import Image from "next/image";
 
 import { UserButton } from "@clerk/nextjs";
-import prisma from "@/utils/db";
 
-type ParamsProp = {
-  params: {
-    id: string;
-  };
-};
-
-const Page: React.FC<ParamsProp> = async ({ params }) => {
-  const { id } = params;
-  const board = await prisma.board.findUnique({
-    where: {
-      id,
-    },
-    include: {
-      columns: true,
-    },
-  });
+const InnerPageNav = () => {
   return (
     <section className="tasks">
       <div className="task-header">
-        <h1 className="header-left">{board?.name}</h1>
+        <h1 className="header-left">Platform Launch</h1>
         <div className="header-left">
           <button className="btn btn-prime">
             <span>
@@ -45,4 +29,4 @@ const Page: React.FC<ParamsProp> = async ({ params }) => {
   );
 };
 
-export default Page;
+export default InnerPageNav;
