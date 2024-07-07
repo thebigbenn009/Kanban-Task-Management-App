@@ -8,7 +8,7 @@ const TasksPage = async () => {
       columns: true,
     },
   });
-  console.log(JSON.stringify(boards, null, 2));
+  // console.log(JSON.stringify(boards, null, 2));
 
   return <h1>This is where the task goes</h1>;
 };

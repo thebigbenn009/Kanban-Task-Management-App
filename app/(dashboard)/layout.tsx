@@ -6,7 +6,7 @@ import ModalBoard from "@/components/ModalBoard";
 const layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <main>
-      <ModalBoard />
+      {/* <ModalBoard /> */}
       <div className="sidebar">
         <SingleBoard />
       </div>

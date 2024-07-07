@@ -31,6 +31,7 @@ model Column{
 boardId String @db.ObjectId
 board   Board   @relation(fields: [boardId], references: [id])
 tasks    Task[]
+@@unique([boardId, name])// ensure unique column names within the same board
 }
 model Task{
   id       String   @id @default(auto()) @map("_id") @db.ObjectId

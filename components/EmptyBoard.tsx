@@ -12,7 +12,6 @@ const EmptyBoard = () => {
   const dispatch = useDispatch();
   const modalOpen = useSelector((state: RootState) => state.modal.modalOpen);
   const handleOpenModal = () => {
-    console.log(modalOpen);
     dispatch(openModal());
     dispatch(openBoard());
   };

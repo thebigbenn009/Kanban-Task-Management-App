@@ -13,6 +13,7 @@ html {
   /* font-size: 100% !important; */
 }
 body {
+  font-size: 1.5rem !important;
 }
 .cl-internal-180wb59 {
   display: none;
@@ -92,6 +93,10 @@ main {
 .task-body {
   background-color: var(--very-dark-grey);
   height: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 28rem);
+  gap: 2.4rem;
+  padding: 2.4rem;
 }
 .header-left {
   display: flex;
@@ -135,6 +140,10 @@ main {
   transition: all 0.3s ease-in-out;
   text-transform: capitalize;
 }
+.btn-white {
+  background-color: var(--btn-secondary);
+  color: var(--btn-primary);
+}
 .btn-flat {
   border-radius: 5px;
   font-weight: bold;
@@ -142,6 +151,7 @@ main {
 
 .btn:hover {
   transform: translateY(-4px);
+  /* background-color: var(--btn-primary-hover); */
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 
@@ -168,7 +178,7 @@ main {
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.6);
-  z-index: 1;
+  z-index: 100;
   display: grid;
   place-items: center;
 }
@@ -207,14 +217,17 @@ main {
   display: grid;
   gap: 2.4rem;
   border-radius: 5px;
+  /* overflow-y: scroll; */
 }
 .form label {
   display: block;
   margin-bottom: 8px;
   font-weight: 700;
   font-size: 1.2rem;
+  text-transform: capitalize;
 }
-.form input {
+.form input,
+.form select {
   width: 100%;
   padding: 0.9rem 1.6rem;
   background-color: inherit;
@@ -228,8 +241,14 @@ main {
 .form input::placeholder {
   font-size: 1.2rem;
 }
+option {
+  background-color: var(--dark-grey);
+  font-size: inherit;
+  padding: 2rem;
+}
 
-input:focus {
+input:focus,
+select:focus {
   outline: none;
   border: 2px solid #4a90e2;
   border: 2px solid var(--input-border);
@@ -365,4 +384,20 @@ input:focus {
   background-color: var(--btn-secondary);
   border-top-right-radius: 200rem;
   border-bottom-right-radius: 200rem;
+}
+.column-header {
+  text-transform: uppercase;
+  color: var(--medium-grey);
+  font-weight: 700;
+  letter-spacing: 2.4px;
+  display: flex;
+  gap: 1.2rem;
+  align-items: center;
+}
+.colored-circle {
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 200rem;
+  display: grid;
+  place-items: center;
 }

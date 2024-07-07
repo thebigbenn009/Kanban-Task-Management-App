@@ -1,7 +1,7 @@
 "use server";
 
 import { auth, currentUser, getAuth } from "@clerk/nextjs/server";
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 
 // import prisma from "./db";
 const prisma = new PrismaClient();
@@ -14,7 +14,33 @@ export interface BoardDataType {
   columns: ColumnData[];
   boardName: string;
 }
+interface SubtaskData {
+  name: string;
+}
 
+interface TaskData {
+  title: string;
+  description?: string;
+  subtasks: SubtaskData[];
+  status: string;
+}
+function isPrismaClientKnownRequestError(
+  error: unknown
+): error is Prisma.PrismaClientKnownRequestError {
+  return (
+    typeof error === "object" &&
+    error !== null &&
+    "code" in error &&
+    "meta" in error
+  );
+}
+function isUniqueConstraintViolationError(
+  error: Prisma.PrismaClientKnownRequestError
+): error is Prisma.PrismaClientKnownRequestError & {
+  meta: { target: string[] };
+} {
+  return error.code === "P2002" && Array.isArray((error.meta as any).target);
+}
 export const createNewBoard = async function (data: BoardDataType) {
   const currUser = await currentUser();
   const email = currUser?.emailAddresses[0]?.emailAddress;
@@ -53,15 +79,70 @@ export const createNewBoard = async function (data: BoardDataType) {
       message: "Board created successfully",
     };
   } catch (error) {
+    if (
+      isPrismaClientKnownRequestError(error) &&
+      isUniqueConstraintViolationError(error) &&
+      error.meta.target.includes("Column_name_boardId_unique")
+    ) {
+      throw new Error("Column names must be unique within the same board");
+    }
     console.error(error);
   }
 };
-export const fetchBoards = async () => {
+export const createTask = async function (data: TaskData, boardId: string) {
   try {
-    const boards = await prisma.board.findMany();
-    return boards;
+    //find the column ID based on the status
+    const column = await prisma.column.findFirst({
+      where: {
+        name: data.status,
+        boardId: boardId,
+      },
+    });
+    if (!column) throw new Error("Column does not exist");
+    //create the task
+    const newTask = await prisma.task.create({
+      data: {
+        title: data.title,
+        description: data.description,
+        status: data.status,
+        column: {
+          connect: {
+            id: column.id,
+          },
+        },
+        subtasks: {
+          create: data.subtasks.map((subtask) => ({
+            title: subtask.name,
+            isCompleted: false,
+          })),
+        },
+      },
+    });
+    // Fetch the updated board with its columns and tasks
+    const updatedBoard = await prisma.board.findUnique({
+      where: { id: boardId },
+      include: {
+        columns: {
+          include: {
+            tasks: {
+              include: {
+                subtasks: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    if (!updatedBoard) {
+      throw new Error("Board not found");
+    }
+
+    // Log the updated board information in JSON format
+    console.log(JSON.stringify(updatedBoard, null, 2));
+    revalidatePath("/tasks");
+    return newTask;
   } catch (error) {
     console.error(error);
-    return [];
   }
 };
