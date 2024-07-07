@@ -239,7 +239,7 @@ main {
 }
 
 .form input::placeholder {
-  /* font-size: 1.2rem; */
+  font-size: 1.2rem;
 }
 option {
   background-color: var(--dark-grey);
