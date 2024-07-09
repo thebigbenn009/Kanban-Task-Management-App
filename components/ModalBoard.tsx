@@ -5,18 +5,22 @@ import { useSelector } from "react-redux";
 import NewBoard from "@/components/new board/NewBoard";
 import { RootState } from "@/app/store";
 import NewTask from "./new board/NewTask";
+import DeleteBoard from "./DeleteBoard";
 
 interface ModalBoardProps {
   newTaskId: string;
   columnNames: string[];
 }
 
-const ModalBoard: React.FC<ModalBoardProps> = ({ newTaskId, columnNames }) => {
+const ModalBoard: React.FC<ModalBoardProps> = ({ newTaskId, columnNames, }) => {
   const modalOpen = useSelector((state: RootState) => state.modal.modalOpen);
   const isBoardOpen = useSelector(
     (state: RootState) => state.modal.isBoardOpen
   );
   const isTaskOpen = useSelector((state: RootState) => state.modal.isTaskOpen);
+  const isDeleteBoardOpen = useSelector(
+    (state: RootState) => state.modal.isDeleteBoardOpen
+  );
 
   return (
     <>
@@ -26,6 +30,7 @@ const ModalBoard: React.FC<ModalBoardProps> = ({ newTaskId, columnNames }) => {
           {isTaskOpen && <NewTask id={newTaskId} columnNames={columnNames} />}
         </Modal>
       )}
+      {modalOpen && <Modal>{isDeleteBoardOpen && <DeleteBoard />}</Modal>}
     </>
   );
 };

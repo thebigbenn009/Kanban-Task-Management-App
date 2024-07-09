@@ -29,7 +29,7 @@ model Column{
   id       String   @id @default(auto()) @map("_id") @db.ObjectId
   name     String
 boardId String @db.ObjectId
-board   Board   @relation(fields: [boardId], references: [id])
+board   Board   @relation(fields: [boardId], references: [id], onDelete: Cascade)
 tasks    Task[]
 @@unique([boardId, name])// ensure unique column names within the same board
 }
@@ -39,7 +39,7 @@ model Task{
   description String?
   status   String
   columnId String @db.ObjectId
-  column   Column  @relation(fields: [columnId], references: [id])
+  column   Column  @relation(fields: [columnId], references: [id], onDelete: Cascade)
   subtasks Subtask[]
 }
 model Subtask {
@@ -47,5 +47,5 @@ model Subtask {
   title     String
   isCompleted Boolean
   taskId    String  @db.ObjectId
-  task      Task    @relation(fields: [taskId], references: [id])
+  task      Task    @relation(fields: [taskId], references: [id], onDelete: Cascade)
 }

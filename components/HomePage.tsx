@@ -12,7 +12,9 @@ const HomePage = () => {
           intuitive Kanban boards.
         </p>
 
-        <Link href="/tasks">Get Started</Link>
+        <Link className="get-started" href="/tasks">
+          Get Started
+        </Link>
       </div>
     </section>
   );

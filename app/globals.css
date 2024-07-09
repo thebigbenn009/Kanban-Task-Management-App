@@ -25,6 +25,7 @@ body {
   --btn-secondary-hover: #fff;
   --btn-danger: #ea5555;
   --btn-danger-hover: #ff9898;
+  --btn-box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
   --medium-grey: #828fa3;
   --dark-grey: #2b2c37;
   --very-dark-grey: #20212c;
@@ -45,10 +46,13 @@ body {
   --hover: #635fc7;
   --input-border: rgba(130, 143, 163, 0.25);
 }
+button:focus {
+  outline: none;
+}
 a,
 a:focus,
 a:active {
-  color: white;
+  color: inherit;
   text-decoration: none;
 }
 body {
@@ -82,6 +86,7 @@ main {
   flex-direction: column;
 }
 .task-header {
+  position: relative;
   padding-block: 2rem;
   padding-inline: 2.4rem;
   background-color: var(--dark-grey);
@@ -94,9 +99,14 @@ main {
   background-color: var(--very-dark-grey);
   height: 100%;
   display: grid;
-  grid-template-columns: repeat(3, 28rem);
+  grid-template-columns: auto 1fr;
   gap: 2.4rem;
   padding: 2.4rem;
+}
+.tasks-container {
+  display: grid;
+  grid-template-columns: repeat(3, 28rem);
+  gap: 2.4rem;
 }
 .header-left {
   display: flex;
@@ -104,26 +114,6 @@ main {
   justify-content: space-between;
   gap: 2.4rem;
 }
-.user-icon {
-  /* height: 6rem;
-  border-radius: 50%;
-  width: 6rem;
-  background-color: var(--btn-primary); */
-}
-/* BUTTONS */
-/* .btn {
-  padding: 1.4rem 2.5rem;
-  border-radius: 200rem;
-  background-color: var(--btn-primary);
-  color: #fff;
-  border: none;
-  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-} */
 
 .btn {
   padding: 1.4rem 2.5rem;
@@ -131,7 +121,7 @@ main {
   background-color: var(--btn-primary);
   color: var(--btn-secondary);
   border: none;
-  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  box-shadow: var(--btn-box-shadow);
   display: flex;
   gap: 0.5rem;
   align-items: center;
@@ -148,19 +138,44 @@ main {
   border-radius: 5px;
   font-weight: bold;
 }
-
+.btn-danger {
+  background-color: var(--btn-danger);
+  color: var(--btn-secondary);
+}
+.btn-danger:hover {
+  background-color: var(--btn-danger-hover);
+}
 .btn:hover {
   transform: translateY(-4px);
   /* background-color: var(--btn-primary-hover); */
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
+.btn-secondary {
+  background-color: var(--btn-secondary);
+  color: var(--btn-primary);
+}
+.btn-secondary:hover {
+  background-color: var(--btn-secondary-hover);
+}
 
 .btn:active {
   transform: translateY(2px);
 }
+.get-started {
+  color: var(--btn-secondary);
+}
 
 .ellipse {
   cursor: pointer;
+  height: 4rem;
+  width: 4rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background-color: var(--very-dark-grey);
+}
+.ellipse:hover svg g {
+  fill: var(--btn-secondary);
 }
 .empty-board {
   color: var(--btn-secondary);
@@ -304,7 +319,9 @@ select:focus {
   z-index: 4;
   transition: all 0.3s ease-in-out;
 }
-
+.single-board:hover {
+  color: var(--btn-primary);
+}
 .single-board::before {
   content: "";
   height: 100%;
@@ -325,12 +342,22 @@ select:focus {
   width: 100%;
 }
 
-.single-board:hover,
-.single-board:hover .board-icon svg path,
+.single-board:hover::before,
+.single-board:hover .board-icon svg path {
+  background-color: var(--btn-secondary);
+  color: var(--btn-primary);
+  fill: var(--btn-primary);
+}
+
 .single-board.active,
 .single-board.active .board-icon svg path {
   color: var(--btn-secondary);
   fill: var(--btn-secondary);
+}
+.single-board.active:hover,
+.single-board.active:hover .board-icon svg path {
+  color: var(--btn-primary);
+  fill: var(--btn-primary);
 }
 /* ///////////// */
 
@@ -385,6 +412,14 @@ select:focus {
   border-top-right-radius: 200rem;
   border-bottom-right-radius: 200rem;
 }
+.column-tasks-container {
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+.column-tasks {
+  display: grid;
+  grid-template-columns: repeat(3, 28rem);
+}
 .column-header {
   text-transform: uppercase;
   color: var(--medium-grey);
@@ -393,6 +428,7 @@ select:focus {
   display: flex;
   gap: 1.2rem;
   align-items: center;
+  margin-bottom: 2.4rem;
 }
 .colored-circle {
   height: 1.5rem;
@@ -400,4 +436,105 @@ select:focus {
   border-radius: 200rem;
   display: grid;
   place-items: center;
+}
+.new-column-button {
+  background-color: var(--dark-grey);
+  height: 100%;
+  width: 28rem;
+  border-color: transparent;
+  cursor: pointer;
+  color: var(--medium-grey);
+  font-size: 2.4rem;
+  font-weight: 700;
+  border-radius: 5px;
+  transition: all 0.3s ease-out;
+}
+.new-column-button:hover {
+  box-shadow: var(--btn-box-shadow);
+  color: var(--btn-primary);
+  transform: scale(1.02);
+}
+
+.single-task {
+  background-color: var(--dark-grey);
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+}
+.single-task:hover {
+  transform: scale(1.02);
+  box-shadow: var(--btn-box-shadow);
+}
+.single-task:hover .single-task-details h4 {
+  color: var(--btn-primary);
+}
+.single-task-details {
+  padding: 2.3rem 1.6rem;
+  cursor: pointer;
+}
+.single-task-details h4 {
+  font-size: 1.5rem;
+  color: var(--btn-secondary);
+}
+.single-task-details p {
+  color: var(--medium-grey);
+  font-size: 1.2rem;
+}
+
+.board-menu {
+  position: absolute;
+  top: 2.4rem;
+  right: 6%;
+  width: 19.2rem;
+  padding: 1.6rem;
+  background-color: var(--very-dark-grey);
+  border-radius: 5px;
+  z-index: 5;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+  transform: translateY(1rem);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+.board-menu-visible {
+  transform: translateY(55px);
+  opacity: 1;
+  /* transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; */
+}
+.board-menu p {
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.board-menu-edit {
+  color: var(--medium-grey);
+  margin-bottom: 2.4rem;
+}
+
+.board-menu-edit:hover {
+  color: var(--btn-primary);
+}
+.board-menu-delete {
+  color: var(--btn-danger);
+}
+.board-menu-delete:hover {
+  color: var(--btn-danger-hover);
+}
+.delete-board {
+  width: 48rem;
+  background-color: var(--very-dark-grey);
+  padding: 3.2rem;
+  border-radius: 5px;
+  display: grid;
+  line-height: 1.7;
+
+  gap: 2.4rem;
+}
+.delete-board h3 {
+  color: var(--btn-danger);
+}
+.delete-board p {
+  font-size: 1.2rem;
+  color: var(--medium-grey);
+}
+.delete-btn-container {
+  display: flex;
+  gap: 1.6rem;
 }

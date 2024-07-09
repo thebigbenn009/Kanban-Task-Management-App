@@ -3,13 +3,17 @@ export interface ModalState {
   modalOpen: boolean;
   isBoardOpen: boolean;
   isTaskOpen: boolean;
+  isBoardMenuOpen: boolean;
   activeBoardId: string;
+  isDeleteBoardOpen: boolean;
 }
 const initialState: ModalState = {
   modalOpen: false,
   isBoardOpen: false,
   isTaskOpen: false,
+  isBoardMenuOpen: false,
   activeBoardId: "",
+  isDeleteBoardOpen: false,
 };
 export const modalSlice = createSlice({
   name: "modal",
@@ -36,6 +40,21 @@ export const modalSlice = createSlice({
     setActiveClass(state, action) {
       state.activeBoardId = action.payload;
     },
+    openBoardMenu(state) {
+      state.isBoardMenuOpen = true;
+    },
+    closeBoardMenu(state) {
+      state.isBoardMenuOpen = false;
+    },
+    toggleBoardMenu(state) {
+      state.isBoardMenuOpen = !state.isBoardMenuOpen;
+    },
+    openDeleteBoard(state) {
+      state.isDeleteBoardOpen = true;
+    },
+    closeDeleteBoard(state) {
+      state.isDeleteBoardOpen = false;
+    },
   },
 });
 export const {
@@ -46,4 +65,9 @@ export const {
   setActiveClass,
   openTask,
   closeTask,
+  closeBoardMenu,
+  openBoardMenu,
+  toggleBoardMenu,
+  closeDeleteBoard,
+  openDeleteBoard,
 } = modalSlice.actions;

@@ -118,6 +118,7 @@ export const createTask = async function (data: TaskData, boardId: string) {
         },
       },
     });
+    revalidatePath("/tasks");
     // Fetch the updated board with its columns and tasks
     const updatedBoard = await prisma.board.findUnique({
       where: { id: boardId },
@@ -144,5 +145,23 @@ export const createTask = async function (data: TaskData, boardId: string) {
     return newTask;
   } catch (error) {
     console.error(error);
+  }
+};
+
+export const deleteBoard = async function (boardId: string) {
+  try {
+    const board = await prisma.board.findUnique({
+      where: { id: boardId },
+    });
+    if (!board) throw new Error("Board does not exist");
+    await prisma.board.delete({
+      where: { id: boardId },
+    });
+    revalidatePath("/tasks");
+    console.log(
+      `Board with ID ${boardId} and its related entities have been deleted successfully`
+    );
+  } catch (error) {
+    console.error("Error deleting board:", error);
   }
 };
