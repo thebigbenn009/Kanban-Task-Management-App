@@ -1,14 +1,14 @@
 import React from "react";
 
-import SingleBoard from "@/components/sidebar/Boards";
+// import SingleBoard from "@/components/sidebar/Boards";
 import ModalBoard from "@/components/ModalBoard";
+import Boards from "@/components/sidebar/Boards";
 
 const layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <main>
-      {/* <ModalBoard /> */}
       <div className="sidebar">
-        <SingleBoard />
+        <Boards />
       </div>
       {children}
     </main>

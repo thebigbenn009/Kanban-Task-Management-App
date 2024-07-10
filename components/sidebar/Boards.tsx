@@ -4,6 +4,7 @@ import SingleBoard from "./SingleBoard";
 
 async function Boards() {
   const boards = await prisma.board.findMany();
+  const boardIds = boards.map((board) => board.id);
 
   return (
     <aside className="">
@@ -23,7 +24,7 @@ async function Boards() {
           </g>
         </svg>
       </span>
-      <p className="all-boards"> all boards ({boards.length})</p>
+      <p className="all-boards"> all boarxds ({boards.length})</p>
       {boards.map((board) => (
         <SingleBoard boardName={board.name} key={board.id} id={board.id} />
       ))}

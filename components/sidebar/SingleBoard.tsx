@@ -3,6 +3,8 @@
 import { setActiveClass } from "@/app/features/modalSlice";
 import { RootState } from "@/app/store";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+
 import { useDispatch, useSelector } from "react-redux";
 
 type SingleBoardProps = {
@@ -10,17 +12,15 @@ type SingleBoardProps = {
   id: string;
 };
 const SingleBoard = ({ boardName, id }: SingleBoardProps) => {
+  const pathName = usePathname();
   const dispatch = useDispatch();
   const activeBoardId = useSelector(
     (state: RootState) => state.modal.activeBoardId
   );
-  const handleClick = () => {
-    dispatch(setActiveClass(id));
-  };
+
   return (
     <li
-      onClick={handleClick}
-      className={`single-board ${activeBoardId === id ? "active" : ""}`}
+      className={`single-board ${pathName === `/tasks/${id}` ? "active" : ""}`}
     >
       <span className="board-icon">
         <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
