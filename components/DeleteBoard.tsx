@@ -5,13 +5,13 @@ import { deleteBoard } from "@/utils/actions";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-const DeleteBoard = () => {
+const DeleteBoard = ({ boardId }: { boardId: string }) => {
   const activeBoardId = useSelector(
     (state: RootState) => state.modal.activeBoardId
   );
   const dispatch = useDispatch();
   const handleDeleteBoard = async () => {
-    await deleteBoard(activeBoardId);
+    await deleteBoard(boardId);
     dispatch(closeModal());
   };
   return (

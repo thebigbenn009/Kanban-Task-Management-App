@@ -41,6 +41,7 @@ const Page: React.FC<PageProps> = async ({ params }) => {
   return (
     <>
       <ModalBoard
+        deleteBoardId={id}
         newTaskId={id}
         columnNames={board.columns.map((column) => column.name) || []}
       />

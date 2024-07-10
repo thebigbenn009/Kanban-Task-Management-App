@@ -10,9 +10,14 @@ import DeleteBoard from "./DeleteBoard";
 interface ModalBoardProps {
   newTaskId: string;
   columnNames: string[];
+  deleteBoardId: string;
 }
 
-const ModalBoard: React.FC<ModalBoardProps> = ({ newTaskId, columnNames, }) => {
+const ModalBoard: React.FC<ModalBoardProps> = ({
+  newTaskId,
+  columnNames,
+  deleteBoardId,
+}) => {
   const modalOpen = useSelector((state: RootState) => state.modal.modalOpen);
   const isBoardOpen = useSelector(
     (state: RootState) => state.modal.isBoardOpen
@@ -30,7 +35,11 @@ const ModalBoard: React.FC<ModalBoardProps> = ({ newTaskId, columnNames, }) => {
           {isTaskOpen && <NewTask id={newTaskId} columnNames={columnNames} />}
         </Modal>
       )}
-      {modalOpen && <Modal>{isDeleteBoardOpen && <DeleteBoard />}</Modal>}
+      {modalOpen && (
+        <Modal>
+          {isDeleteBoardOpen && <DeleteBoard boardId={deleteBoardId} />}
+        </Modal>
+      )}
     </>
   );
 };
